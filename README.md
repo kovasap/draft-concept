@@ -1,6 +1,62 @@
-# My CLJS App Template
+# Draft Concept
 
-## Setup
+## Game Flow
+
+Every month, your party of adventurers is trying to take on a new challenging
+locale.
+They have the month to prepare, which consists of 4 weeks.
+
+### Preparation
+
+Each week, you choose a specific place in the area to explore.
+Each place generally gives you a draft from a deck, which could contain new
+characters, or items for characters to equip.
+
+### Characters
+
+Each character has affinity stats (like
+https://github.com/kovasap/tactics/blob/main/DESIGN.md#character-development-and-classes),
+and several inventory slots which can be filled with items.
+
+### Challenge
+
+At the start of the month, the challenge is revealed.
+It consists of one or more "maps" that are made up of interconnected "slots"
+that characters or enemies or environmental elements can be found in.
+
+```
+                                         +-------------------+          
+                                         |                   |          
+                     +------------+      |   Plains          |          
++-------------+      |  Plains    |      |   Highland        |          
+| Foliage     |      |  Rocky     +------+   Space for 2     |          
+|             +------+            |      +-------------------+          
+|             |      +------------+---+                                 
++-----------+-+                       |                                 
+            |                    +----+------+                          
+            |                    |           |                          
+            |                    | Cliff     +--+                       
+            |                    |           |  |                       
+            |                    +-+---------+  +----------------------+
+     +------+-----------+          |            |                      |
+     |                  +----------+            |   Swamp              |
+     |  River           |                       |   Space for 2        |
+     |                  |                       |                      |
+     +------------------+                       +----------------------+
+```
+
+At the start of the challenge, the player will set up their character's loadouts
+and initial positions, then watch as an automatic battle plays out.
+If a character or enemy is ever defeated on the map, other characters will move
+to take their place if possible.
+Characters can only target other characters connected to their own node.
+
+The challenge processes in turns/ticks, with faster characters acting earlier in
+the turn order.
+
+## Technical Stuff
+
+### Setup
 
 First, install dependencies:
 
@@ -24,14 +80,14 @@ sudo ufw allow 5000
 sudo ufw allow 9630
 ```
 
-## Deployment
+### Deployment
 
-### As a static web page (frontend only)
+#### As a static web page (frontend only)
 
 Use a "release" script like at
 https://github.com/kovasap/reddit-tree/blob/main/release.bash.
 
-### On Raspberry Pi
+#### On Raspberry Pi
 
 ```
 curl -sL https://deb.nodesource.com/setup_18.x | sudo bash -
@@ -58,7 +114,7 @@ Now anyone can access the game at kovas.duckdns.org:3000!
 See info about setting up a static domain name at
 https://gist.github.com/taichikuji/6f4183c0af1f4a29e345b60910666468.
 
-### Individual Server Startup
+#### Individual Server Startup
 
 You can start the frontend service with:
 
