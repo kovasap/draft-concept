@@ -1,8 +1,6 @@
 (ns app.interface.view.main
   (:require [re-frame.core :as rf]
             [reagent.core :as r]
-            ; [ring.middleware.anti-forgery]
-            [app.interface.sente :refer [chsk-state login]]
             [cljs.pprint]))
 
 (defn undo-button
@@ -17,31 +15,23 @@
        "Undo"])))
 
 
-; Not currently necessary/used
-(defn login-field
+(defn encounter-map
   []
-  [:span
-   [:input#input-login {:type :text :placeholder "User-id"}]
-   [:button.btn.btn-outline-primary
-    {:on-click (fn []
-                 (let [user-id (.-value (.getElementById js/document
-                                                         "input-login"))]
-                   (login user-id)))}
-    "Secure login!"]])
-
+  [:div.container
+   [:div.row
+    [:div.col-sm "1"]
+    [:div.col-sm "1"]
+    [:div.col-sm "1"]]])
 
 (defn main
   "Main view for the application."
   []
-  [:div @chsk-state]
   [:div.container
-   #_(let [csrf-token (force
-                        ring.middleware.anti-forgery/*anti-forgery-token*)]
-       [:div#sente-csrf-token {:data-csrf-token csrf-token}])
    [:h1 "My App"]
-   ; [login-field]
    [:div {:style {:display "flex"}}
     [:button.btn.btn-outline-primary {:on-click #(rf/dispatch [:app/setup])}
      "Reset App"]
     [undo-button]]
-   [:div @(rf/subscribe [:message])]])
+   [:div @(rf/subscribe [:message])]
+   [:br]
+   [encounter-map]])
