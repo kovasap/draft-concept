@@ -1,6 +1,10 @@
 (ns app.interface.view.encounter-map
   (:require [app.interface.view.character :refer [character-view]]))
 
+; Useful documentation at
+; https://getbootstrap.com/docs/4.0/layout/grid/#horizontal-alignment to make
+; the location layout.
+
 (defn location-view
   [{:keys [land-type characters] :as location}]
   [:div.col-4 {:style {:width "200px" :height "150px"}}
