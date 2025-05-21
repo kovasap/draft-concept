@@ -5,11 +5,13 @@
             [goog.dom :as gdom]
             [re-frame.core :as rf]
             [reagent.core :as r]
-            [app.interface.sente :refer [send-state-to-server!]]
             [app.interface.view.main :refer [main]]
-            [app.interface.utils :refer [get-only]]
+            [app.interface.utils :refer [get-only associate-by]]
+            [app.interface.characters :refer [starting-characters]]
             [cljs.pprint]
-            [taoensso.timbre :as log]))
+            [malli.core :as m]
+            [taoensso.timbre :as log]
+            [clojure.walk :as w]))
 
 ;; ----------------------------------------------------------------------------
 ;; Setup
@@ -17,7 +19,13 @@
 (rf/reg-event-db
   :app/setup
   (fn [db _]
-    db))
+    {:current-encounter-map
+     [[{:land-type "forest"} {:land-type "clearing"}]
+      [{:land-type "clearing" :character-ids [:hare]}]
+      [{:land-type "lake"} {:land-type "forest"}]]
+     :player-characters (into [] (map :id starting-characters))
+     :characters (associate-by :id starting-characters)}))
+     
 
 (rf/reg-event-db
   :message
@@ -30,8 +38,20 @@
   (fn [db _]
     (:message db)))
 
+; The encounter map, but with stuff like characters embedded in it
+; (instead of tracked via references)
+(rf/reg-sub
+  :current-encounter-map-embedded
+  (fn [db _]
+    (w/postwalk 
+      (fn [{:keys [character-ids] :as element}]
+        (if character-ids
+           (assoc element :characters (map (:characters db) character-ids))
+           element))
+      (:current-encounter-map db))))
+
 ; Nice way to generate subsciptions for many keys.
-(doseq [kw [:my-key]]
+(doseq [kw [:current-encounter-map :player-characters :characters]]
   (rf/reg-sub
     kw
     (fn [db _] (kw db))))
