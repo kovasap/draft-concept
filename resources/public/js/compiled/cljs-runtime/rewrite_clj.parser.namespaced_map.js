@@ -24,8 +24,8 @@ return rewrite_clj.node.whitespace.whitespace_QMARK_(n);
 return and__5041__auto__;
 }
 })())){
-var G__49799 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(nodes,n);
-nodes = G__49799;
+var G__49818 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(nodes,n);
+nodes = G__49818;
 continue;
 } else {
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [nodes,n], null);
@@ -45,9 +45,9 @@ rewrite_clj.reader.throw_reader(reader,"namespaced map expects a namespace");
 } else {
 }
 
-var vec__49793 = rewrite_clj.parser.namespaced_map.parse_to_next_elem(reader,read_next);
-var whitespace_nodes = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__49793,(0),null);
-var map_node = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__49793,(1),null);
+var vec__49812 = rewrite_clj.parser.namespaced_map.parse_to_next_elem(reader,read_next);
+var whitespace_nodes = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__49812,(0),null);
+var map_node = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__49812,(1),null);
 if(((cljs.core.not(map_node)) || (cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"map","map",1371690461),rewrite_clj.node.protocols.tag(map_node))))){
 rewrite_clj.reader.throw_reader(reader,"namespaced map expects a map");
 } else {

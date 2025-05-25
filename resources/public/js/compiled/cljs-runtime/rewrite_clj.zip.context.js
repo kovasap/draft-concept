@@ -14,20 +14,20 @@ return cljs.core.odd_QMARK_(cljs.core.count(cljs.core.take_while.cljs$core$IFn$_
  *   * and you are moving keywords and symbols from a namespaced map to some other location.
  */
 rewrite_clj.zip.context.reapply_context = (function rewrite_clj$zip$context$reapply_context(zloc){
-return rewrite_clj.zip.walk.postwalk.cljs$core$IFn$_invoke$arity$3(zloc,(function (p1__50175_SHARP_){
-var G__50180 = rewrite_clj.custom_zipper.core.node(p1__50175_SHARP_);
-if((!((G__50180 == null)))){
-if(((false) || ((cljs.core.PROTOCOL_SENTINEL === G__50180.rewrite_clj$node$protocols$MapQualifiable$)))){
+return rewrite_clj.zip.walk.postwalk.cljs$core$IFn$_invoke$arity$3(zloc,(function (p1__50119_SHARP_){
+var G__50121 = rewrite_clj.custom_zipper.core.node(p1__50119_SHARP_);
+if((!((G__50121 == null)))){
+if(((false) || ((cljs.core.PROTOCOL_SENTINEL === G__50121.rewrite_clj$node$protocols$MapQualifiable$)))){
 return true;
 } else {
-if((!G__50180.cljs$lang$protocol_mask$partition$)){
-return cljs.core.native_satisfies_QMARK_(rewrite_clj.node.protocols.MapQualifiable,G__50180);
+if((!G__50121.cljs$lang$protocol_mask$partition$)){
+return cljs.core.native_satisfies_QMARK_(rewrite_clj.node.protocols.MapQualifiable,G__50121);
 } else {
 return false;
 }
 }
 } else {
-return cljs.core.native_satisfies_QMARK_(rewrite_clj.node.protocols.MapQualifiable,G__50180);
+return cljs.core.native_satisfies_QMARK_(rewrite_clj.node.protocols.MapQualifiable,G__50121);
 }
 }),(function (zloc__$1){
 var parent = rewrite_clj.custom_zipper.core.up(rewrite_clj.custom_zipper.core.up(zloc__$1));

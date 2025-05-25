@@ -3,10 +3,10 @@ goog.provide('zprint.util');
  * Do a simple dissoc-in for two levels.  Does not remove the
  *   second map if it is empty.
  */
-zprint.util.dissoc_two = (function zprint$util$dissoc_two(m,p__50176){
-var vec__50177 = p__50176;
-var k1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50177,(0),null);
-var k2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50177,(1),null);
+zprint.util.dissoc_two = (function zprint$util$dissoc_two(m,p__50260){
+var vec__50261 = p__50260;
+var k1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50261,(0),null);
+var k2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50261,(1),null);
 return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(m,k1,cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(cljs.core.get.cljs$core$IFn$_invoke$arity$2(m,k1),k2));
 });
 /**
@@ -28,8 +28,8 @@ return n;
  *   is nil, return nil.
  */
 zprint.util.size = (function zprint$util$size(var_args){
-var G__50183 = arguments.length;
-switch (G__50183) {
+var G__50265 = arguments.length;
+switch (G__50265) {
 case 2:
 return zprint.util.size.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -120,8 +120,8 @@ var len = cljs.core.count(coll__$1);
 if((!((len === (0))))){
 var mean = (cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core._PLUS_,coll__$1) / len);
 var dev_from_mean = cljs.core.mapv.cljs$core$IFn$_invoke$arity$2(cljs.core.partial.cljs$core$IFn$_invoke$arity$2(cljs.core._,mean),coll__$1);
-var sq_dev_from_mean = cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__50187_SHARP_){
-return (p1__50187_SHARP_ * p1__50187_SHARP_);
+var sq_dev_from_mean = cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__50290_SHARP_){
+return (p1__50290_SHARP_ * p1__50290_SHARP_);
 }),dev_from_mean);
 var variance = ((cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core._PLUS_,sq_dev_from_mean) / len) | (0));
 return variance;
@@ -135,11 +135,11 @@ return null;
  *   [max-number [indicies-of-max-number] length-of-sequence]
  */
 zprint.util.find_max = (function zprint$util$find_max(coll){
-var indicies = cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__50189,n){
-var vec__50190 = p__50189;
-var max_so_far = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50190,(0),null);
-var indicies = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50190,(1),null);
-var index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50190,(2),null);
+var indicies = cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__50309,n){
+var vec__50310 = p__50309;
+var max_so_far = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50310,(0),null);
+var indicies = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50310,(1),null);
+var index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50310,(2),null);
 if((n == null)){
 return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [max_so_far,indicies,(index + (1))], null);
 } else {
@@ -174,10 +174,10 @@ return coll;
  *   unchanged. Returns: [indicies-removed vector-with-max-removed]
  */
 zprint.util.remove_max_not_half = (function zprint$util$remove_max_not_half(coll_vec){
-var vec__50194 = zprint.util.find_max(coll_vec);
-var max_number = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50194,(0),null);
-var indicies = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50194,(1),null);
-var length = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50194,(2),null);
+var vec__50335 = zprint.util.find_max(coll_vec);
+var max_number = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50335,(0),null);
+var indicies = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50335,(1),null);
+var length = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50335,(2),null);
 if((cljs.core.count(indicies) > (length / (2)))){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [null,coll_vec], null);
 } else {
@@ -191,9 +191,9 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
  */
 zprint.util.remove_indicies_from_columns = (function zprint$util$remove_indicies_from_columns(index,indicies,columns){
 if((index < cljs.core.count(columns))){
-var vec__50197 = cljs.core.split_at(index,columns);
-var beginning = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50197,(0),null);
-var end = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50197,(1),null);
+var vec__50349 = cljs.core.split_at(index,columns);
+var beginning = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50349,(0),null);
+var end = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50349,(1),null);
 var beginning__$1 = cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,beginning);
 var end__$1 = cljs.core.into.cljs$core$IFn$_invoke$arity$2(cljs.core.PersistentVector.EMPTY,end);
 var new_end = cljs.core.mapv.cljs$core$IFn$_invoke$arity$2(cljs.core.partial.cljs$core$IFn$_invoke$arity$2(zprint.util.remove_indicies,indicies),end__$1);
@@ -238,9 +238,9 @@ if((max_variance > beginning_variance)){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.first(zprint.util.find_max(column)),columns], null);
 } else {
 if((row_count > (2))){
-var vec__50206 = zprint.util.remove_max_not_half(column);
-var first_indicies = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50206,(0),null);
-var first_column_wo_max = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50206,(1),null);
+var vec__50375 = zprint.util.remove_max_not_half(column);
+var first_indicies = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50375,(0),null);
+var first_column_wo_max = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50375,(1),null);
 var first_variance = zprint.util.variance(first_column_wo_max);
 if((first_variance == null)){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [null,columns], null);
@@ -248,9 +248,9 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
 if((max_variance > first_variance)){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.first(zprint.util.find_max(first_column_wo_max)),zprint.util.remove_indicies_from_columns((index + (1)),first_indicies,columns)], null);
 } else {
-var vec__50209 = zprint.util.remove_max_not_half(first_column_wo_max);
-var second_indicies = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50209,(0),null);
-var second_column_wo_max = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50209,(1),null);
+var vec__50380 = zprint.util.remove_max_not_half(first_column_wo_max);
+var second_indicies = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50380,(0),null);
+var second_column_wo_max = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50380,(1),null);
 var second_variance = zprint.util.variance(second_column_wo_max);
 if((second_variance == null)){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [null,columns], null);
@@ -299,12 +299,12 @@ while(true){
 if((index >= length)){
 return out;
 } else {
-var G__50265 = cljs.core.next(coll__$1);
-var G__50266 = (index + (1));
-var G__50267 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,(((index >= last_good_col))?null:zprint.util.size.cljs$core$IFn$_invoke$arity$2(cljs.core.first(coll__$1),no_string_adj_QMARK_)));
-coll__$1 = G__50265;
-index = G__50266;
-out = G__50267;
+var G__50504 = cljs.core.next(coll__$1);
+var G__50505 = (index + (1));
+var G__50506 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,(((index >= last_good_col))?null:zprint.util.size.cljs$core$IFn$_invoke$arity$2(cljs.core.first(coll__$1),no_string_adj_QMARK_)));
+coll__$1 = G__50504;
+index = G__50505;
+out = G__50506;
 continue;
 }
 break;
@@ -321,8 +321,8 @@ break;
  *   than the longest one, fill out the missing elements with nils.
  */
 zprint.util.size_and_extend_butlast = (function zprint$util$size_and_extend_butlast(var_args){
-var G__50218 = arguments.length;
-switch (G__50218) {
+var G__50408 = arguments.length;
+switch (G__50408) {
 case 3:
 return zprint.util.size_and_extend_butlast.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -377,8 +377,8 @@ return zprint.util.size_and_extend_butlast.cljs$core$IFn$_invoke$arity$3(seq_of_
  *   be filled with nil.
  */
 zprint.util.create_columns = (function zprint$util$create_columns(var_args){
-var G__50222 = arguments.length;
-switch (G__50222) {
+var G__50428 = arguments.length;
+switch (G__50428) {
 case 3:
 return zprint.util.create_columns.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arguments[(1)]),(arguments[(2)]));
 
@@ -426,8 +426,8 @@ return zprint.util.create_columns.cljs$core$IFn$_invoke$arity$3(seq_of_seqs,numb
  *   is nil, signifying that justification is not possible.
  */
 zprint.util.column_alignment = (function zprint$util$column_alignment(var_args){
-var G__50228 = arguments.length;
-switch (G__50228) {
+var G__50449 = arguments.length;
+switch (G__50449) {
 case 4:
 return zprint.util.column_alignment.cljs$core$IFn$_invoke$arity$4((arguments[(0)]),(arguments[(1)]),(arguments[(2)]),(arguments[(3)]));
 
@@ -448,13 +448,13 @@ throw (new Error(["Invalid arity: ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(
 
 (zprint.util.column_alignment.cljs$core$IFn$_invoke$arity$4 = (function (max_variance,seq_of_seqs,number_of_columns,no_string_adj_QMARK_){
 var columns = zprint.util.create_columns.cljs$core$IFn$_invoke$arity$3(seq_of_seqs,number_of_columns,no_string_adj_QMARK_);
-var max_width_vec = cljs.core.second(cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__50230,index){
-var vec__50232 = p__50230;
-var columns__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50232,(0),null);
-var max_width_vec = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50232,(1),null);
-var vec__50236 = zprint.util.column_width_variance(max_variance,columns__$1,index);
-var max_width = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50236,(0),null);
-var new_columns = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50236,(1),null);
+var max_width_vec = cljs.core.second(cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__50455,index){
+var vec__50458 = p__50455;
+var columns__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50458,(0),null);
+var max_width_vec = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50458,(1),null);
+var vec__50462 = zprint.util.column_width_variance(max_variance,columns__$1,index);
+var max_width = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50462,(0),null);
+var new_columns = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50462,(1),null);
 if(cljs.core.truth_(max_width)){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new_columns,cljs.core.conj.cljs$core$IFn$_invoke$arity$2(max_width_vec,max_width)], null);
 } else {
@@ -479,10 +479,10 @@ return zprint.util.column_alignment.cljs$core$IFn$_invoke$arity$4(max_variance,s
  *   of the cumulative alignment positions for the second through nth columns.
  */
 zprint.util.cumulative_alignment = (function zprint$util$cumulative_alignment(max_width_vec){
-return cljs.core.second(cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__50242,column_max_width){
-var vec__50243 = p__50242;
-var current_width = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50243,(0),null);
-var cumulative_widths = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50243,(1),null);
+return cljs.core.second(cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__50473,column_max_width){
+var vec__50475 = p__50473;
+var current_width = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50475,(0),null);
+var cumulative_widths = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50475,(1),null);
 var this_alignment = (current_width + (column_max_width + (1)));
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [this_alignment,cljs.core.conj.cljs$core$IFn$_invoke$arity$2(cumulative_widths,this_alignment)], null);
 }),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),cljs.core.PersistentVector.EMPTY], null),max_width_vec));

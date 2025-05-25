@@ -17,10 +17,10 @@ return out;
 } else {
 var next_lf = clojure.string.index_of.cljs$core$IFn$_invoke$arity$2(input,"\n");
 var chunk = (cljs.core.truth_(next_lf)?cljs.core.subs.cljs$core$IFn$_invoke$arity$3(input,(0),next_lf):input);
-var G__50916 = (cljs.core.truth_(next_lf)?cljs.core.subs.cljs$core$IFn$_invoke$arity$2(input,(next_lf + (1))):null);
-var G__50917 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,chunk);
-input = G__50916;
-out = G__50917;
+var G__50626 = (cljs.core.truth_(next_lf)?cljs.core.subs.cljs$core$IFn$_invoke$arity$2(input,(next_lf + (1))):null);
+var G__50627 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,chunk);
+input = G__50626;
+out = G__50627;
 continue;
 }
 break;
@@ -35,9 +35,9 @@ break;
  *   as characters.
  */
 zprint.comment.tag_l_size = (function zprint$comment$tag_l_size(t){
-var G__50726 = t;
-var G__50726__$1 = (((G__50726 instanceof cljs.core.Keyword))?G__50726.fqn:null);
-switch (G__50726__$1) {
+var G__50295 = t;
+var G__50295__$1 = (((G__50295 instanceof cljs.core.Keyword))?G__50295.fqn:null);
+switch (G__50295__$1) {
 case "list":
 return (1);
 
@@ -113,10 +113,10 @@ var up_size = zprint.comment.tag_l_size(up_tag);
 if(cljs.core.not(moving_up)){
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [total_up,null], null);
 } else {
-var G__50933 = moving_up;
-var G__50934 = (total_up + up_size);
-ploc = G__50933;
-total_up = G__50934;
+var G__50629 = moving_up;
+var G__50630 = (total_up + up_size);
+ploc = G__50629;
+total_up = G__50630;
 continue;
 }
 }
@@ -142,9 +142,9 @@ return (cljs.core.count(cljs.core.last(nl_split)) - (1));
  *   current line.
  */
 zprint.comment.length_before = (function zprint$comment$length_before(zloc){
-var vec__50750 = zprint.comment.left_or_up(zloc);
-var up_size = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50750,(0),null);
-var next_zloc = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50750,(1),null);
+var vec__50323 = zprint.comment.left_or_up(zloc);
+var up_size = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50323,(0),null);
+var next_zloc = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50323,(1),null);
 var ploc = next_zloc;
 var indent_before = up_size;
 while(true){
@@ -153,16 +153,16 @@ return indent_before;
 } else {
 var zstr = (cljs.core.truth_(ploc)?(zprint.zfns.zstring.cljs$core$IFn$_invoke$arity$1 ? zprint.zfns.zstring.cljs$core$IFn$_invoke$arity$1(ploc) : zprint.zfns.zstring.call(null,ploc)):"");
 var length_right_of_newline = zprint.comment.length_after_newline(zstr);
-var vec__50758 = zprint.comment.left_or_up(ploc);
-var up_size__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50758,(0),null);
-var next_zloc__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50758,(1),null);
+var vec__50339 = zprint.comment.left_or_up(ploc);
+var up_size__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50339,(0),null);
+var next_zloc__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50339,(1),null);
 if(cljs.core.truth_(length_right_of_newline)){
 return (length_right_of_newline + indent_before);
 } else {
-var G__50942 = next_zloc__$1;
-var G__50943 = ((indent_before + cljs.core.count(zstr)) + up_size__$1);
-ploc = G__50942;
-indent_before = G__50943;
+var G__50631 = next_zloc__$1;
+var G__50632 = ((indent_before + cljs.core.count(zstr)) + up_size__$1);
+ploc = G__50631;
+indent_before = G__50632;
 continue;
 }
 }
@@ -184,7 +184,7 @@ var nloc = rewrite_clj.zip.left_STAR_(zloc);
 var spaces = (0);
 var passed_nl_QMARK_ = false;
 while(true){
-var vec__50773 = (function (){var tnloc = (zprint.zfns.ztag.cljs$core$IFn$_invoke$arity$1 ? zprint.zfns.ztag.cljs$core$IFn$_invoke$arity$1(nloc) : zprint.zfns.ztag.call(null,nloc));
+var vec__50369 = (function (){var tnloc = (zprint.zfns.ztag.cljs$core$IFn$_invoke$arity$1 ? zprint.zfns.ztag.cljs$core$IFn$_invoke$arity$1(nloc) : zprint.zfns.ztag.call(null,nloc));
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(tnloc,new cljs.core.Keyword(null,"whitespace","whitespace",-1340035483))){
 var nstr = (zprint.zfns.zstring.cljs$core$IFn$_invoke$arity$1 ? zprint.zfns.zstring.cljs$core$IFn$_invoke$arity$1(nloc) : zprint.zfns.zstring.call(null,nloc));
 var trim_nstr = clojure.string.trimr(nstr);
@@ -197,18 +197,18 @@ return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMP
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [tnloc,spaces], null);
 }
 })();
-var tnloc = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50773,(0),null);
-var spaces__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50773,(1),null);
+var tnloc = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50369,(0),null);
+var spaces__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50369,(1),null);
 if((tnloc == null)){
 return null;
 } else {
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(tnloc,new cljs.core.Keyword(null,"newline","newline",1790071323))){
-var G__50952 = rewrite_clj.zip.left_STAR_(nloc);
-var G__50953 = spaces__$1;
-var G__50954 = true;
-nloc = G__50952;
-spaces = G__50953;
-passed_nl_QMARK_ = G__50954;
+var G__50633 = rewrite_clj.zip.left_STAR_(nloc);
+var G__50634 = spaces__$1;
+var G__50635 = true;
+nloc = G__50633;
+spaces = G__50634;
+passed_nl_QMARK_ = G__50635;
 continue;
 } else {
 if(((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(tnloc,new cljs.core.Keyword(null,"comment","comment",532206069))) || (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(tnloc,new cljs.core.Keyword(null,"comment-inline","comment-inline",712944405))))){
@@ -231,12 +231,12 @@ return null;
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [spaces__$1,zprint.comment.length_before(zloc)], null);
 }
 } else {
-var G__50958 = rewrite_clj.zip.left_STAR_(nloc);
-var G__50959 = (rewrite_clj.zip.length(nloc) + spaces__$1);
-var G__50960 = passed_nl_QMARK_;
-nloc = G__50958;
-spaces = G__50959;
-passed_nl_QMARK_ = G__50960;
+var G__50636 = rewrite_clj.zip.left_STAR_(nloc);
+var G__50637 = (rewrite_clj.zip.length(nloc) + spaces__$1);
+var G__50638 = passed_nl_QMARK_;
+nloc = G__50636;
+spaces = G__50637;
+passed_nl_QMARK_ = G__50638;
 continue;
 
 }
@@ -260,8 +260,8 @@ var y__5132__auto__ = from_index;
 return ((x__5131__auto__ < y__5132__auto__) ? x__5131__auto__ : y__5132__auto__);
 })();
 var rev_seq = cljs.core.reverse(cljs.core.take.cljs$core$IFn$_invoke$arity$2((from_index__$1 + (1)),s));
-var seq_after_space = cljs.core.take_while.cljs$core$IFn$_invoke$arity$2((function (p1__50786_SHARP_){
-return cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(p1__50786_SHARP_," ");
+var seq_after_space = cljs.core.take_while.cljs$core$IFn$_invoke$arity$2((function (p1__50392_SHARP_){
+return cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(p1__50392_SHARP_," ");
 }),rev_seq);
 var space_index = (from_index__$1 - cljs.core.count(seq_after_space));
 if((space_index < (0))){
@@ -278,8 +278,8 @@ return space_index;
 zprint.comment.next_space = (function zprint$comment$next_space(s,from_index){
 var from_index__$1 = (from_index + (1));
 if((from_index__$1 < cljs.core.count(s))){
-var seq_after_space = cljs.core.take_while.cljs$core$IFn$_invoke$arity$2((function (p1__50795_SHARP_){
-return cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(p1__50795_SHARP_," ");
+var seq_after_space = cljs.core.take_while.cljs$core$IFn$_invoke$arity$2((function (p1__50423_SHARP_){
+return cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(p1__50423_SHARP_," ");
 }),cljs.core.drop.cljs$core$IFn$_invoke$arity$2(from_index__$1,cljs.core.seq(s)));
 var space_index = (from_index__$1 + cljs.core.count(seq_after_space));
 if((space_index >= cljs.core.count(s))){
@@ -296,12 +296,12 @@ return null;
  *   Note that top level comments may well end with a newline, so remove it
  *   and reapply it at the end if that is the case.
  */
-zprint.comment.wrap_comment = (function zprint$comment$wrap_comment(width,p__50802,start){
-var vec__50803 = p__50802;
-var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50803,(0),null);
-var color = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50803,(1),null);
-var stype = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50803,(2),null);
-var element = vec__50803;
+zprint.comment.wrap_comment = (function zprint$comment$wrap_comment(width,p__50441,start){
+var vec__50443 = p__50441;
+var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50443,(0),null);
+var color = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50443,(1),null);
+var stype = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50443,(2),null);
+var element = vec__50443;
 if((!(((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(stype,new cljs.core.Keyword(null,"comment","comment",532206069))) || (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(stype,new cljs.core.Keyword(null,"comment-inline","comment-inline",712944405))))))){
 return element;
 } else {
@@ -345,10 +345,10 @@ return (((comment_str).length) - (1));
 }
 })()));
 var next_comment = clojure.string.trimr(cljs.core.subs.cljs$core$IFn$_invoke$arity$3(comment_str,(0),(last_space_index + (1))));
-var G__50966 = cljs.core.subs.cljs$core$IFn$_invoke$arity$2(comment_str,(last_space_index + (1)));
-var G__50967 = (((cljs.core.count(out) === (0)))?cljs.core.conj_BANG_.cljs$core$IFn$_invoke$arity$2(out,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [[cljs.core.str.cljs$core$IFn$_invoke$arity$1(semi_str),cljs.core.str.cljs$core$IFn$_invoke$arity$1(space_str),next_comment].join(''),color,stype], null)):cljs.core.conj_BANG_.cljs$core$IFn$_invoke$arity$2(cljs.core.conj_BANG_.cljs$core$IFn$_invoke$arity$2(out,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [["\n",cljs.core.str.cljs$core$IFn$_invoke$arity$1(zprint.comment.blanks(start))].join(''),new cljs.core.Keyword(null,"none","none",1333468478),new cljs.core.Keyword(null,"indent","indent",-148200125),(40)], null)),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [[cljs.core.str.cljs$core$IFn$_invoke$arity$1(semi_str),cljs.core.str.cljs$core$IFn$_invoke$arity$1(space_str),next_comment].join(''),color,new cljs.core.Keyword(null,"comment-wrap","comment-wrap",720664128)], null)));
-comment_str = G__50966;
-out = G__50967;
+var G__50643 = cljs.core.subs.cljs$core$IFn$_invoke$arity$2(comment_str,(last_space_index + (1)));
+var G__50644 = (((cljs.core.count(out) === (0)))?cljs.core.conj_BANG_.cljs$core$IFn$_invoke$arity$2(out,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [[cljs.core.str.cljs$core$IFn$_invoke$arity$1(semi_str),cljs.core.str.cljs$core$IFn$_invoke$arity$1(space_str),next_comment].join(''),color,stype], null)):cljs.core.conj_BANG_.cljs$core$IFn$_invoke$arity$2(cljs.core.conj_BANG_.cljs$core$IFn$_invoke$arity$2(out,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [["\n",cljs.core.str.cljs$core$IFn$_invoke$arity$1(zprint.comment.blanks(start))].join(''),new cljs.core.Keyword(null,"none","none",1333468478),new cljs.core.Keyword(null,"indent","indent",-148200125),(40)], null)),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [[cljs.core.str.cljs$core$IFn$_invoke$arity$1(semi_str),cljs.core.str.cljs$core$IFn$_invoke$arity$1(space_str),next_comment].join(''),color,new cljs.core.Keyword(null,"comment-wrap","comment-wrap",720664128)], null)));
+comment_str = G__50643;
+out = G__50644;
 continue;
 }
 break;
@@ -358,9 +358,9 @@ break;
 /**
  * Takes the start of this vector and the vector itself.
  */
-zprint.comment.loc_vec = (function zprint$comment$loc_vec(start,p__50817){
-var vec__50819 = p__50817;
-var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50819,(0),null);
+zprint.comment.loc_vec = (function zprint$comment$loc_vec(start,p__50499){
+var vec__50500 = p__50499;
+var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50500,(0),null);
 var split = zprint.comment.split_lf(s);
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.count(split),(1))){
 return (start + cljs.core.count(s));
@@ -389,10 +389,10 @@ while(true){
 if(cljs.core.not(element_vec)){
 return out;
 } else {
-var G__50973 = cljs.core.next(element_vec);
-var G__50974 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,cljs.core.first(element_vec));
-element_vec = G__50973;
-out = G__50974;
+var G__50645 = cljs.core.next(element_vec);
+var G__50646 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,cljs.core.first(element_vec));
+element_vec = G__50645;
+out = G__50646;
 continue;
 }
 break;
@@ -410,11 +410,11 @@ return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3(zprint.comment.lift_vec,cl
  * Take the final output style-vec, and wrap any comments which run over
  *   the width. Looking for 
  */
-zprint.comment.fzprint_wrap_comments = (function zprint$comment$fzprint_wrap_comments(p__50830,style_vec){
-var map__50831 = p__50830;
-var map__50831__$1 = cljs.core.__destructure_map(map__50831);
-var options = map__50831__$1;
-var width = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__50831__$1,new cljs.core.Keyword(null,"width","width",-384071477));
+zprint.comment.fzprint_wrap_comments = (function zprint$comment$fzprint_wrap_comments(p__50514,style_vec){
+var map__50515 = p__50514;
+var map__50515__$1 = cljs.core.__destructure_map(map__50515);
+var options = map__50515__$1;
+var width = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__50515__$1,new cljs.core.Keyword(null,"width","width",-384071477));
 if(cljs.core.truth_(new cljs.core.Keyword(null,"dbg?","dbg?",1845730771).cljs$core$IFn$_invoke$arity$1(options))){
 cljs.core.println.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Keyword(null,"dbg-indent","dbg-indent",1534856778).cljs$core$IFn$_invoke$arity$1(options),"fzprint-wrap-comments: indent:",new cljs.core.Keyword(null,"indent","indent",-148200125).cljs$core$IFn$_invoke$arity$1(options)], 0));
 } else {
@@ -444,15 +444,15 @@ while(true){
 if((index < (0))){
 return null;
 } else {
-var vec__50832 = cljs.core.nth.cljs$core$IFn$_invoke$arity$2(style_vec,index);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50832,(0),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50832,(1),null);
-var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50832,(2),null);
+var vec__50525 = cljs.core.nth.cljs$core$IFn$_invoke$arity$2(style_vec,index);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50525,(0),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50525,(1),null);
+var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50525,(2),null);
 if(cljs.core.truth_((element_pred_QMARK_.cljs$core$IFn$_invoke$arity$1 ? element_pred_QMARK_.cljs$core$IFn$_invoke$arity$1(e) : element_pred_QMARK_.call(null,e)))){
 return index;
 } else {
-var G__50977 = (index - (1));
-index = G__50977;
+var G__50651 = (index - (1));
+index = G__50651;
 continue;
 }
 }
@@ -471,8 +471,8 @@ return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core._PLUS_,cljs.core.
  *   of space before that comment on the line.
  */
 zprint.comment.space_before_comment = (function zprint$comment$space_before_comment(style_vec){
-var indent_index = zprint.comment.find_element_from_end((function (p1__50836_SHARP_){
-return ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(p1__50836_SHARP_,new cljs.core.Keyword(null,"indent","indent",-148200125))) || (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(p1__50836_SHARP_,new cljs.core.Keyword(null,"newline","newline",1790071323))));
+var indent_index = zprint.comment.find_element_from_end((function (p1__50528_SHARP_){
+return ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(p1__50528_SHARP_,new cljs.core.Keyword(null,"indent","indent",-148200125))) || (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(p1__50528_SHARP_,new cljs.core.Keyword(null,"newline","newline",1790071323))));
 }),style_vec);
 var this_line_vec = (cljs.core.truth_(indent_index)?cljs.core.nthnext(style_vec,indent_index):style_vec);
 return zprint.comment.line_size(cljs.core.butlast(this_line_vec));
@@ -480,11 +480,11 @@ return zprint.comment.line_size(cljs.core.butlast(this_line_vec));
 /**
  * Try to bring inline comments back onto the line on which they belong.
  */
-zprint.comment.fzprint_inline_comments = (function zprint$comment$fzprint_inline_comments(p__50837,style_vec){
-var map__50838 = p__50837;
-var map__50838__$1 = cljs.core.__destructure_map(map__50838);
-var options = map__50838__$1;
-var width = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__50838__$1,new cljs.core.Keyword(null,"width","width",-384071477));
+zprint.comment.fzprint_inline_comments = (function zprint$comment$fzprint_inline_comments(p__50529,style_vec){
+var map__50530 = p__50529;
+var map__50530__$1 = cljs.core.__destructure_map(map__50530);
+var options = map__50530__$1;
+var width = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__50530__$1,new cljs.core.Keyword(null,"width","width",-384071477));
 if(cljs.core.truth_(new cljs.core.Keyword(null,"dbg?","dbg?",1845730771).cljs$core$IFn$_invoke$arity$1(options))){
 cljs.core.println.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([new cljs.core.Keyword(null,"dbg-indent","dbg-indent",1534856778).cljs$core$IFn$_invoke$arity$1(options),cljs.core.pr_str.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2(["fzprint-inline-comments:",style_vec], 0))], 0));
 } else {
@@ -497,29 +497,29 @@ while(true){
 if(cljs.core.not(cvec)){
 return out;
 } else {
-var vec__50848 = cljs.core.first(cvec);
-var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50848,(0),null);
-var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50848,(1),null);
-var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50848,(2),null);
-var element = vec__50848;
-var vec__50851 = cljs.core.second(cvec);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50851,(0),null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50851,(1),null);
-var ne = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50851,(2),null);
-var nn = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50851,(3),null);
-var next_element = vec__50851;
-var vec__50854 = last_out;
-var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50854,(0),null);
-var ___$3 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50854,(1),null);
-var le = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50854,(2),null);
+var vec__50545 = cljs.core.first(cvec);
+var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50545,(0),null);
+var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50545,(1),null);
+var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50545,(2),null);
+var element = vec__50545;
+var vec__50548 = cljs.core.second(cvec);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50548,(0),null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50548,(1),null);
+var ne = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50548,(2),null);
+var nn = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50548,(3),null);
+var next_element = vec__50548;
+var vec__50551 = last_out;
+var ___$2 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50551,(0),null);
+var ___$3 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50551,(1),null);
+var le = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50551,(2),null);
 var new_element = ((((((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(e,new cljs.core.Keyword(null,"indent","indent",-148200125))) || (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(e,new cljs.core.Keyword(null,"newline","newline",1790071323))))) && (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(ne,new cljs.core.Keyword(null,"comment-inline","comment-inline",712944405)))))?(((!(((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(le,new cljs.core.Keyword(null,"comment","comment",532206069))) || (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(le,new cljs.core.Keyword(null,"comment-inline","comment-inline",712944405)))))))?new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [zprint.comment.blanks(nn),c,new cljs.core.Keyword(null,"whitespace","whitespace",-1340035483),(25)], null):new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [["\n",cljs.core.str.cljs$core$IFn$_invoke$arity$1(zprint.comment.blanks(zprint.comment.space_before_comment(out)))].join(''),c,new cljs.core.Keyword(null,"indent","indent",-148200125),(41)], null)):element
 );
-var G__50983 = cljs.core.next(cvec);
-var G__50984 = new_element;
-var G__50985 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,new_element);
-cvec = G__50983;
-last_out = G__50984;
-out = G__50985;
+var G__50654 = cljs.core.next(cvec);
+var G__50655 = new_element;
+var G__50656 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,new_element);
+cvec = G__50654;
+last_out = G__50655;
+out = G__50656;
 continue;
 }
 break;
@@ -549,97 +549,97 @@ if(cljs.core.not(cvec)){
 var out__$1 = (((cljs.core.count(current_seq) > (1)))?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,current_seq):out);
 return out__$1;
 } else {
-var vec__50863 = cljs.core.first(cvec);
-var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50863,(0),null);
-var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50863,(1),null);
-var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50863,(2),null);
-var spaces = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50863,(3),null);
-var start_column = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50863,(4),null);
-var element = vec__50863;
+var vec__50570 = cljs.core.first(cvec);
+var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50570,(0),null);
+var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50570,(1),null);
+var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50570,(2),null);
+var spaces = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50570,(3),null);
+var start_column = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50570,(4),null);
+var element = vec__50570;
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(e,new cljs.core.Keyword(null,"comment-inline","comment-inline",712944405))){
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(start_column,current_column)){
-var G__50989 = cljs.core.next(cvec);
-var G__50990 = (index + (1));
-var G__50991 = null;
-var G__50992 = (cljs.core.truth_(last_indent)?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(current_seq,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [last_indent,index], null)):(function(){throw (new Error(["find-aligned-inline-comments a:",cljs.core.str.cljs$core$IFn$_invoke$arity$1(index)].join('')))})());
-var G__50993 = current_column;
-var G__50994 = (0);
-var G__50995 = out;
-cvec = G__50989;
-index = G__50990;
-last_indent = G__50991;
-current_seq = G__50992;
-current_column = G__50993;
-distance = G__50994;
-out = G__50995;
+var G__50659 = cljs.core.next(cvec);
+var G__50660 = (index + (1));
+var G__50661 = null;
+var G__50662 = (cljs.core.truth_(last_indent)?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(current_seq,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [last_indent,index], null)):(function(){throw (new Error(["find-aligned-inline-comments a:",cljs.core.str.cljs$core$IFn$_invoke$arity$1(index)].join('')))})());
+var G__50663 = current_column;
+var G__50664 = (0);
+var G__50665 = out;
+cvec = G__50659;
+index = G__50660;
+last_indent = G__50661;
+current_seq = G__50662;
+current_column = G__50663;
+distance = G__50664;
+out = G__50665;
 continue;
 } else {
-var G__50997 = cljs.core.next(cvec);
-var G__50998 = (index + (1));
-var G__50999 = null;
-var G__51000 = (cljs.core.truth_(last_indent)?new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [last_indent,index], null)], null):(function(){throw (new Error(["find-aligned-inline-comments b:",cljs.core.str.cljs$core$IFn$_invoke$arity$1(index)].join('')))})());
-var G__51001 = start_column;
-var G__51002 = (0);
-var G__51003 = (((cljs.core.count(current_seq) > (1)))?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,current_seq):out);
-cvec = G__50997;
-index = G__50998;
-last_indent = G__50999;
-current_seq = G__51000;
-current_column = G__51001;
-distance = G__51002;
-out = G__51003;
+var G__50666 = cljs.core.next(cvec);
+var G__50667 = (index + (1));
+var G__50668 = null;
+var G__50669 = (cljs.core.truth_(last_indent)?new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [last_indent,index], null)], null):(function(){throw (new Error(["find-aligned-inline-comments b:",cljs.core.str.cljs$core$IFn$_invoke$arity$1(index)].join('')))})());
+var G__50670 = start_column;
+var G__50671 = (0);
+var G__50672 = (((cljs.core.count(current_seq) > (1)))?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,current_seq):out);
+cvec = G__50666;
+index = G__50667;
+last_indent = G__50668;
+current_seq = G__50669;
+current_column = G__50670;
+distance = G__50671;
+out = G__50672;
 continue;
 }
 } else {
 if(((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(e,new cljs.core.Keyword(null,"indent","indent",-148200125))) || (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(e,new cljs.core.Keyword(null,"newline","newline",1790071323))))){
 if((distance >= zprint.comment.max_aligned_inline_comment_distance)){
-var G__51004 = cljs.core.next(cvec);
-var G__51005 = (index + (1));
-var G__51006 = index;
-var G__51007 = cljs.core.PersistentVector.EMPTY;
-var G__51008 = (0);
-var G__51009 = (0);
-var G__51010 = (((cljs.core.count(current_seq) > (1)))?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,current_seq):out);
-cvec = G__51004;
-index = G__51005;
-last_indent = G__51006;
-current_seq = G__51007;
-current_column = G__51008;
-distance = G__51009;
-out = G__51010;
+var G__50673 = cljs.core.next(cvec);
+var G__50674 = (index + (1));
+var G__50675 = index;
+var G__50676 = cljs.core.PersistentVector.EMPTY;
+var G__50677 = (0);
+var G__50678 = (0);
+var G__50679 = (((cljs.core.count(current_seq) > (1)))?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,current_seq):out);
+cvec = G__50673;
+index = G__50674;
+last_indent = G__50675;
+current_seq = G__50676;
+current_column = G__50677;
+distance = G__50678;
+out = G__50679;
 continue;
 } else {
-var G__51011 = cljs.core.next(cvec);
-var G__51012 = (index + (1));
-var G__51013 = index;
-var G__51014 = current_seq;
-var G__51015 = current_column;
-var G__51016 = (distance + (1));
-var G__51017 = out;
-cvec = G__51011;
-index = G__51012;
-last_indent = G__51013;
-current_seq = G__51014;
-current_column = G__51015;
-distance = G__51016;
-out = G__51017;
+var G__50680 = cljs.core.next(cvec);
+var G__50681 = (index + (1));
+var G__50682 = index;
+var G__50683 = current_seq;
+var G__50684 = current_column;
+var G__50685 = (distance + (1));
+var G__50686 = out;
+cvec = G__50680;
+index = G__50681;
+last_indent = G__50682;
+current_seq = G__50683;
+current_column = G__50684;
+distance = G__50685;
+out = G__50686;
 continue;
 }
 } else {
-var G__51019 = cljs.core.next(cvec);
-var G__51020 = (index + (1));
-var G__51021 = last_indent;
-var G__51022 = current_seq;
-var G__51023 = current_column;
-var G__51024 = distance;
-var G__51025 = out;
-cvec = G__51019;
-index = G__51020;
-last_indent = G__51021;
-current_seq = G__51022;
-current_column = G__51023;
-distance = G__51024;
-out = G__51025;
+var G__50687 = cljs.core.next(cvec);
+var G__50688 = (index + (1));
+var G__50689 = last_indent;
+var G__50690 = current_seq;
+var G__50691 = current_column;
+var G__50692 = distance;
+var G__50693 = out;
+cvec = G__50687;
+index = G__50688;
+last_indent = G__50689;
+current_seq = G__50690;
+current_column = G__50691;
+distance = G__50692;
+out = G__50693;
 continue;
 
 }
@@ -665,47 +665,47 @@ while(true){
 if(cljs.core.not(cvec)){
 return out;
 } else {
-var vec__50871 = cljs.core.first(cvec);
-var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50871,(0),null);
-var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50871,(1),null);
-var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50871,(2),null);
-var element = vec__50871;
+var vec__50587 = cljs.core.first(cvec);
+var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50587,(0),null);
+var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50587,(1),null);
+var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50587,(2),null);
+var element = vec__50587;
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(e,new cljs.core.Keyword(null,"comment-inline","comment-inline",712944405))){
-var G__51027 = cljs.core.next(cvec);
-var G__51028 = (index + (1));
-var G__51029 = null;
-var G__51030 = (cljs.core.truth_(last_indent)?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(current_seq,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [last_indent,index], null)):(function(){throw (new Error(["find-consecutive-inline-comments:",cljs.core.str.cljs$core$IFn$_invoke$arity$1(index)].join('')))})());
-var G__51031 = out;
-cvec = G__51027;
-index = G__51028;
-last_indent = G__51029;
-current_seq = G__51030;
-out = G__51031;
+var G__50695 = cljs.core.next(cvec);
+var G__50696 = (index + (1));
+var G__50697 = null;
+var G__50698 = (cljs.core.truth_(last_indent)?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(current_seq,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [last_indent,index], null)):(function(){throw (new Error(["find-consecutive-inline-comments:",cljs.core.str.cljs$core$IFn$_invoke$arity$1(index)].join('')))})());
+var G__50699 = out;
+cvec = G__50695;
+index = G__50696;
+last_indent = G__50697;
+current_seq = G__50698;
+out = G__50699;
 continue;
 } else {
 if(((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(e,new cljs.core.Keyword(null,"indent","indent",-148200125))) || (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(e,new cljs.core.Keyword(null,"newline","newline",1790071323))))){
-var G__51032 = cljs.core.next(cvec);
-var G__51033 = (index + (1));
-var G__51034 = index;
-var G__51035 = (cljs.core.truth_(last_indent)?cljs.core.PersistentVector.EMPTY:current_seq);
-var G__51036 = (cljs.core.truth_(last_indent)?(((cljs.core.count(current_seq) > (1)))?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,current_seq):out):out);
-cvec = G__51032;
-index = G__51033;
-last_indent = G__51034;
-current_seq = G__51035;
-out = G__51036;
+var G__50700 = cljs.core.next(cvec);
+var G__50701 = (index + (1));
+var G__50702 = index;
+var G__50703 = (cljs.core.truth_(last_indent)?cljs.core.PersistentVector.EMPTY:current_seq);
+var G__50704 = (cljs.core.truth_(last_indent)?(((cljs.core.count(current_seq) > (1)))?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(out,current_seq):out):out);
+cvec = G__50700;
+index = G__50701;
+last_indent = G__50702;
+current_seq = G__50703;
+out = G__50704;
 continue;
 } else {
-var G__51037 = cljs.core.next(cvec);
-var G__51038 = (index + (1));
-var G__51039 = last_indent;
-var G__51040 = current_seq;
-var G__51041 = out;
-cvec = G__51037;
-index = G__51038;
-last_indent = G__51039;
-current_seq = G__51040;
-out = G__51041;
+var G__50706 = cljs.core.next(cvec);
+var G__50707 = (index + (1));
+var G__50708 = last_indent;
+var G__50709 = current_seq;
+var G__50710 = out;
+cvec = G__50706;
+index = G__50707;
+last_indent = G__50708;
+current_seq = G__50709;
+out = G__50710;
 continue;
 
 }
@@ -718,10 +718,10 @@ break;
  * Takes a single vector of [indent-index comment-index] and will show the
  *   column on the line in which the comment starts.
  */
-zprint.comment.comment_column = (function zprint$comment$comment_column(p__50876,style_vec){
-var vec__50877 = p__50876;
-var indent_index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50877,(0),null);
-var comment_index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50877,(1),null);
+zprint.comment.comment_column = (function zprint$comment$comment_column(p__50591,style_vec){
+var vec__50592 = p__50591;
+var indent_index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50592,(0),null);
+var comment_index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50592,(1),null);
 if(cljs.core.vector_QMARK_(style_vec)){
 } else {
 throw (new Error(["comment-column: style-vec not a vector!! ",cljs.core.str.cljs$core$IFn$_invoke$arity$1(style_vec)].join('')));
@@ -733,10 +733,10 @@ while(true){
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(index,comment_index)){
 return column;
 } else {
-var G__51042 = (index + (1));
-var G__51043 = zprint.comment.loc_vec(column,cljs.core.nth.cljs$core$IFn$_invoke$arity$2(style_vec,index));
-index = G__51042;
-column = G__51043;
+var G__50711 = (index + (1));
+var G__50712 = zprint.comment.loc_vec(column,cljs.core.nth.cljs$core$IFn$_invoke$arity$2(style_vec,index));
+index = G__50711;
+column = G__50712;
 continue;
 }
 break;
@@ -747,11 +747,11 @@ break;
  *   [indent-index inline-comment-index] 
  *   and replace it with [inline-comment-index start-column spaces-before].
  */
-zprint.comment.comment_vec_column = (function zprint$comment$comment_vec_column(style_vec,p__50880){
-var vec__50881 = p__50880;
-var indent_index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50881,(0),null);
-var inline_comment_index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50881,(1),null);
-var comment_vec = vec__50881;
+zprint.comment.comment_vec_column = (function zprint$comment$comment_vec_column(style_vec,p__50595){
+var vec__50596 = p__50595;
+var indent_index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50596,(0),null);
+var inline_comment_index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50596,(1),null);
+var comment_vec = vec__50596;
 var start_column = zprint.comment.comment_column(comment_vec,style_vec);
 var spaces_before = zprint.comment.loc_vec((0),cljs.core.nth.cljs$core$IFn$_invoke$arity$2(style_vec,(inline_comment_index - (1))));
 return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [inline_comment_index,start_column,spaces_before], null);
@@ -782,8 +782,8 @@ return cljs.core.map.cljs$core$IFn$_invoke$arity$2(cljs.core.partial.cljs$core$I
  * the minimum column at which they could be aligned.
  */
 zprint.comment.minimum_column = (function zprint$comment$minimum_column(comment_vec){
-var minimum_vec = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__50886_SHARP_){
-return ((cljs.core.second(p1__50886_SHARP_) - cljs.core.nth.cljs$core$IFn$_invoke$arity$2(p1__50886_SHARP_,(2))) + (1));
+var minimum_vec = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__50601_SHARP_){
+return ((cljs.core.second(p1__50601_SHARP_) - cljs.core.nth.cljs$core$IFn$_invoke$arity$2(p1__50601_SHARP_,(2))) + (1));
 }),comment_vec);
 var minimum_col = cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.max,minimum_vec);
 return minimum_col;
@@ -794,20 +794,20 @@ return minimum_col;
  *   and a style-vec, return a new style-vec with the inline-comment starting
  *   at a new column.
  */
-zprint.comment.change_start_column = (function zprint$comment$change_start_column(new_start_column,style_vec,p__50894){
-var vec__50895 = p__50894;
-var inline_comment_index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50895,(0),null);
-var start_column = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50895,(1),null);
-var spaces_before = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50895,(2),null);
-var comment_vec = vec__50895;
+zprint.comment.change_start_column = (function zprint$comment$change_start_column(new_start_column,style_vec,p__50603){
+var vec__50604 = p__50603;
+var inline_comment_index = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50604,(0),null);
+var start_column = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50604,(1),null);
+var spaces_before = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50604,(2),null);
+var comment_vec = vec__50604;
 var delta_spaces = (new_start_column - start_column);
 var new_spaces = (spaces_before + delta_spaces);
 var previous_element_index = (inline_comment_index - (1));
-var vec__50898 = cljs.core.nth.cljs$core$IFn$_invoke$arity$2(style_vec,previous_element_index);
-var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50898,(0),null);
-var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50898,(1),null);
-var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50898,(2),null);
-var previous_element = vec__50898;
+var vec__50607 = cljs.core.nth.cljs$core$IFn$_invoke$arity$2(style_vec,previous_element_index);
+var s = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50607,(0),null);
+var c = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50607,(1),null);
+var e = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__50607,(2),null);
+var previous_element = vec__50607;
 var new_previous_element = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(e,new cljs.core.Keyword(null,"indent","indent",-148200125)))?new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [["\n",cljs.core.str.cljs$core$IFn$_invoke$arity$1(zprint.comment.blanks(new_spaces))].join(''),c,e], null):((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(e,new cljs.core.Keyword(null,"whitespace","whitespace",-1340035483)))?new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.str.cljs$core$IFn$_invoke$arity$1(zprint.comment.blanks(new_spaces)),c,e,(26)], null):(function(){throw (new Error(["change-start-column: comment preceded by neither"," an :indent nor :whitespace!",cljs.core.str.cljs$core$IFn$_invoke$arity$1(e)].join('')))})()
 ));
 return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(style_vec,previous_element_index,new_previous_element);

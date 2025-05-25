@@ -18,8 +18,8 @@ return (index - (1));
 if((!(((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(zprint.focus.type_ssv(cljs.core.nth.cljs$core$IFn$_invoke$arity$2(ssv,index)),new cljs.core.Keyword(null,"whitespace","whitespace",-1340035483))) || (cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(zprint.focus.type_ssv(cljs.core.nth.cljs$core$IFn$_invoke$arity$2(ssv,index)),new cljs.core.Keyword(null,"indent","indent",-148200125))))))){
 return index;
 } else {
-var G__48815 = (index + (1));
-index = G__48815;
+var G__48769 = (index + (1));
+index = G__48769;
 continue;
 }
 }
@@ -55,14 +55,14 @@ var new_next_nonws_QMARK_ = ((((cljs.core.not(skip_to_right_QMARK_)) || (cljs.co
 if(cljs.core.truth_(next_nonws_QMARK_)){
 return index;
 } else {
-var G__48816 = (cljs.core.truth_((function (){var and__5041__auto__ = cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(index_type,new cljs.core.Keyword(null,"left","left",-399115937));
+var G__48770 = (cljs.core.truth_((function (){var and__5041__auto__ = cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(index_type,new cljs.core.Keyword(null,"left","left",-399115937));
 if(and__5041__auto__){
 return skip_to_right_QMARK_;
 } else {
 return and__5041__auto__;
 }
 })())?(zprint.focus.next_ssv.cljs$core$IFn$_invoke$arity$2 ? zprint.focus.next_ssv.cljs$core$IFn$_invoke$arity$2(ssv,index) : zprint.focus.next_ssv.call(null,ssv,index)):(index + (1)));
-var G__48817 = (function (){var and__5041__auto__ = (function (){var or__5043__auto__ = cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(index_type,new cljs.core.Keyword(null,"left","left",-399115937));
+var G__48771 = (function (){var and__5041__auto__ = (function (){var or__5043__auto__ = cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(index_type,new cljs.core.Keyword(null,"left","left",-399115937));
 if(or__5043__auto__){
 return or__5043__auto__;
 } else {
@@ -75,10 +75,10 @@ return cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(index_type,new cljs.core.
 return and__5041__auto__;
 }
 })();
-var G__48818 = new_next_nonws_QMARK_;
-index = G__48816;
-skip_to_right_QMARK_ = G__48817;
-next_nonws_QMARK_ = G__48818;
+var G__48772 = new_next_nonws_QMARK_;
+index = G__48770;
+skip_to_right_QMARK_ = G__48771;
+next_nonws_QMARK_ = G__48772;
 continue;
 }
 }
@@ -100,10 +100,10 @@ return zprint.focus.skip_whitespace_ssv(ssv,index);
 return null;
 }
 } else {
-var G__48822 = zprint.focus.next_ssv(ssv,index);
-var G__48823 = (moves - (1));
-index = G__48822;
-moves = G__48823;
+var G__48773 = zprint.focus.next_ssv(ssv,index);
+var G__48774 = (moves - (1));
+index = G__48773;
+moves = G__48774;
 continue;
 }
 } else {
@@ -124,10 +124,10 @@ if(cljs.core.truth_(idx)){
 if(cljs.core.empty_QMARK_(nwp)){
 return idx;
 } else {
-var G__48824 = zprint.focus.right_ssv(cljs.core.first(nwp),ssv,zprint.focus.down_ssv(ssv,idx));
-var G__48825 = cljs.core.next(nwp);
-idx = G__48824;
-nwp = G__48825;
+var G__48775 = zprint.focus.right_ssv(cljs.core.first(nwp),ssv,zprint.focus.down_ssv(ssv,idx));
+var G__48776 = cljs.core.next(nwp);
+idx = G__48775;
+nwp = G__48776;
 continue;
 }
 } else {

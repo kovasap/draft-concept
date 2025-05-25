@@ -18,8 +18,8 @@ return rewrite_clj.node.protocols.children(node);
  *   - `:auto-resolve` specify a function to customize namespaced element auto-resolve behavior, see [docs on namespaced elements](/doc/01-user-guide.adoc#namespaced-elements)
  */
 rewrite_clj.node.child_sexprs = (function rewrite_clj$node$child_sexprs(var_args){
-var G__50108 = arguments.length;
-switch (G__50108) {
+var G__50126 = arguments.length;
+switch (G__50126) {
 case 1:
 return rewrite_clj.node.child_sexprs.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -89,8 +89,8 @@ return rewrite_clj.node.protocols.replace_children(node,children);
  *   See docs for [sexpr nuances](/doc/01-user-guide.adoc#sexpr-nuances).
  */
 rewrite_clj.node.sexpr = (function rewrite_clj$node$sexpr(var_args){
-var G__50117 = arguments.length;
-switch (G__50117) {
+var G__50135 = arguments.length;
+switch (G__50135) {
 case 1:
 return rewrite_clj.node.sexpr.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -132,8 +132,8 @@ return rewrite_clj.node.protocols.sexpr_able_QMARK_(node);
  *   See docs for [sexpr nuances](/doc/01-user-guide.adoc#sexpr-nuances).
  */
 rewrite_clj.node.sexprs = (function rewrite_clj$node$sexprs(var_args){
-var G__50119 = arguments.length;
-switch (G__50119) {
+var G__50139 = arguments.length;
+switch (G__50139) {
 case 1:
 return rewrite_clj.node.sexprs.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -212,8 +212,8 @@ return rewrite_clj.node.protocols.value(node);
  * ```
  */
 rewrite_clj.node.comment_node = (function rewrite_clj$node$comment_node(var_args){
-var G__50125 = arguments.length;
-switch (G__50125) {
+var G__50145 = arguments.length;
+switch (G__50145) {
 case 1:
 return rewrite_clj.node.comment_node.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -306,8 +306,8 @@ return rewrite_clj.node.forms.forms_node(children);
  * Note: the parser does not currently parse to integer-nodes, but they fully supported for output.
  */
 rewrite_clj.node.integer_node = (function rewrite_clj$node$integer_node(var_args){
-var G__50132 = arguments.length;
-switch (G__50132) {
+var G__50151 = arguments.length;
+switch (G__50151) {
 case 1:
 return rewrite_clj.node.integer_node.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -362,8 +362,8 @@ return rewrite_clj.node.integer.integer_node.cljs$core$IFn$_invoke$arity$2(value
  * ```
  */
 rewrite_clj.node.keyword_node = (function rewrite_clj$node$keyword_node(var_args){
-var G__50137 = arguments.length;
-switch (G__50137) {
+var G__50157 = arguments.length;
+switch (G__50157) {
 case 2:
 return rewrite_clj.node.keyword_node.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -424,8 +424,8 @@ return rewrite_clj.node.keyword.keyword_node_QMARK_(n);
  * See also: [[raw-meta-node]]
  */
 rewrite_clj.node.meta_node = (function rewrite_clj$node$meta_node(var_args){
-var G__50140 = arguments.length;
-switch (G__50140) {
+var G__50164 = arguments.length;
+switch (G__50164) {
 case 1:
 return rewrite_clj.node.meta_node.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -482,8 +482,8 @@ return rewrite_clj.node.meta.meta_node.cljs$core$IFn$_invoke$arity$2(metadata,da
  * See also: [[meta-node]]
  */
 rewrite_clj.node.raw_meta_node = (function rewrite_clj$node$raw_meta_node(var_args){
-var G__50143 = arguments.length;
-switch (G__50143) {
+var G__50166 = arguments.length;
+switch (G__50166) {
 case 1:
 return rewrite_clj.node.raw_meta_node.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -639,8 +639,8 @@ return rewrite_clj.node.reader_macro.eval_node(children);
  * ```
  */
 rewrite_clj.node.reader_macro_node = (function rewrite_clj$node$reader_macro_node(var_args){
-var G__50146 = arguments.length;
-switch (G__50146) {
+var G__50174 = arguments.length;
+switch (G__50174) {
 case 1:
 return rewrite_clj.node.reader_macro_node.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -915,8 +915,8 @@ return rewrite_clj.node.quote.unquote_splicing_node(children);
  * ```
  */
 rewrite_clj.node.token_node = (function rewrite_clj$node$token_node(var_args){
-var G__50151 = arguments.length;
-switch (G__50151) {
+var G__50185 = arguments.length;
+switch (G__50185) {
 case 1:
 return rewrite_clj.node.token_node.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 

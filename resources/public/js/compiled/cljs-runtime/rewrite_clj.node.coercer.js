@@ -159,10 +159,10 @@ var temp__5802__auto__ = cljs.core.first(cljs.core.re_find(/(\r\n|\r|\n)/,s__$1)
 if(cljs.core.truth_(temp__5802__auto__)){
 var m = temp__5802__auto__;
 var eol_ndx = clojure.string.index_of.cljs$core$IFn$_invoke$arity$2(s__$1,m);
-var G__49974 = cljs.core.subs.cljs$core$IFn$_invoke$arity$2(s__$1,(eol_ndx + cljs.core.count(m)));
-var G__49975 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(lines,cljs.core.subs.cljs$core$IFn$_invoke$arity$3(s__$1,(0),eol_ndx));
-s__$1 = G__49974;
-lines = G__49975;
+var G__49963 = cljs.core.subs.cljs$core$IFn$_invoke$arity$2(s__$1,(eol_ndx + cljs.core.count(m)));
+var G__49964 = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(lines,cljs.core.subs.cljs$core$IFn$_invoke$arity$3(s__$1,(0),eol_ndx));
+s__$1 = G__49963;
+lines = G__49964;
 continue;
 } else {
 return cljs.core.conj.cljs$core$IFn$_invoke$arity$2(lines,s__$1);
@@ -182,14 +182,14 @@ return rewrite_clj.node.meta.meta_node.cljs$core$IFn$_invoke$arity$2(rewrite_clj
 return n;
 }
 });
-var comma_49976 = rewrite_clj.node.whitespace.whitespace_nodes(", ");
-var space_49977 = rewrite_clj.node.whitespace.whitespace_node(" ");
+var comma_49965 = rewrite_clj.node.whitespace.whitespace_nodes(", ");
+var space_49966 = rewrite_clj.node.whitespace.whitespace_node(" ");
 rewrite_clj.node.coercer.map__GT_children = (function rewrite_clj$node$coercer$map__GT_children(m){
-return cljs.core.vec(cljs.core.drop_last.cljs$core$IFn$_invoke$arity$2(cljs.core.count(comma_49976),cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic((function (p__49965){
-var vec__49966 = p__49965;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__49966,(0),null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__49966,(1),null);
-return cljs.core.list_STAR_.cljs$core$IFn$_invoke$arity$4(rewrite_clj.node.protocols.coerce(k),space_49977,rewrite_clj.node.protocols.coerce(v),comma_49976);
+return cljs.core.vec(cljs.core.drop_last.cljs$core$IFn$_invoke$arity$2(cljs.core.count(comma_49965),cljs.core.mapcat.cljs$core$IFn$_invoke$arity$variadic((function (p__49928){
+var vec__49929 = p__49928;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__49929,(0),null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__49929,(1),null);
+return cljs.core.list_STAR_.cljs$core$IFn$_invoke$arity$4(rewrite_clj.node.protocols.coerce(k),space_49966,rewrite_clj.node.protocols.coerce(v),comma_49965);
 }),cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([m], 0))));
 });
 rewrite_clj.node.coercer.record_node = (function rewrite_clj$node$coercer$record_node(m){
@@ -228,8 +228,8 @@ var v__$1 = this;
 return rewrite_clj.node.regex.regex_node(rewrite_clj.node.regex.pattern_string_for_regex(v__$1));
 }));
 rewrite_clj.node.coercer.seq_node = (function rewrite_clj$node$coercer$seq_node(f,sq){
-return rewrite_clj.node.coercer.node_with_meta((function (){var G__49971 = cljs.core.vec(rewrite_clj.node.whitespace.space_separated(cljs.core.map.cljs$core$IFn$_invoke$arity$2(rewrite_clj.node.protocols.coerce,sq)));
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__49971) : f.call(null,G__49971));
+return rewrite_clj.node.coercer.node_with_meta((function (){var G__49945 = cljs.core.vec(rewrite_clj.node.whitespace.space_separated(cljs.core.map.cljs$core$IFn$_invoke$arity$2(rewrite_clj.node.protocols.coerce,sq)));
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__49945) : f.call(null,G__49945));
 })(),sq);
 });
 (cljs.core.PersistentVector.prototype.rewrite_clj$node$protocols$NodeCoerceable$ = cljs.core.PROTOCOL_SENTINEL);

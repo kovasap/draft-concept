@@ -43,12 +43,12 @@ return rewrite_clj.zip.subedit.move_to(zloc_SINGLEQUOTE_,rewrite_clj.zip.subedit
  * See [docs on sub editing](/doc/01-user-guide.adoc#sub-editing).
  */
 rewrite_clj.zip.subedit.subzip = (function rewrite_clj$zip$subedit$subzip(zloc){
-var zloc_SINGLEQUOTE_ = (function (){var G__50037 = zloc;
-var G__50037__$1 = (((G__50037 == null))?null:rewrite_clj.custom_zipper.core.node(G__50037));
-if((G__50037__$1 == null)){
+var zloc_SINGLEQUOTE_ = (function (){var G__50046 = zloc;
+var G__50046__$1 = (((G__50046 == null))?null:rewrite_clj.custom_zipper.core.node(G__50046));
+if((G__50046__$1 == null)){
 return null;
 } else {
-return rewrite_clj.zip.base.of_node_STAR_.cljs$core$IFn$_invoke$arity$2(G__50037__$1,rewrite_clj.zip.options.get_opts(zloc));
+return rewrite_clj.zip.base.of_node_STAR_.cljs$core$IFn$_invoke$arity$2(G__50046__$1,rewrite_clj.zip.options.get_opts(zloc));
 }
 })();
 if(cljs.core.truth_(zloc_SINGLEQUOTE_)){
@@ -65,8 +65,8 @@ return zloc_SINGLEQUOTE_;
  * See [docs on sub editing](/doc/01-user-guide.adoc#sub-editing).
  */
 rewrite_clj.zip.subedit.subedit_node = (function rewrite_clj$zip$subedit$subedit_node(zloc,f){
-var zloc_SINGLEQUOTE_ = (function (){var G__50043 = rewrite_clj.zip.subedit.subzip(zloc);
-return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__50043) : f.call(null,G__50043));
+var zloc_SINGLEQUOTE_ = (function (){var G__50050 = rewrite_clj.zip.subedit.subzip(zloc);
+return (f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(G__50050) : f.call(null,G__50050));
 })();
 if((!((zloc_SINGLEQUOTE_ == null)))){
 } else {

@@ -44,8 +44,8 @@ return rewrite_clj.zip.base.child_sexprs(zloc);
  *   - `:auto-resolve` specify a function to customize namespaced element auto-resolve behavior, see [docs on namespaced elements](/doc/01-user-guide.adoc#namespaced-elements)
  */
 rewrite_clj.zip.of_node_STAR_ = (function rewrite_clj$zip$of_node_STAR_(var_args){
-var G__50202 = arguments.length;
-switch (G__50202) {
+var G__50129 = arguments.length;
+switch (G__50129) {
 case 1:
 return rewrite_clj.zip.of_node_STAR_.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -74,8 +74,8 @@ return rewrite_clj.zip.base.of_node_STAR_.cljs$core$IFn$_invoke$arity$2(node,opt
  * DEPRECATED. Renamed to [[of-node*]].
  */
 rewrite_clj.zip.edn_STAR_ = (function rewrite_clj$zip$edn_STAR_(var_args){
-var G__50204 = arguments.length;
-switch (G__50204) {
+var G__50132 = arguments.length;
+switch (G__50132) {
 case 1:
 return rewrite_clj.zip.edn_STAR_.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -110,8 +110,8 @@ return rewrite_clj.zip.base.edn_STAR_.cljs$core$IFn$_invoke$arity$2(node,opts);
  *   - `:auto-resolve` specify a function to customize namespaced element auto-resolve behavior, see [docs on namespaced elements](/doc/01-user-guide.adoc#namespaced-elements)
  */
 rewrite_clj.zip.of_node = (function rewrite_clj$zip$of_node(var_args){
-var G__50213 = arguments.length;
-switch (G__50213) {
+var G__50136 = arguments.length;
+switch (G__50136) {
 case 1:
 return rewrite_clj.zip.of_node.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -140,8 +140,8 @@ return rewrite_clj.zip.base.of_node.cljs$core$IFn$_invoke$arity$2(node,opts);
  * DEPRECATED. Renamed to [[of-node]].
  */
 rewrite_clj.zip.edn = (function rewrite_clj$zip$edn(var_args){
-var G__50216 = arguments.length;
-switch (G__50216) {
+var G__50141 = arguments.length;
+switch (G__50141) {
 case 1:
 return rewrite_clj.zip.edn.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -209,8 +209,8 @@ return rewrite_clj.zip.base.value(zloc);
  *   - `:auto-resolve` specify a function to customize namespaced element auto-resolve behavior, see [docs on namespaced elements](/doc/01-user-guide.adoc#namespaced-elements)
  */
 rewrite_clj.zip.of_string = (function rewrite_clj$zip$of_string(var_args){
-var G__50225 = arguments.length;
-switch (G__50225) {
+var G__50147 = arguments.length;
+switch (G__50147) {
 case 1:
 return rewrite_clj.zip.of_string.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -265,8 +265,8 @@ return rewrite_clj.zip.base.__GT_root_string(zloc);
  * NOTE: Optional `writer` is currently ignored for ClojureScript.
  */
 rewrite_clj.zip.print = (function rewrite_clj$zip$print(var_args){
-var G__50235 = arguments.length;
-switch (G__50235) {
+var G__50152 = arguments.length;
+switch (G__50152) {
 case 2:
 return rewrite_clj.zip.print.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -297,8 +297,8 @@ return rewrite_clj.zip.base.print.cljs$core$IFn$_invoke$arity$1(zloc);
  * NOTE: Optional `writer` is currently ignored for ClojureScript.
  */
 rewrite_clj.zip.print_root = (function rewrite_clj$zip$print_root(var_args){
-var G__50241 = arguments.length;
-switch (G__50241) {
+var G__50156 = arguments.length;
+switch (G__50156) {
 case 2:
 return rewrite_clj.zip.print_root.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -345,14 +345,14 @@ return rewrite_clj.zip.editz.replace(zloc,item);
  */
 rewrite_clj.zip.edit = (function rewrite_clj$zip$edit(var_args){
 var args__5772__auto__ = [];
-var len__5766__auto___50711 = arguments.length;
-var i__5767__auto___50712 = (0);
+var len__5766__auto___50292 = arguments.length;
+var i__5767__auto___50293 = (0);
 while(true){
-if((i__5767__auto___50712 < len__5766__auto___50711)){
-args__5772__auto__.push((arguments[i__5767__auto___50712]));
+if((i__5767__auto___50293 < len__5766__auto___50292)){
+args__5772__auto__.push((arguments[i__5767__auto___50293]));
 
-var G__50713 = (i__5767__auto___50712 + (1));
-i__5767__auto___50712 = G__50713;
+var G__50294 = (i__5767__auto___50293 + (1));
+i__5767__auto___50293 = G__50294;
 continue;
 } else {
 }
@@ -370,13 +370,13 @@ return cljs.core.apply.cljs$core$IFn$_invoke$arity$4(rewrite_clj.zip.editz.edit,
 (rewrite_clj.zip.edit.cljs$lang$maxFixedArity = (2));
 
 /** @this {Function} */
-(rewrite_clj.zip.edit.cljs$lang$applyTo = (function (seq50247){
-var G__50248 = cljs.core.first(seq50247);
-var seq50247__$1 = cljs.core.next(seq50247);
-var G__50249 = cljs.core.first(seq50247__$1);
-var seq50247__$2 = cljs.core.next(seq50247__$1);
+(rewrite_clj.zip.edit.cljs$lang$applyTo = (function (seq50159){
+var G__50160 = cljs.core.first(seq50159);
+var seq50159__$1 = cljs.core.next(seq50159);
+var G__50161 = cljs.core.first(seq50159__$1);
+var seq50159__$2 = cljs.core.next(seq50159__$1);
 var self__5751__auto__ = this;
-return self__5751__auto__.cljs$core$IFn$_invoke$arity$variadic(G__50248,G__50249,seq50247__$2);
+return self__5751__auto__.cljs$core$IFn$_invoke$arity$variadic(G__50160,G__50161,seq50159__$2);
 }));
 
 /**
@@ -430,8 +430,8 @@ return rewrite_clj.zip.context.reapply_context(zloc);
  * `f` defaults to [[right]]
  */
 rewrite_clj.zip.find = (function rewrite_clj$zip$find(var_args){
-var G__50259 = arguments.length;
-switch (G__50259) {
+var G__50169 = arguments.length;
+switch (G__50169) {
 case 2:
 return rewrite_clj.zip.find.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -463,8 +463,8 @@ return rewrite_clj.zip.findz.find.cljs$core$IFn$_invoke$arity$3(zloc,f,p_QMARK_)
  * `f` defaults to [[right]]
  */
 rewrite_clj.zip.find_next = (function rewrite_clj$zip$find_next(var_args){
-var G__50264 = arguments.length;
-switch (G__50264) {
+var G__50173 = arguments.length;
+switch (G__50173) {
 case 2:
 return rewrite_clj.zip.find_next.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -510,8 +510,8 @@ return rewrite_clj.zip.findz.find_next_depth_first(zloc,p_QMARK_);
  * `f` defaults to [[right]]
  */
 rewrite_clj.zip.find_tag = (function rewrite_clj$zip$find_tag(var_args){
-var G__50274 = arguments.length;
-switch (G__50274) {
+var G__50177 = arguments.length;
+switch (G__50177) {
 case 2:
 return rewrite_clj.zip.find_tag.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -543,8 +543,8 @@ return rewrite_clj.zip.findz.find_tag.cljs$core$IFn$_invoke$arity$3(zloc,f,t);
  * `f` defaults to [[right]]
  */
 rewrite_clj.zip.find_next_tag = (function rewrite_clj$zip$find_next_tag(var_args){
-var G__50288 = arguments.length;
-switch (G__50288) {
+var G__50180 = arguments.length;
+switch (G__50180) {
 case 2:
 return rewrite_clj.zip.find_next_tag.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -580,8 +580,8 @@ return rewrite_clj.zip.findz.find_next_tag.cljs$core$IFn$_invoke$arity$3(zloc,f,
  *   See docs for [sexpr nuances](/doc/01-user-guide.adoc#sexpr-nuances).
  */
 rewrite_clj.zip.find_value = (function rewrite_clj$zip$find_value(var_args){
-var G__50296 = arguments.length;
-switch (G__50296) {
+var G__50183 = arguments.length;
+switch (G__50183) {
 case 2:
 return rewrite_clj.zip.find_value.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -617,8 +617,8 @@ return rewrite_clj.zip.findz.find_value.cljs$core$IFn$_invoke$arity$3(zloc,f,v);
  *   See docs for [sexpr nuances](/doc/01-user-guide.adoc#sexpr-nuances).
  */
 rewrite_clj.zip.find_next_value = (function rewrite_clj$zip$find_next_value(var_args){
-var G__50301 = arguments.length;
-switch (G__50301) {
+var G__50188 = arguments.length;
+switch (G__50188) {
 case 2:
 return rewrite_clj.zip.find_next_value.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -650,8 +650,8 @@ return rewrite_clj.zip.findz.find_next_value.cljs$core$IFn$_invoke$arity$3(zloc,
  * `f` defaults to [[right]]
  */
 rewrite_clj.zip.find_token = (function rewrite_clj$zip$find_token(var_args){
-var G__50310 = arguments.length;
-switch (G__50310) {
+var G__50190 = arguments.length;
+switch (G__50190) {
 case 2:
 return rewrite_clj.zip.find_token.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -683,8 +683,8 @@ return rewrite_clj.zip.findz.find_token.cljs$core$IFn$_invoke$arity$3(zloc,f,p_Q
  * `f` defaults to [[right]]
  */
 rewrite_clj.zip.find_next_token = (function rewrite_clj$zip$find_next_token(var_args){
-var G__50318 = arguments.length;
-switch (G__50318) {
+var G__50193 = arguments.length;
+switch (G__50193) {
 case 2:
 return rewrite_clj.zip.find_next_token.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -716,8 +716,8 @@ return rewrite_clj.zip.findz.find_next_token.cljs$core$IFn$_invoke$arity$3(zloc,
  *   NOTE: Does not ignore whitespace/comment nodes.
  */
 rewrite_clj.zip.find_last_by_pos = (function rewrite_clj$zip$find_last_by_pos(var_args){
-var G__50329 = arguments.length;
-switch (G__50329) {
+var G__50196 = arguments.length;
+switch (G__50196) {
 case 2:
 return rewrite_clj.zip.find_last_by_pos.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -1072,8 +1072,8 @@ return rewrite_clj.zip.subedit.subzip(zloc);
  * See [docs on sub editing](/doc/01-user-guide.adoc#sub-editing).
  */
 rewrite_clj.zip.prewalk = (function rewrite_clj$zip$prewalk(var_args){
-var G__50468 = arguments.length;
-switch (G__50468) {
+var G__50218 = arguments.length;
+switch (G__50218) {
 case 2:
 return rewrite_clj.zip.prewalk.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -1139,8 +1139,8 @@ return rewrite_clj.zip.walk.prewalk.cljs$core$IFn$_invoke$arity$3(zloc,p_QMARK_,
  * See [docs on sub editing](/doc/01-user-guide.adoc#sub-editing).
  */
 rewrite_clj.zip.postwalk = (function rewrite_clj$zip$postwalk(var_args){
-var G__50488 = arguments.length;
-switch (G__50488) {
+var G__50222 = arguments.length;
+switch (G__50222) {
 case 2:
 return rewrite_clj.zip.postwalk.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -1197,8 +1197,8 @@ return rewrite_clj.zip.whitespace.skip(f,p_QMARK_,zloc);
  * `f` defaults to [[right]]
  */
 rewrite_clj.zip.skip_whitespace = (function rewrite_clj$zip$skip_whitespace(var_args){
-var G__50532 = arguments.length;
-switch (G__50532) {
+var G__50226 = arguments.length;
+switch (G__50226) {
 case 1:
 return rewrite_clj.zip.skip_whitespace.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1234,8 +1234,8 @@ return rewrite_clj.zip.whitespace.skip_whitespace_left(zloc);
  * `n` defaults to 1.
  */
 rewrite_clj.zip.insert_space_left = (function rewrite_clj$zip$insert_space_left(var_args){
-var G__50554 = arguments.length;
-switch (G__50554) {
+var G__50230 = arguments.length;
+switch (G__50230) {
 case 1:
 return rewrite_clj.zip.insert_space_left.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1265,8 +1265,8 @@ return rewrite_clj.zip.whitespace.insert_space_left.cljs$core$IFn$_invoke$arity$
  * `n` defaults to 1.
  */
 rewrite_clj.zip.insert_space_right = (function rewrite_clj$zip$insert_space_right(var_args){
-var G__50577 = arguments.length;
-switch (G__50577) {
+var G__50233 = arguments.length;
+switch (G__50233) {
 case 1:
 return rewrite_clj.zip.insert_space_right.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1296,8 +1296,8 @@ return rewrite_clj.zip.whitespace.insert_space_right.cljs$core$IFn$_invoke$arity
  * `n` defaults to 1.
  */
 rewrite_clj.zip.insert_newline_left = (function rewrite_clj$zip$insert_newline_left(var_args){
-var G__50590 = arguments.length;
-switch (G__50590) {
+var G__50236 = arguments.length;
+switch (G__50236) {
 case 1:
 return rewrite_clj.zip.insert_newline_left.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1327,8 +1327,8 @@ return rewrite_clj.zip.whitespace.insert_newline_left.cljs$core$IFn$_invoke$arit
  * `n` defaults to 1.
  */
 rewrite_clj.zip.insert_newline_right = (function rewrite_clj$zip$insert_newline_right(var_args){
-var G__50595 = arguments.length;
-switch (G__50595) {
+var G__50239 = arguments.length;
+switch (G__50239) {
 case 1:
 return rewrite_clj.zip.insert_newline_right.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -1357,8 +1357,8 @@ return rewrite_clj.zip.whitespace.insert_newline_right.cljs$core$IFn$_invoke$ari
  * DEPRECATED: renamed to [[insert-space-left]].
  */
 rewrite_clj.zip.prepend_space = (function rewrite_clj$zip$prepend_space(var_args){
-var G__50601 = arguments.length;
-switch (G__50601) {
+var G__50242 = arguments.length;
+switch (G__50242) {
 case 2:
 return rewrite_clj.zip.prepend_space.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -1387,8 +1387,8 @@ return rewrite_clj.zip.whitespace.prepend_space.cljs$core$IFn$_invoke$arity$1(zl
  * DEPRECATED: renamed to [[insert-space-right]].
  */
 rewrite_clj.zip.append_space = (function rewrite_clj$zip$append_space(var_args){
-var G__50612 = arguments.length;
-switch (G__50612) {
+var G__50244 = arguments.length;
+switch (G__50244) {
 case 2:
 return rewrite_clj.zip.append_space.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -1417,8 +1417,8 @@ return rewrite_clj.zip.whitespace.append_space.cljs$core$IFn$_invoke$arity$1(zlo
  * DEPRECATED: renamed to [[insert-newline-left]].
  */
 rewrite_clj.zip.prepend_newline = (function rewrite_clj$zip$prepend_newline(var_args){
-var G__50617 = arguments.length;
-switch (G__50617) {
+var G__50247 = arguments.length;
+switch (G__50247) {
 case 2:
 return rewrite_clj.zip.prepend_newline.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -1447,8 +1447,8 @@ return rewrite_clj.zip.whitespace.prepend_newline.cljs$core$IFn$_invoke$arity$1(
  * DEPRECATED: renamed to [[insert-newline-right]].
  */
 rewrite_clj.zip.append_newline = (function rewrite_clj$zip$append_newline(var_args){
-var G__50623 = arguments.length;
-switch (G__50623) {
+var G__50250 = arguments.length;
+switch (G__50250) {
 case 2:
 return rewrite_clj.zip.append_newline.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -1590,14 +1590,14 @@ return rewrite_clj.custom_zipper.core.replace(zloc,item);
  */
 rewrite_clj.zip.edit_STAR_ = (function rewrite_clj$zip$edit_STAR_(var_args){
 var args__5772__auto__ = [];
-var len__5766__auto___50816 = arguments.length;
-var i__5767__auto___50818 = (0);
+var len__5766__auto___50430 = arguments.length;
+var i__5767__auto___50432 = (0);
 while(true){
-if((i__5767__auto___50818 < len__5766__auto___50816)){
-args__5772__auto__.push((arguments[i__5767__auto___50818]));
+if((i__5767__auto___50432 < len__5766__auto___50430)){
+args__5772__auto__.push((arguments[i__5767__auto___50432]));
 
-var G__50822 = (i__5767__auto___50818 + (1));
-i__5767__auto___50818 = G__50822;
+var G__50434 = (i__5767__auto___50432 + (1));
+i__5767__auto___50432 = G__50434;
 continue;
 } else {
 }
@@ -1615,13 +1615,13 @@ return cljs.core.apply.cljs$core$IFn$_invoke$arity$4(rewrite_clj.custom_zipper.c
 (rewrite_clj.zip.edit_STAR_.cljs$lang$maxFixedArity = (2));
 
 /** @this {Function} */
-(rewrite_clj.zip.edit_STAR_.cljs$lang$applyTo = (function (seq50642){
-var G__50643 = cljs.core.first(seq50642);
-var seq50642__$1 = cljs.core.next(seq50642);
-var G__50644 = cljs.core.first(seq50642__$1);
-var seq50642__$2 = cljs.core.next(seq50642__$1);
+(rewrite_clj.zip.edit_STAR_.cljs$lang$applyTo = (function (seq50255){
+var G__50256 = cljs.core.first(seq50255);
+var seq50255__$1 = cljs.core.next(seq50255);
+var G__50257 = cljs.core.first(seq50255__$1);
+var seq50255__$2 = cljs.core.next(seq50255__$1);
 var self__5751__auto__ = this;
-return self__5751__auto__.cljs$core$IFn$_invoke$arity$variadic(G__50643,G__50644,seq50642__$2);
+return self__5751__auto__.cljs$core$IFn$_invoke$arity$variadic(G__50256,G__50257,seq50255__$2);
 }));
 
 /**

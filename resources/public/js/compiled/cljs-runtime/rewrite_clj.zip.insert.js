@@ -54,13 +54,13 @@ return rewrite_clj.zip.insert.insert(rewrite_clj.custom_zipper.core.down,rewrite
  *   Use [[append-child*]] to append without adding any whitespace.
  */
 rewrite_clj.zip.insert.append_child = (function rewrite_clj$zip$insert$append_child(zloc,item){
-return rewrite_clj.zip.insert.insert((function (p1__49929_SHARP_){
-var G__49930 = p1__49929_SHARP_;
-var G__49930__$1 = (((G__49930 == null))?null:rewrite_clj.custom_zipper.core.down(G__49930));
-if((G__49930__$1 == null)){
+return rewrite_clj.zip.insert.insert((function (p1__49992_SHARP_){
+var G__49994 = p1__49992_SHARP_;
+var G__49994__$1 = (((G__49994 == null))?null:rewrite_clj.custom_zipper.core.down(G__49994));
+if((G__49994__$1 == null)){
 return null;
 } else {
-return rewrite_clj.custom_zipper.core.rightmost(G__49930__$1);
+return rewrite_clj.custom_zipper.core.rightmost(G__49994__$1);
 }
 }),rewrite_clj.custom_zipper.core.append_child,cljs.core.PersistentVector.EMPTY,zloc,item);
 });

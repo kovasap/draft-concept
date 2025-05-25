@@ -1,7 +1,8 @@
 (ns app.interface.view.main
   (:require [re-frame.core :as rf]
             [reagent.core :as r]
-            [app.interface.view.encounter-map :refer [encounter-map-view]]
+            [app.interface.encounters :refer [embed-location]]
+            [app.interface.view.encounter :refer [encounter-view]]
             [app.interface.view.undo :refer [undo-button]]
             [cljs.pprint]))
 
@@ -16,4 +17,7 @@
     [undo-button]]
    [:div @(rf/subscribe [:message])]
    [:br]
-   [encounter-map-view @(rf/subscribe [:current-encounter-map-embedded])]])
+   [encounter-view 
+    (embed-location
+      @(rf/subscribe [:current-encounter-map])
+      @(rf/subscribe [:characters]))]])

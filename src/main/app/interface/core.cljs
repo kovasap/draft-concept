@@ -8,10 +8,10 @@
             [app.interface.view.main :refer [main]]
             [app.interface.utils :refer [get-only associate-by]]
             [app.interface.characters :refer [starting-characters]]
+            [app.interface.encounters :refer [starter]]
             [cljs.pprint]
             [malli.core :as m]
-            [taoensso.timbre :as log]
-            [clojure.walk :as w]))
+            [taoensso.timbre :as log]))
 
 ;; ----------------------------------------------------------------------------
 ;; Setup
@@ -19,10 +19,7 @@
 (rf/reg-event-db
   :app/setup
   (fn [db _]
-    {:current-encounter-map
-     [[{:land-type "forest"} {:land-type "clearing"}]
-      [{:land-type "clearing" :character-ids [:hare]}]
-      [{:land-type "lake"} {:land-type "forest"}]]
+    {:current-encounter-map starter
      :player-characters (into [] (map :id starting-characters))
      :characters (associate-by :id starting-characters)}))
      
@@ -37,18 +34,6 @@
   :message
   (fn [db _]
     (:message db)))
-
-; The encounter map, but with stuff like characters embedded in it
-; (instead of tracked via references)
-(rf/reg-sub
-  :current-encounter-map-embedded
-  (fn [db _]
-    (w/postwalk 
-      (fn [{:keys [character-ids] :as element}]
-        (if character-ids
-           (assoc element :characters (map (:characters db) character-ids))
-           element))
-      (:current-encounter-map db))))
 
 ; Nice way to generate subsciptions for many keys.
 (doseq [kw [:current-encounter-map :player-characters :characters]]

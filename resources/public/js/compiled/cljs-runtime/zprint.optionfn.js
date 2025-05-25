@@ -4,8 +4,8 @@ goog.provide('zprint.optionfn');
  *   'rules of defn'.
  */
 zprint.optionfn.rodfn = (function zprint$optionfn$rodfn(var_args){
-var G__50257 = arguments.length;
-switch (G__50257) {
+var G__50727 = arguments.length;
+switch (G__50727) {
 case 0:
 return zprint.optionfn.rodfn.cljs$core$IFn$_invoke$arity$0();
 
@@ -82,8 +82,8 @@ return option_map__$1;
  *   metadata, try to do it differently than the normal metadata output.
  */
 zprint.optionfn.meta_base_fn = (function zprint$optionfn$meta_base_fn(var_args){
-var G__50271 = arguments.length;
-switch (G__50271) {
+var G__50735 = arguments.length;
+switch (G__50735) {
 case 0:
 return zprint.optionfn.meta_base_fn.cljs$core$IFn$_invoke$arity$0();
 
@@ -105,18 +105,18 @@ return "meta-base-fn";
 (zprint.optionfn.meta_base_fn.cljs$core$IFn$_invoke$arity$3 = (function (opts,n,exprs){
 if(cljs.core.truth_(cljs.core.meta(cljs.core.second(exprs)))){
 var zfn_map = new cljs.core.Keyword(null,"zfn-map","zfn-map",1068295789).cljs$core$IFn$_invoke$arity$1(opts);
-var zloc_seq_nc = (function (){var G__50280 = cljs.core.identity;
-var G__50281 = new cljs.core.Keyword(null,"zloc","zloc",-2123059767).cljs$core$IFn$_invoke$arity$1(opts);
-var fexpr__50279 = new cljs.core.Keyword(null,"zmap-no-comment","zmap-no-comment",1484161325).cljs$core$IFn$_invoke$arity$1(zfn_map);
-return (fexpr__50279.cljs$core$IFn$_invoke$arity$2 ? fexpr__50279.cljs$core$IFn$_invoke$arity$2(G__50280,G__50281) : fexpr__50279.call(null,G__50280,G__50281));
+var zloc_seq_nc = (function (){var G__50740 = cljs.core.identity;
+var G__50741 = new cljs.core.Keyword(null,"zloc","zloc",-2123059767).cljs$core$IFn$_invoke$arity$1(opts);
+var fexpr__50739 = new cljs.core.Keyword(null,"zmap-no-comment","zmap-no-comment",1484161325).cljs$core$IFn$_invoke$arity$1(zfn_map);
+return (fexpr__50739.cljs$core$IFn$_invoke$arity$2 ? fexpr__50739.cljs$core$IFn$_invoke$arity$2(G__50740,G__50741) : fexpr__50739.call(null,G__50740,G__50741));
 })();
 var meta_zloc = cljs.core.second(zloc_seq_nc);
-var meta_seq = (function (){var fexpr__50282 = new cljs.core.Keyword(null,"zmap-no-comment","zmap-no-comment",1484161325).cljs$core$IFn$_invoke$arity$1(zfn_map);
-return (fexpr__50282.cljs$core$IFn$_invoke$arity$2 ? fexpr__50282.cljs$core$IFn$_invoke$arity$2(cljs.core.identity,meta_zloc) : fexpr__50282.call(null,cljs.core.identity,meta_zloc));
+var meta_seq = (function (){var fexpr__50742 = new cljs.core.Keyword(null,"zmap-no-comment","zmap-no-comment",1484161325).cljs$core$IFn$_invoke$arity$1(zfn_map);
+return (fexpr__50742.cljs$core$IFn$_invoke$arity$2 ? fexpr__50742.cljs$core$IFn$_invoke$arity$2(cljs.core.identity,meta_zloc) : fexpr__50742.call(null,cljs.core.identity,meta_zloc));
 })();
-if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"meta","meta",1499536964),(function (){var G__50284 = cljs.core.second(meta_seq);
-var fexpr__50283 = new cljs.core.Keyword(null,"ztag","ztag",125694964).cljs$core$IFn$_invoke$arity$1(zfn_map);
-return (fexpr__50283.cljs$core$IFn$_invoke$arity$1 ? fexpr__50283.cljs$core$IFn$_invoke$arity$1(G__50284) : fexpr__50283.call(null,G__50284));
+if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(new cljs.core.Keyword(null,"meta","meta",1499536964),(function (){var G__50744 = cljs.core.second(meta_seq);
+var fexpr__50743 = new cljs.core.Keyword(null,"ztag","ztag",125694964).cljs$core$IFn$_invoke$arity$1(zfn_map);
+return (fexpr__50743.cljs$core$IFn$_invoke$arity$1 ? fexpr__50743.cljs$core$IFn$_invoke$arity$1(G__50744) : fexpr__50743.call(null,G__50744));
 })())){
 return null;
 } else {

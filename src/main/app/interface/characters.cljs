@@ -50,4 +50,4 @@
       :class-keyword :skirmisher
       :inventory []
       :composition {:fire 1 :air 1 :earth 8 :water 3 :light 1 :dark 0}
-      :controlled-by-player? true}]))
+      :controlled-by-player? false}]))

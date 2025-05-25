@@ -4,22 +4,22 @@ zprint.hiccup.html_codes = cljs.core.PersistentHashMap.fromArrays([new cljs.core
  * Wraps a string with hiccup expressions.
  */
 zprint.hiccup.hiccup_color_str = (function zprint$hiccup$hiccup_color_str(var_args){
-var G__48792 = arguments.length;
-switch (G__48792) {
+var G__48715 = arguments.length;
+switch (G__48715) {
 case 1:
 return zprint.hiccup.hiccup_color_str.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
 break;
 default:
 var args_arr__5791__auto__ = [];
-var len__5766__auto___48810 = arguments.length;
-var i__5767__auto___48811 = (0);
+var len__5766__auto___48723 = arguments.length;
+var i__5767__auto___48724 = (0);
 while(true){
-if((i__5767__auto___48811 < len__5766__auto___48810)){
-args_arr__5791__auto__.push((arguments[i__5767__auto___48811]));
+if((i__5767__auto___48724 < len__5766__auto___48723)){
+args_arr__5791__auto__.push((arguments[i__5767__auto___48724]));
 
-var G__48812 = (i__5767__auto___48811 + (1));
-i__5767__auto___48811 = G__48812;
+var G__48725 = (i__5767__auto___48724 + (1));
+i__5767__auto___48724 = G__48725;
 continue;
 } else {
 }
@@ -40,11 +40,11 @@ return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMP
 }));
 
 /** @this {Function} */
-(zprint.hiccup.hiccup_color_str.cljs$lang$applyTo = (function (seq48790){
-var G__48791 = cljs.core.first(seq48790);
-var seq48790__$1 = cljs.core.next(seq48790);
+(zprint.hiccup.hiccup_color_str.cljs$lang$applyTo = (function (seq48713){
+var G__48714 = cljs.core.first(seq48713);
+var seq48713__$1 = cljs.core.next(seq48713);
 var self__5751__auto__ = this;
-return self__5751__auto__.cljs$core$IFn$_invoke$arity$variadic(G__48791,seq48790__$1);
+return self__5751__auto__.cljs$core$IFn$_invoke$arity$variadic(G__48714,seq48713__$1);
 }));
 
 (zprint.hiccup.hiccup_color_str.cljs$core$IFn$_invoke$arity$1 = (function (s){
@@ -71,8 +71,8 @@ if(cljs.core.vector_QMARK_(coll)){
 var first_sym = cljs.core.symbol.cljs$core$IFn$_invoke$arity$1(cljs.core.first(coll));
 var map_second_QMARK_ = cljs.core.map_QMARK_(cljs.core.second(coll));
 var rest_coll = ((map_second_QMARK_)?cljs.core.nnext(coll):cljs.core.next(coll));
-return ["<",cljs.core.str.cljs$core$IFn$_invoke$arity$1(first_sym),cljs.core.str.cljs$core$IFn$_invoke$arity$1(((map_second_QMARK_)?(function (){var G__48802 = cljs.core.second(coll);
-return (zprint.hiccup.hiccup__GT_html.cljs$core$IFn$_invoke$arity$1 ? zprint.hiccup.hiccup__GT_html.cljs$core$IFn$_invoke$arity$1(G__48802) : zprint.hiccup.hiccup__GT_html.call(null,G__48802));
+return ["<",cljs.core.str.cljs$core$IFn$_invoke$arity$1(first_sym),cljs.core.str.cljs$core$IFn$_invoke$arity$1(((map_second_QMARK_)?(function (){var G__48721 = cljs.core.second(coll);
+return (zprint.hiccup.hiccup__GT_html.cljs$core$IFn$_invoke$arity$1 ? zprint.hiccup.hiccup__GT_html.cljs$core$IFn$_invoke$arity$1(G__48721) : zprint.hiccup.hiccup__GT_html.call(null,G__48721));
 })():"")),">",cljs.core.str.cljs$core$IFn$_invoke$arity$1(cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.str,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2(zprint.hiccup.hiccup__GT_html,rest_coll))),"</",cljs.core.str.cljs$core$IFn$_invoke$arity$1(first_sym),">"].join('');
 } else {
 if(cljs.core.map_QMARK_(coll)){

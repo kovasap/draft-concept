@@ -3,36 +3,36 @@ goog.provide('rewrite_clj.zip.whitespace');
  * Returns true when the current the node in `zloc` is a Clojure whitespace (which includes the comma).
  */
 rewrite_clj.zip.whitespace.whitespace_QMARK_ = (function rewrite_clj$zip$whitespace$whitespace_QMARK_(zloc){
-var G__49792 = zloc;
-var G__49792__$1 = (((G__49792 == null))?null:rewrite_clj.custom_zipper.core.node(G__49792));
-if((G__49792__$1 == null)){
+var G__49859 = zloc;
+var G__49859__$1 = (((G__49859 == null))?null:rewrite_clj.custom_zipper.core.node(G__49859));
+if((G__49859__$1 == null)){
 return null;
 } else {
-return rewrite_clj.node.whitespace.whitespace_QMARK_(G__49792__$1);
+return rewrite_clj.node.whitespace.whitespace_QMARK_(G__49859__$1);
 }
 });
 /**
  * Returns true when the current node in `zloc` is a linebreak.
  */
 rewrite_clj.zip.whitespace.linebreak_QMARK_ = (function rewrite_clj$zip$whitespace$linebreak_QMARK_(zloc){
-var G__49796 = zloc;
-var G__49796__$1 = (((G__49796 == null))?null:rewrite_clj.custom_zipper.core.node(G__49796));
-if((G__49796__$1 == null)){
+var G__49861 = zloc;
+var G__49861__$1 = (((G__49861 == null))?null:rewrite_clj.custom_zipper.core.node(G__49861));
+if((G__49861__$1 == null)){
 return null;
 } else {
-return rewrite_clj.node.whitespace.linebreak_QMARK_(G__49796__$1);
+return rewrite_clj.node.whitespace.linebreak_QMARK_(G__49861__$1);
 }
 });
 /**
  * Returns true when the current node in `zloc` is a comment.
  */
 rewrite_clj.zip.whitespace.comment_QMARK_ = (function rewrite_clj$zip$whitespace$comment_QMARK_(zloc){
-var G__49797 = zloc;
-var G__49797__$1 = (((G__49797 == null))?null:rewrite_clj.custom_zipper.core.node(G__49797));
-if((G__49797__$1 == null)){
+var G__49862 = zloc;
+var G__49862__$1 = (((G__49862 == null))?null:rewrite_clj.custom_zipper.core.node(G__49862));
+if((G__49862__$1 == null)){
 return null;
 } else {
-return rewrite_clj.node.comment.comment_QMARK_(G__49797__$1);
+return rewrite_clj.node.comment.comment_QMARK_(G__49862__$1);
 }
 });
 /**
@@ -50,12 +50,12 @@ return and__5041__auto__;
  * Returns true when current node in `zloc` is whitespace or a comment.
  */
 rewrite_clj.zip.whitespace.whitespace_or_comment_QMARK_ = (function rewrite_clj$zip$whitespace$whitespace_or_comment_QMARK_(zloc){
-var G__49817 = zloc;
-var G__49817__$1 = (((G__49817 == null))?null:rewrite_clj.custom_zipper.core.node(G__49817));
-if((G__49817__$1 == null)){
+var G__49868 = zloc;
+var G__49868__$1 = (((G__49868 == null))?null:rewrite_clj.custom_zipper.core.node(G__49868));
+if((G__49868__$1 == null)){
 return null;
 } else {
-return rewrite_clj.node.extras.whitespace_or_comment_QMARK_(G__49817__$1);
+return rewrite_clj.node.extras.whitespace_or_comment_QMARK_(G__49868__$1);
 }
 });
 /**
@@ -72,8 +72,8 @@ return cljs.core.first(cljs.core.drop_while.cljs$core$IFn$_invoke$arity$2(p_QMAR
  * `f` defaults to [[right]]
  */
 rewrite_clj.zip.whitespace.skip_whitespace = (function rewrite_clj$zip$whitespace$skip_whitespace(var_args){
-var G__49825 = arguments.length;
-switch (G__49825) {
+var G__49876 = arguments.length;
+switch (G__49876) {
 case 1:
 return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -109,8 +109,8 @@ return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$2(
  * `n` defaults to 1.
  */
 rewrite_clj.zip.whitespace.insert_space_left = (function rewrite_clj$zip$whitespace$insert_space_left(var_args){
-var G__49838 = arguments.length;
-switch (G__49838) {
+var G__49883 = arguments.length;
+switch (G__49883) {
 case 1:
 return rewrite_clj.zip.whitespace.insert_space_left.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -149,8 +149,8 @@ return zloc;
  * `n` defaults to 1.
  */
 rewrite_clj.zip.whitespace.insert_space_right = (function rewrite_clj$zip$whitespace$insert_space_right(var_args){
-var G__49854 = arguments.length;
-switch (G__49854) {
+var G__49886 = arguments.length;
+switch (G__49886) {
 case 1:
 return rewrite_clj.zip.whitespace.insert_space_right.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -189,8 +189,8 @@ return zloc;
  * `n` defaults to 1.
  */
 rewrite_clj.zip.whitespace.insert_newline_left = (function rewrite_clj$zip$whitespace$insert_newline_left(var_args){
-var G__49861 = arguments.length;
-switch (G__49861) {
+var G__49902 = arguments.length;
+switch (G__49902) {
 case 1:
 return rewrite_clj.zip.whitespace.insert_newline_left.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -220,8 +220,8 @@ return rewrite_clj.custom_zipper.core.insert_left(zloc,rewrite_clj.node.whitespa
  * `n` defaults to 1.
  */
 rewrite_clj.zip.whitespace.insert_newline_right = (function rewrite_clj$zip$whitespace$insert_newline_right(var_args){
-var G__49869 = arguments.length;
-switch (G__49869) {
+var G__49913 = arguments.length;
+switch (G__49913) {
 case 1:
 return rewrite_clj.zip.whitespace.insert_newline_right.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -250,8 +250,8 @@ return rewrite_clj.custom_zipper.core.insert_right(zloc,rewrite_clj.node.whitesp
  * DEPRECATED: renamed to [[insert-space-left]].
  */
 rewrite_clj.zip.whitespace.prepend_space = (function rewrite_clj$zip$whitespace$prepend_space(var_args){
-var G__49877 = arguments.length;
-switch (G__49877) {
+var G__49916 = arguments.length;
+switch (G__49916) {
 case 2:
 return rewrite_clj.zip.whitespace.prepend_space.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -286,8 +286,8 @@ return rewrite_clj.zip.whitespace.prepend_space.cljs$core$IFn$_invoke$arity$2(zl
  * DEPRECATED: renamed to [[insert-space-right]].
  */
 rewrite_clj.zip.whitespace.append_space = (function rewrite_clj$zip$whitespace$append_space(var_args){
-var G__49879 = arguments.length;
-switch (G__49879) {
+var G__49924 = arguments.length;
+switch (G__49924) {
 case 2:
 return rewrite_clj.zip.whitespace.append_space.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -322,8 +322,8 @@ return rewrite_clj.zip.whitespace.append_space.cljs$core$IFn$_invoke$arity$2(zlo
  * DEPRECATED: renamed to [[insert-newline-left]].
  */
 rewrite_clj.zip.whitespace.prepend_newline = (function rewrite_clj$zip$whitespace$prepend_newline(var_args){
-var G__49882 = arguments.length;
-switch (G__49882) {
+var G__49933 = arguments.length;
+switch (G__49933) {
 case 2:
 return rewrite_clj.zip.whitespace.prepend_newline.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -358,8 +358,8 @@ return rewrite_clj.zip.whitespace.prepend_newline.cljs$core$IFn$_invoke$arity$2(
  * DEPRECATED: renamed to [[insert-newline-right]].
  */
 rewrite_clj.zip.whitespace.append_newline = (function rewrite_clj$zip$whitespace$append_newline(var_args){
-var G__49884 = arguments.length;
-switch (G__49884) {
+var G__49937 = arguments.length;
+switch (G__49937) {
 case 2:
 return rewrite_clj.zip.whitespace.append_newline.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 

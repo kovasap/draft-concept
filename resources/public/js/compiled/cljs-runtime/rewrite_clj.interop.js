@@ -6,14 +6,14 @@ goog.provide('rewrite_clj.interop');
  */
 rewrite_clj.interop.simple_format = (function rewrite_clj$interop$simple_format(var_args){
 var args__5772__auto__ = [];
-var len__5766__auto___48975 = arguments.length;
-var i__5767__auto___48976 = (0);
+var len__5766__auto___48939 = arguments.length;
+var i__5767__auto___48940 = (0);
 while(true){
-if((i__5767__auto___48976 < len__5766__auto___48975)){
-args__5772__auto__.push((arguments[i__5767__auto___48976]));
+if((i__5767__auto___48940 < len__5766__auto___48939)){
+args__5772__auto__.push((arguments[i__5767__auto___48940]));
 
-var G__48977 = (i__5767__auto___48976 + (1));
-i__5767__auto___48976 = G__48977;
+var G__48944 = (i__5767__auto___48940 + (1));
+i__5767__auto___48940 = G__48944;
 continue;
 } else {
 }
@@ -31,11 +31,11 @@ return cljs.core.apply.cljs$core$IFn$_invoke$arity$3(goog.string.format,template
 (rewrite_clj.interop.simple_format.cljs$lang$maxFixedArity = (1));
 
 /** @this {Function} */
-(rewrite_clj.interop.simple_format.cljs$lang$applyTo = (function (seq48937){
-var G__48938 = cljs.core.first(seq48937);
-var seq48937__$1 = cljs.core.next(seq48937);
+(rewrite_clj.interop.simple_format.cljs$lang$applyTo = (function (seq48929){
+var G__48930 = cljs.core.first(seq48929);
+var seq48929__$1 = cljs.core.next(seq48929);
 var self__5751__auto__ = this;
-return self__5751__auto__.cljs$core$IFn$_invoke$arity$variadic(G__48938,seq48937__$1);
+return self__5751__auto__.cljs$core$IFn$_invoke$arity$variadic(G__48930,seq48929__$1);
 }));
 
 rewrite_clj.interop.str__GT_int = (function rewrite_clj$interop$str__GT_int(s){

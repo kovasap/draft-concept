@@ -1,14 +1,14 @@
 goog.provide('rewrite_clj.parser.token');
 rewrite_clj.parser.token.read_to_boundary = (function rewrite_clj$parser$token$read_to_boundary(var_args){
 var args__5772__auto__ = [];
-var len__5766__auto___49761 = arguments.length;
-var i__5767__auto___49762 = (0);
+var len__5766__auto___49846 = arguments.length;
+var i__5767__auto___49847 = (0);
 while(true){
-if((i__5767__auto___49762 < len__5766__auto___49761)){
-args__5772__auto__.push((arguments[i__5767__auto___49762]));
+if((i__5767__auto___49847 < len__5766__auto___49846)){
+args__5772__auto__.push((arguments[i__5767__auto___49847]));
 
-var G__49763 = (i__5767__auto___49762 + (1));
-i__5767__auto___49762 = G__49763;
+var G__49848 = (i__5767__auto___49847 + (1));
+i__5767__auto___49847 = G__49848;
 continue;
 } else {
 }
@@ -19,14 +19,14 @@ var argseq__5773__auto__ = ((((1) < args__5772__auto__.length))?(new cljs.core.I
 return rewrite_clj.parser.token.read_to_boundary.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),argseq__5773__auto__);
 });
 
-(rewrite_clj.parser.token.read_to_boundary.cljs$core$IFn$_invoke$arity$variadic = (function (reader,p__49750){
-var vec__49751 = p__49750;
-var allowed = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__49751,(0),null);
+(rewrite_clj.parser.token.read_to_boundary.cljs$core$IFn$_invoke$arity$variadic = (function (reader,p__49837){
+var vec__49839 = p__49837;
+var allowed = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__49839,(0),null);
 var allowed_QMARK_ = cljs.core.set(allowed);
-return rewrite_clj.reader.read_until(reader,(function (p1__49746_SHARP_){
-var and__5041__auto__ = cljs.core.not((allowed_QMARK_.cljs$core$IFn$_invoke$arity$1 ? allowed_QMARK_.cljs$core$IFn$_invoke$arity$1(p1__49746_SHARP_) : allowed_QMARK_.call(null,p1__49746_SHARP_)));
+return rewrite_clj.reader.read_until(reader,(function (p1__49834_SHARP_){
+var and__5041__auto__ = cljs.core.not((allowed_QMARK_.cljs$core$IFn$_invoke$arity$1 ? allowed_QMARK_.cljs$core$IFn$_invoke$arity$1(p1__49834_SHARP_) : allowed_QMARK_.call(null,p1__49834_SHARP_)));
 if(and__5041__auto__){
-return rewrite_clj.reader.whitespace_or_boundary_QMARK_(p1__49746_SHARP_);
+return rewrite_clj.reader.whitespace_or_boundary_QMARK_(p1__49834_SHARP_);
 } else {
 return and__5041__auto__;
 }
@@ -36,11 +36,11 @@ return and__5041__auto__;
 (rewrite_clj.parser.token.read_to_boundary.cljs$lang$maxFixedArity = (1));
 
 /** @this {Function} */
-(rewrite_clj.parser.token.read_to_boundary.cljs$lang$applyTo = (function (seq49747){
-var G__49748 = cljs.core.first(seq49747);
-var seq49747__$1 = cljs.core.next(seq49747);
+(rewrite_clj.parser.token.read_to_boundary.cljs$lang$applyTo = (function (seq49835){
+var G__49836 = cljs.core.first(seq49835);
+var seq49835__$1 = cljs.core.next(seq49835);
 var self__5751__auto__ = this;
-return self__5751__auto__.cljs$core$IFn$_invoke$arity$variadic(G__49748,seq49747__$1);
+return self__5751__auto__.cljs$core$IFn$_invoke$arity$variadic(G__49836,seq49835__$1);
 }));
 
 rewrite_clj.parser.token.read_to_char_boundary = (function rewrite_clj$parser$token$read_to_char_boundary(reader){

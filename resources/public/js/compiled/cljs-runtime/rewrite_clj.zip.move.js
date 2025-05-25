@@ -3,48 +3,48 @@ goog.provide('rewrite_clj.zip.move');
  * Return zipper with location moved right to next non-whitespace/non-comment sibling of current node in `zloc`.
  */
 rewrite_clj.zip.move.right = (function rewrite_clj$zip$move$right(zloc){
-var G__49892 = zloc;
-var G__49892__$1 = (((G__49892 == null))?null:rewrite_clj.custom_zipper.core.right(G__49892));
-if((G__49892__$1 == null)){
+var G__49941 = zloc;
+var G__49941__$1 = (((G__49941 == null))?null:rewrite_clj.custom_zipper.core.right(G__49941));
+if((G__49941__$1 == null)){
 return null;
 } else {
-return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$1(G__49892__$1);
+return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$1(G__49941__$1);
 }
 });
 /**
  * Return zipper with location moved left to next non-whitespace/non-comment sibling of current node in `zloc`.
  */
 rewrite_clj.zip.move.left = (function rewrite_clj$zip$move$left(zloc){
-var G__49897 = zloc;
-var G__49897__$1 = (((G__49897 == null))?null:rewrite_clj.custom_zipper.core.left(G__49897));
-if((G__49897__$1 == null)){
+var G__49943 = zloc;
+var G__49943__$1 = (((G__49943 == null))?null:rewrite_clj.custom_zipper.core.left(G__49943));
+if((G__49943__$1 == null)){
 return null;
 } else {
-return rewrite_clj.zip.whitespace.skip_whitespace_left(G__49897__$1);
+return rewrite_clj.zip.whitespace.skip_whitespace_left(G__49943__$1);
 }
 });
 /**
  * Return zipper with location moved down to the first non-whitespace/non-comment child node of the current node in `zloc`, or nil if no applicable children.
  */
 rewrite_clj.zip.move.down = (function rewrite_clj$zip$move$down(zloc){
-var G__49900 = zloc;
-var G__49900__$1 = (((G__49900 == null))?null:rewrite_clj.custom_zipper.core.down(G__49900));
-if((G__49900__$1 == null)){
+var G__49946 = zloc;
+var G__49946__$1 = (((G__49946 == null))?null:rewrite_clj.custom_zipper.core.down(G__49946));
+if((G__49946__$1 == null)){
 return null;
 } else {
-return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$1(G__49900__$1);
+return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$1(G__49946__$1);
 }
 });
 /**
  * Return zipper with location moved up to next non-whitespace/non-comment parent of current node in `zloc`, or `nil` if at the top.
  */
 rewrite_clj.zip.move.up = (function rewrite_clj$zip$move$up(zloc){
-var G__49908 = zloc;
-var G__49908__$1 = (((G__49908 == null))?null:rewrite_clj.custom_zipper.core.up(G__49908));
-if((G__49908__$1 == null)){
+var G__49949 = zloc;
+var G__49949__$1 = (((G__49949 == null))?null:rewrite_clj.custom_zipper.core.up(G__49949));
+if((G__49949__$1 == null)){
 return null;
 } else {
-return rewrite_clj.zip.whitespace.skip_whitespace_left(G__49908__$1);
+return rewrite_clj.zip.whitespace.skip_whitespace_left(G__49949__$1);
 }
 });
 /**
@@ -53,12 +53,12 @@ return rewrite_clj.zip.whitespace.skip_whitespace_left(G__49908__$1);
  */
 rewrite_clj.zip.move.next = (function rewrite_clj$zip$move$next(zloc){
 if(cljs.core.truth_(zloc)){
-var or__5043__auto__ = (function (){var G__49910 = zloc;
-var G__49910__$1 = (((G__49910 == null))?null:rewrite_clj.custom_zipper.core.next(G__49910));
-if((G__49910__$1 == null)){
+var or__5043__auto__ = (function (){var G__49952 = zloc;
+var G__49952__$1 = (((G__49952 == null))?null:rewrite_clj.custom_zipper.core.next(G__49952));
+if((G__49952__$1 == null)){
 return null;
 } else {
-return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$2(rewrite_clj.custom_zipper.core.next,G__49910__$1);
+return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$2(rewrite_clj.custom_zipper.core.next,G__49952__$1);
 }
 })();
 if(cljs.core.truth_(or__5043__auto__)){
@@ -102,36 +102,36 @@ return (rewrite_clj.zip.whitespace.skip_whitespace_left(rewrite_clj.custom_zippe
  * Return zipper with location moved to the previous depth-first non-whitespace/non-comment node in `zloc`. If already at root, returns nil.
  */
 rewrite_clj.zip.move.prev = (function rewrite_clj$zip$move$prev(zloc){
-var G__49917 = zloc;
-var G__49917__$1 = (((G__49917 == null))?null:rewrite_clj.custom_zipper.core.prev(G__49917));
-if((G__49917__$1 == null)){
+var G__49955 = zloc;
+var G__49955__$1 = (((G__49955 == null))?null:rewrite_clj.custom_zipper.core.prev(G__49955));
+if((G__49955__$1 == null)){
 return null;
 } else {
-return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$2(rewrite_clj.custom_zipper.core.prev,G__49917__$1);
+return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$2(rewrite_clj.custom_zipper.core.prev,G__49955__$1);
 }
 });
 /**
  * Return zipper with location moved to the leftmost non-whitespace/non-comment sibling of current node in `zloc`.
  */
 rewrite_clj.zip.move.leftmost = (function rewrite_clj$zip$move$leftmost(zloc){
-var G__49918 = zloc;
-var G__49918__$1 = (((G__49918 == null))?null:rewrite_clj.custom_zipper.core.leftmost(G__49918));
-if((G__49918__$1 == null)){
+var G__49959 = zloc;
+var G__49959__$1 = (((G__49959 == null))?null:rewrite_clj.custom_zipper.core.leftmost(G__49959));
+if((G__49959__$1 == null)){
 return null;
 } else {
-return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$1(G__49918__$1);
+return rewrite_clj.zip.whitespace.skip_whitespace.cljs$core$IFn$_invoke$arity$1(G__49959__$1);
 }
 });
 /**
  * Return zipper with location moved to the rightmost non-whitespace/non-comment sibling of current node in `zloc`.
  */
 rewrite_clj.zip.move.rightmost = (function rewrite_clj$zip$move$rightmost(zloc){
-var G__49919 = zloc;
-var G__49919__$1 = (((G__49919 == null))?null:rewrite_clj.custom_zipper.core.rightmost(G__49919));
-if((G__49919__$1 == null)){
+var G__49960 = zloc;
+var G__49960__$1 = (((G__49960 == null))?null:rewrite_clj.custom_zipper.core.rightmost(G__49960));
+if((G__49960__$1 == null)){
 return null;
 } else {
-return rewrite_clj.zip.whitespace.skip_whitespace_left(G__49919__$1);
+return rewrite_clj.zip.whitespace.skip_whitespace_left(G__49960__$1);
 }
 });
 

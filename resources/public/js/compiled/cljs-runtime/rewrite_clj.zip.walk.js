@@ -20,8 +20,8 @@ while(true){
 if(cljs.core.truth_(rewrite_clj.zip.move.end_QMARK_(loc))){
 return loc;
 } else {
-var G__50092 = rewrite_clj.zip.move.next(rewrite_clj.zip.walk.process_loc(loc,p_QMARK_,f));
-loc = G__50092;
+var G__50084 = rewrite_clj.zip.move.next(rewrite_clj.zip.walk.process_loc(loc,p_QMARK_,f));
+loc = G__50084;
 continue;
 }
 break;
@@ -68,8 +68,8 @@ break;
  * See [docs on sub editing](/doc/01-user-guide.adoc#sub-editing).
  */
 rewrite_clj.zip.walk.prewalk = (function rewrite_clj$zip$walk$prewalk(var_args){
-var G__50079 = arguments.length;
-switch (G__50079) {
+var G__50072 = arguments.length;
+switch (G__50072) {
 case 2:
 return rewrite_clj.zip.walk.prewalk.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -99,13 +99,13 @@ var loc = rewrite_clj.zip.walk.downmost(zloc);
 while(true){
 var loc__$1 = rewrite_clj.zip.walk.process_loc(loc,p_QMARK_,f);
 if(cljs.core.truth_(rewrite_clj.zip.move.right(loc__$1))){
-var G__50097 = rewrite_clj.zip.walk.downmost(rewrite_clj.zip.move.right(loc__$1));
-loc = G__50097;
+var G__50086 = rewrite_clj.zip.walk.downmost(rewrite_clj.zip.move.right(loc__$1));
+loc = G__50086;
 continue;
 } else {
 if(cljs.core.truth_(rewrite_clj.zip.move.up(loc__$1))){
-var G__50098 = rewrite_clj.zip.move.up(loc__$1);
-loc = G__50098;
+var G__50087 = rewrite_clj.zip.move.up(loc__$1);
+loc = G__50087;
 continue;
 } else {
 return loc__$1;
@@ -156,8 +156,8 @@ break;
  * See [docs on sub editing](/doc/01-user-guide.adoc#sub-editing).
  */
 rewrite_clj.zip.walk.postwalk = (function rewrite_clj$zip$walk$postwalk(var_args){
-var G__50088 = arguments.length;
-switch (G__50088) {
+var G__50080 = arguments.length;
+switch (G__50080) {
 case 2:
 return rewrite_clj.zip.walk.postwalk.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -177,8 +177,8 @@ return rewrite_clj.zip.walk.postwalk.cljs$core$IFn$_invoke$arity$3(zloc,cljs.cor
 }));
 
 (rewrite_clj.zip.walk.postwalk.cljs$core$IFn$_invoke$arity$3 = (function (zloc,p_QMARK_,f){
-return rewrite_clj.zip.subedit.subedit_node(zloc,(function (p1__50085_SHARP_){
-return rewrite_clj.zip.walk.postwalk_subtree(p_QMARK_,f,p1__50085_SHARP_);
+return rewrite_clj.zip.subedit.subedit_node(zloc,(function (p1__50076_SHARP_){
+return rewrite_clj.zip.walk.postwalk_subtree(p_QMARK_,f,p1__50076_SHARP_);
 }));
 }));
 
