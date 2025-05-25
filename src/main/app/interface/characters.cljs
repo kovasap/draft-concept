@@ -2,9 +2,12 @@
   (:require [malli.core :as m]
             [app.interface.items :refer [Item]]))
 
+(def CharacterId
+  :keyword)
+
 (def Character
   [:map
-   [:id :keyword]
+   [:id CharacterId]
    [:full-name :string]
    [:image :string]
    [:class-keyword :keyword]

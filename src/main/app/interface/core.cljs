@@ -9,6 +9,7 @@
             [app.interface.utils :refer [get-only associate-by]]
             [app.interface.characters :refer [starting-characters]]
             [app.interface.encounters :refer [starter]]
+            [app.interface.animations]
             [cljs.pprint]
             [malli.core :as m]
             [taoensso.timbre :as log]))
@@ -20,6 +21,7 @@
   :app/setup
   (fn [db _]
     {:current-encounter-map starter
+     :actions []
      :player-characters (into [] (map :id starting-characters))
      :characters (associate-by :id starting-characters)}))
      
@@ -40,6 +42,9 @@
   (rf/reg-sub
     kw
     (fn [db _] (kw db))))
+
+;; -- Game Flow -------------------------------------------------------------
+
 
 ;; -- Entry Point -------------------------------------------------------------
 
