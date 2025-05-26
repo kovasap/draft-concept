@@ -5,6 +5,17 @@
 (def CharacterId
   :keyword)
 
+(def elements
+  {:fire {}
+   :air {}
+   :water {}
+   :fire {}
+   :light {}
+   :dark {}})
+
+(def Element
+  (into [:enum] (keys elements)))
+
 (def Character
   [:map
    [:id CharacterId]
@@ -12,17 +23,13 @@
    [:image :string]
    [:class-keyword :keyword]
    [:inventory [:vector Item]]
-   ; If injuries > earth composition, the character dies
    [:injuries :int]
-   ; If traumas > water composition, the character dies
+   [:vigor :int]
    [:traumas :int]
+   [:will :int]
    [:is-dead :boolean]
-   [:composition [:map [:fire :int]
-                       [:air :int]
-                       [:earth :int]
-                       [:water :int]
-                       [:light :int]
-                       [:dark :int]]]
+   [:affinities [:vector Element]]
+   [:weaknesses [:vector Element]]
    [:controlled-by-player? :boolean]])
 
 ; Sprites and animations can be found at

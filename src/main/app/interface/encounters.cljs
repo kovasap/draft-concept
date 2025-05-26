@@ -10,15 +10,18 @@
    :clearing {}
    :lake {}})
 
+(def LandType
+  (into [:enum] (keys land-types)))
+
 (def Location
   [:map
-   [:land-type (into [:enum] (keys land-types))]
+   [:land-type LandType]
    [:character-ids [:vector :keyword]]
    [:enemy-ids [:vector :keyword]]])
 
 (def EmbeddedLocation
   [:map
-   [:land-type (into [:enum] (keys land-types))]
+   [:land-type LandType]
    [:characters [:vector Character]]
    [:enemies [:vector Character]]])
 
