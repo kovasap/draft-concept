@@ -2,7 +2,7 @@
   (:require
     [re-frame.core :as rf]
     [app.interface.re-frame-utils :refer [dispatch-sequentially-with-timings]]
-    [app.interface.constant-game-data :refer [character-classes]]))
+    [app.interface.characters :refer [get-animation-frame-images get-animation-frames]]))
 
 (def time-between-frames-ms 80)
 
@@ -12,31 +12,17 @@
 (rf/reg-event-fx
   :play-animation
   (fn [_
-       [_ {:keys [class-keyword] :as character}
+       [_ {:keys [class-id] :as character}
         animation]]
-    (let [image-paths (conj
-                        (for [i (range (animation (:animation-frames
-                                                    (class-keyword
-                                                      character-classes))))]
-                          (str "class-images/"
-                               (name class-keyword)
-                               "/"
-                               (name animation)
-                               "/"
-                               (inc i)
-                               ".png"))
-                        (str "class-images/"
-                             (name class-keyword)
-                             "/idle.png"))]
-      {:fx (dispatch-sequentially-with-timings
-             (for [image image-paths]
-              [[:update-image character image]
-               time-between-frames-ms]))})))
+    {:fx (dispatch-sequentially-with-timings
+           (for [image (get-animation-frame-images class-id animation)]
+            [[:update-image character image]
+             time-between-frames-ms]))}))
 
 (defn get-animation-duration
-  [{:keys [class-keyword] :as character} animation]
+  [{:keys [class-id] :as character} animation]
   (* time-between-frames-ms
-     (animation (:animation-frames (class-keyword character-classes)))))
+     (get-animation-frames class-id animation)))
 
 (rf/reg-event-db
   :update-image

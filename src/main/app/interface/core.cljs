@@ -8,7 +8,7 @@
             [app.interface.view.main :refer [main]]
             [app.interface.utils :refer [get-only associate-by]]
             [app.interface.characters :refer [starting-characters]]
-            [app.interface.encounters :refer [starter]]
+            [app.interface.world-map :refer [world-map]]
             [app.interface.animations]
             [cljs.pprint]
             [malli.core :as m]
@@ -20,7 +20,7 @@
 (rf/reg-event-db
   :app/setup
   (fn [db _]
-    {:current-encounter-map starter
+    {:world-map world-map
      :actions []
      :player-characters (into [] (map :id starting-characters))
      :characters (associate-by :id starting-characters)}))
@@ -38,7 +38,7 @@
     (:message db)))
 
 ; Nice way to generate subsciptions for many keys.
-(doseq [kw [:current-encounter-map :player-characters :characters]]
+(doseq [kw [:world-map :player-characters :characters]]
   (rf/reg-sub
     kw
     (fn [db _] (kw db))))

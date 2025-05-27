@@ -1,4 +1,4 @@
-(ns app.interface.view.encounter
+(ns app.interface.view.world-map
   (:require [app.interface.view.character :refer [character-view]]))
 
 ; Useful documentation at
@@ -16,7 +16,7 @@
 ; TODO use
 ; https://stackoverflow.com/questions/8672369/how-to-draw-a-line-between-two-divs
 ; to draw lines between map locations
-(defn encounter-view
+(defn world-map-view
   [embedded-encounter]
   (into [:div.container]
         (for [same-level-locations (reverse embedded-encounter)]

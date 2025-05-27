@@ -1,4 +1,4 @@
-(ns app.interface.encounters
+(ns app.interface.world-map
   (:require 
     [malli.core :as m]
     [malli.experimental :as mx]
@@ -25,26 +25,23 @@
    [:characters [:vector Character]]
    [:enemies [:vector Character]]])
 
-(def Encounter
+(def WorldMap
   [:vector 
    [:vector Location]])
 
-(def EmbeddedEncounter
+(def EmbeddedWorldMap
   [:vector 
    [:vector EmbeddedLocation]])
 
 #_(m/=> embed-location
         [:=>
-         [:cat #'Encounter [:map-of :keyword #'Character]]
+         [:cat #'WorldMap [:map-of :keyword #'Character]]
          #'EmbeddedLocation])
 (mx/defn embed-location
   :-
-  EmbeddedEncounter
-  [encounter :- Encounter characters :- [:map-of :keyword Character]]
+  EmbeddedWorldMap
+  [encounter :- WorldMap characters :- [:map-of :keyword Character]]
   (w/postwalk (fn [{:keys [character-ids enemy-ids] :as location}]
-                (print location)
-                (print Location)
-                (print (m/validate Location location))
                 (if (m/validate Location location)
                   (-> location
                       (assoc :characters (map characters character-ids))
@@ -52,9 +49,7 @@
                   location))
               encounter))
  
-
-(def starter
+(def world-map
   [[{:land-type :forest} {:land-type :clearing}]
    [{:land-type :clearing :character-ids [:hare] :enemy-ids [:tortoise]}]
    [{:land-type :lake} {:land-type :forest}]])
-  

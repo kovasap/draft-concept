@@ -1,28 +1,11 @@
 # Draft Concept
 
-## Game Flow
+## The Map
 
-Every month, your party of adventurers is trying to take on a new challenging
-locale.
-They have the month to prepare, which consists of 4 weeks.
-
-### Preparation
-
-Each week, you choose a specific place in the area to explore.
-Each place generally gives you a draft from a deck, which could contain new
-characters, or items for characters to equip.
-
-### Characters
-
-Each character has affinity stats (like
-https://github.com/kovasap/tactics/blob/main/DESIGN.md#character-development-and-classes),
-and several inventory slots which can be filled with items.
-
-### Challenge
-
-At the start of the month, the challenge is revealed.
-It consists of one or more "maps" that are made up of interconnected "slots"
-that characters or enemies or environmental elements can be found in.
+The game takes place on a large interconnected graph map (like the path of exile
+skill tree).
+Each node is a location that contains enemies, items to acquire, shops, or other
+points of interest.
 
 ```
                                          +-------------------+          
@@ -45,14 +28,34 @@ that characters or enemies or environmental elements can be found in.
      +------------------+                       +----------------------+
 ```
 
-At the start of the challenge, the player will set up their character's loadouts
-and initial positions, then watch as an automatic battle plays out.
-If a character or enemy is ever defeated on the map, other characters will move
-to take their place if possible.
-Characters can only target other characters connected to their own node.
+Characters should roam around the map in predictable patterns, making it feel
+alive.
 
-The challenge processes in turns/ticks, with faster characters acting earlier in
-the turn order.
+On the map there should be objectives that the player is racing to against
+enemies trying to destroy them.
+
+Probably there should be a fog of war to avoid overwhelming the player.
+
+## Game Flow
+
+At the start of the game, you choose a location for your character to start.
+Perhaps you will have multiple characters that start at different locations.
+
+Then your character(s) automatically travel down their path in chunked "turns",
+which are just bundles of actions (like move, attack, etc.).
+Each turn fits roughly one attack and one move action, although more or less
+could fit depending on the speed of the actions.
+After each turn, you have a chance to interact with your character(s) in the following ways:
+
+ - Tell them to prioritize moving to a specific adjacent node on their next turn
+   (perhaps retreating from a fight).
+ - Tell them to select a specific item from their current node, perhaps from
+   several options.
+ - Tell them to swap items or gold with an adjacent character (perhaps a
+   merchant).
+
+Once all the interactions are specified, the player will hit "next turn" to
+advance the game.
 
 ## Technical Stuff
 
