@@ -14,18 +14,18 @@
 (defn setup-turn
   [])
 
-; Wait for the player to set intentions, then hit "next turn"
-; For each character, compute their intention if not directed by the player,
-; storing it on a vector attached to the character.
-; Then order the intentions by their speed in a new "turn" vector
-; Clear out all the intention vectors on characters
-; Then execute each one by one, with animations
-; If an intention is invalidated by a previous action, handle this properly
 
+; After every action, go to the next character in the queue (sorted by
+; character "recovery").
+; Call get-action on that character and do whatever it returns
+; Then increment that character's recovery based on the action's recovery value
+; and throw them back into the queue.
+
+; If the character is controlled by a player, pause for input if necessary.
 
 (defn get-action
-  [embedded-map character]
-  )
+  [embedded-map character])
+  
 
 (rf/reg-event-db
   :play-turn
