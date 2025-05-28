@@ -1,4 +1,6 @@
 (ns app.interface.core
+  ; Following https://cljdoc.org/d/metosin/malli/0.8.6/doc/clojurescript-function-instrumentation
+  {:dev/always true}
   (:require ["react-dom/client" :refer [createRoot]]
             [day8.re-frame.http-fx]
             [day8.re-frame.undo :as undo :refer [undoable]]  
@@ -11,12 +13,10 @@
             [app.interface.world-map :refer [world-map]]
             [app.interface.animations]
             [cljs.pprint]
+            [malli.dev.cljs :as md]
             [malli.core :as m]
             [malli.instrument.cljs :as mi]
             [taoensso.timbre :as log]))
-
-; Make sure all function schemas are checked.
-(mi/instrument!)
 
 ;; ----------------------------------------------------------------------------
 ;; Setup
@@ -56,6 +56,7 @@
 
 (defn init
   []
+  (md/start!)
   (rf/dispatch [:app/setup])
   (.render root (r/as-element [main])))
 
@@ -64,5 +65,6 @@
   shadow-cljs hot-reloads code. This function is called implicitly by its
   annotation."
   []
+  (md/start!)
   (rf/clear-subscription-cache!)
   (init))

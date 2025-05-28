@@ -44,8 +44,8 @@
    [:traumas {:default 0} :int]
    [:will :int]
    [:is-dead {:default false} :boolean]
-   [:affinities {:default []} [:vector Element]]
-   [:weaknesses {:default []} [:vector Element]]
+   [:affinities {:default #{}} [:set Element]]
+   [:weaknesses {:default #{}} [:set Element]]
    [:controlled-by-player? :boolean]])
 
 (defn finalize-character
@@ -64,14 +64,14 @@
         :vigor 3
         :will 2
         :class-id :skirmisher
-        :affinities [:fire :air]
+        :affinities #{:fire :air}
         :controlled-by-player? true}
        {:full-name "Tortoise"
         :id :tortoise
         :vigor 5
         :will 5
         :class-id :skirmisher
-        :affinities [:earth]
+        :affinities #{:earth}
         :controlled-by-player? false}])))
 
 (def character-classes-by-id

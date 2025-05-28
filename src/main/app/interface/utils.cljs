@@ -16,9 +16,12 @@
   (zipmap (map f coll) coll))
 
 
-(m/=> get-with-ids [:=> [:cat [:vector :keyword]
-                              [:set [:map [:id :keyword]]]]
-                    [:set [:map [:id :keyword]]]])
+(def IdMap
+  [:map [:id :keyword]])
+  
+
+(m/=> get-with-ids [:=> [:cat [:vector :keyword] [:set IdMap]]
+                    [:set IdMap]])
 (defn get-with-ids
   [ids my-set]
   (set (filter #(contains? ids (:id %)) my-set)))

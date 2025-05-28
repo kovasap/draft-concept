@@ -16,14 +16,14 @@
 (def Location
   [:map
    [:land-type LandType]
-   [:character-ids [:set :keyword]]
-   [:enemy-ids [:set :keyword]]])
+   [:character-ids {:default #{} :optional true} [:set :keyword]]
+   [:enemy-ids {:default #{} :optional true} [:set :keyword]]])
 
 (def EmbeddedLocation
   [:map
    [:land-type LandType]
-   [:characters [:set Character]]
-   [:enemies [:set Character]]])
+   [:characters {:default #{} :optional true} [:set Character]]
+   [:enemies {:default #{} :optional true} [:set Character]]])
 
 (def WorldMap
   [:vector 
@@ -40,15 +40,15 @@
       (assoc :enemies (get-with-ids enemy-ids characters))))
 
 (m/=> embed-world-map [:=> [:cat WorldMap [:set Character]]
-                       EmbeddedWorldMap])
+                        EmbeddedWorldMap])
 (defn embed-world-map
   [world-map characters]
-  (sp/transform (sp/filterer #(m/validate Location %))
+  (sp/transform #(m/validate Location %)
                 #(embed-location % characters) world-map))
  
 (def world-map
   [[{:land-type :forest} {:land-type :clearing}]
-   [{:land-type :clearing :character-ids [:hare] :enemy-ids [:tortoise]}]
+   [{:land-type :clearing :character-ids #{:hare} :enemy-ids #{:tortoise}}]
    [{:land-type :lake} {:land-type :forest}]])
 
 (defn get-location
