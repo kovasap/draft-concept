@@ -56,22 +56,23 @@
     (doto c #(m/validate Character %))))
 
 (def starting-characters
-  (mapv
-    finalize-character
-    [{:full-name "Hare"
-      :id :hare
-      :vigor 3
-      :will 2
-      :class-id :skirmisher
-      :affinities [:fire :air]
-      :controlled-by-player? true}
-     {:full-name "Tortoise"
-      :id :tortoise
-      :vigor 5
-      :will 5
-      :class-id :skirmisher
-      :affinities [:earth]
-      :controlled-by-player? false}]))
+  (set
+    (map
+      finalize-character
+      [{:full-name "Hare"
+        :id :hare
+        :vigor 3
+        :will 2
+        :class-id :skirmisher
+        :affinities [:fire :air]
+        :controlled-by-player? true}
+       {:full-name "Tortoise"
+        :id :tortoise
+        :vigor 5
+        :will 5
+        :class-id :skirmisher
+        :affinities [:earth]
+        :controlled-by-player? false}])))
 
 (def character-classes-by-id
   (associate-by :id character-classes-by-id))

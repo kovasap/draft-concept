@@ -12,7 +12,11 @@
             [app.interface.animations]
             [cljs.pprint]
             [malli.core :as m]
+            [malli.instrument.cljs :as mi]
             [taoensso.timbre :as log]))
+
+; Make sure all function schemas are checked.
+(mi/instrument!)
 
 ;; ----------------------------------------------------------------------------
 ;; Setup
@@ -23,7 +27,7 @@
     {:world-map world-map
      :actions []
      :player-characters (into [] (map :id starting-characters))
-     :characters (associate-by :id starting-characters)}))
+     :characters starting-characters}))
      
 
 (rf/reg-event-db

@@ -1,4 +1,4 @@
-(ns app.interface.turn
+(ns app.interface.action
   (:require
     [app.interface.items :refer [Item]]
     [app.interface.characters :refer [CharacterId]]))
@@ -21,6 +21,11 @@
 ; Clear out all the intention vectors on characters
 ; Then execute each one by one, with animations
 ; If an intention is invalidated by a previous action, handle this properly
+
+
+(defn get-action
+  [embedded-map character]
+  )
 
 (rf/reg-event-db
   :play-turn

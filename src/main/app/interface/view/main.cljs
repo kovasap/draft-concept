@@ -1,7 +1,7 @@
 (ns app.interface.view.main
   (:require [re-frame.core :as rf]
             [reagent.core :as r]
-            [app.interface.world-map :refer [embed-location]]
+            [app.interface.world-map :refer [embed-world-map]]
             [app.interface.view.world-map :refer [world-map-view]]
             [app.interface.view.undo :refer [undo-button]]
             [cljs.pprint]))
@@ -18,6 +18,6 @@
    [:div @(rf/subscribe [:message])]
    [:br]
    [world-map-view 
-    (embed-location
+    (embed-world-map
       @(rf/subscribe [:world-map])
       @(rf/subscribe [:characters]))]])

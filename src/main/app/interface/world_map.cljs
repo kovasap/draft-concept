@@ -1,9 +1,9 @@
 (ns app.interface.world-map
   (:require 
     [malli.core :as m]
-    [malli.experimental :as mx]
     [app.interface.characters :refer [Character]]
-    [clojure.walk :as w]))
+    [app.interface.utils :refer [get-with-ids]]
+    [com.rpl.specter :as sp]))
 
 (def land-types
   {:forest {}
@@ -16,14 +16,14 @@
 (def Location
   [:map
    [:land-type LandType]
-   [:character-ids [:vector :keyword]]
-   [:enemy-ids [:vector :keyword]]])
+   [:character-ids [:set :keyword]]
+   [:enemy-ids [:set :keyword]]])
 
 (def EmbeddedLocation
   [:map
    [:land-type LandType]
-   [:characters [:vector Character]]
-   [:enemies [:vector Character]]])
+   [:characters [:set Character]]
+   [:enemies [:set Character]]])
 
 (def WorldMap
   [:vector 
@@ -33,23 +33,23 @@
   [:vector 
    [:vector EmbeddedLocation]])
 
-#_(m/=> embed-location
-        [:=>
-         [:cat #'WorldMap [:map-of :keyword #'Character]]
-         #'EmbeddedLocation])
-(mx/defn embed-location
-  :-
-  EmbeddedWorldMap
-  [encounter :- WorldMap characters :- [:map-of :keyword Character]]
-  (w/postwalk (fn [{:keys [character-ids enemy-ids] :as location}]
-                (if (m/validate Location location)
-                  (-> location
-                      (assoc :characters (map characters character-ids))
-                      (assoc :enemies (map characters enemy-ids)))
-                  location))
-              encounter))
+(defn embed-location
+  [{:keys [character-ids enemy-ids] :as location} characters]
+  (-> location
+      (assoc :characters (get-with-ids character-ids characters))
+      (assoc :enemies (get-with-ids enemy-ids characters))))
+
+(m/=> embed-world-map [:=> [:cat WorldMap [:set Character]]
+                       EmbeddedWorldMap])
+(defn embed-world-map
+  [world-map characters]
+  (sp/transform (sp/filterer #(m/validate Location %))
+                #(embed-location % characters) world-map))
  
 (def world-map
   [[{:land-type :forest} {:land-type :clearing}]
    [{:land-type :clearing :character-ids [:hare] :enemy-ids [:tortoise]}]
    [{:land-type :lake} {:land-type :forest}]])
+
+(defn get-location
+  [])

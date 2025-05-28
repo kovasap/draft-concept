@@ -1,4 +1,6 @@
-(ns app.interface.utils)
+(ns app.interface.utils
+  (:require 
+    [malli.core :as m]))
 
 (defn only
   "Gives the sole element of a sequence"
@@ -12,3 +14,11 @@
   "Like groupby, but the values are single items, not lists of all matching
   items.  Note that f must uniquely distinguish items!"
   (zipmap (map f coll) coll))
+
+
+(m/=> get-with-ids [:=> [:cat [:vector :keyword]
+                              [:set [:map [:id :keyword]]]]
+                    [:set [:map [:id :keyword]]]])
+(defn get-with-ids
+  [ids my-set]
+  (set (filter #(contains? ids (:id %)) my-set)))
