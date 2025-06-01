@@ -1,23 +1,9 @@
 (ns app.interface.action
   (:require
     [app.interface.items :refer [Item is-usable?]]
-    [app.interface.world-map :refer [get-location]]
-    [app.interface.characters :refer [CharacterId are-enemies?]]
     [com.rpl.specter :as sp]
     [re-frame.core :as rf]))
     
-
-(def Action
-  [:map
-   [:target CharacterId]])
-
-(def Turn
-  [:vector Action])
-
-(defn setup-turn
-  [])
-
-
 ; After every action, go to the next character in the queue (sorted by
 ; character "recovery").
 ; Call get-action on that character and do whatever it returns

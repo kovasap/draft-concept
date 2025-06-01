@@ -2,13 +2,11 @@
   (:require [malli.core :as m]
             [malli.transform :as mt]
             [com.rpl.specter :as sp]
+            [app.interface.world-map :refer [get-location]]
             [app.interface.malli-schema-registry :refer [register!]]
             [app.interface.utils :refer [associate-by]]))
 
 (register! ::character-id :keyword)
-
-(def CharacterId
-  :keyword)
 
 (register! ::character
   [:map
@@ -16,7 +14,7 @@
    [:full-name :string]
    [:image :string]
    [:class-id ::character-class-ids]
-   [:inventory {:default []} [:vector Item]]
+   [:inventory {:default []} [:vector ::item]]
    [:inventory-space {:default 3} :int]
    [:injuries {:default 0} :int]
    [:vigor :int]
@@ -24,29 +22,24 @@
    [:will :int]
    [:is-dead {:default false} :boolean]
    [:next-ready-time :int]
-   [:affinities {:default #{}} [:set Element]]
-   [:weaknesses {:default #{}} [:set Element]]
+   [:affinities {:default #{}} [:set ::element]]
+   [:weaknesses {:default #{}} [:set ::element]]
    [:controlled-by-player? :boolean]
-   [:faction Faction]])
+   [:faction ::faction]])
 
-(def Character
-  [:map
-   [:id CharacterId]
-   [:full-name :string]
-   [:image :string]
-   [:class-id CharacterClassIds]
-   [:inventory {:default []} [:vector Item]]
-   [:inventory-space {:default 3} :int]
-   [:injuries {:default 0} :int]
-   [:vigor :int]
-   [:traumas {:default 0} :int]
-   [:will :int]
-   [:is-dead {:default false} :boolean]
-   [:next-ready-time :int]
-   [:affinities {:default #{}} [:set Element]]
-   [:weaknesses {:default #{}} [:set Element]]
-   [:controlled-by-player? :boolean]
-   [:faction Faction]])
+(def factions
+  {:player {:enemies #{:bandits}}
+   :bandits {:enemies #{:player}}
+   :merchants {:enemies #{:bandits}}})
+
+(register! ::faction
+           (into [:enum] (keys factions)))
+
+(defn are-enemies?
+  [character other-character]
+  (contains? (:enemies ((:faction character) factions))
+             (:faction other-character)))
+
 
 ; --- Character Transformers ---
 
@@ -55,13 +48,13 @@
 ; 2. Make it possible to generate descriptive strings for them in the UI.
 ; 3. Make it easier to modify them (e.g. make a weapon do more damage).
 
-(def TransformerParams
+(register! ::transformer-params
   [:map])
 
-(def TargetTransformer
-  [:=> [:cat Character TransformerParams] Character])
+(register! ::target-transformer
+  [:=> [:cat ::character ::transformer-params] ::character])
 
-(m/=> do-damage TargetTransformer)
+(m/=> do-damage ::target-transformer)
 (defn do-damage
   [character {:keys [damage]}]
   (update character :vigor #(- % damage)))
@@ -70,11 +63,11 @@
 
 ; --- Character Selectors ---
 
-(defn TargetSelector
-  [:=> [:cat EmbeddedWorldMap CharacterId]
-   [:set CharacterId]])
+(register! ::target-selector
+  [:=> [:cat ::embedded-world-map ::character-id]
+   [:set ::character-id]])
 
-(m/=> get-single-melee-target TargetSelector)
+(m/=> get-single-melee-target ::target-selector)
 (defn get-single-melee-target
   [embedded-map character-id]
   (let [location (get-location embedded-map character-id)
@@ -90,21 +83,21 @@
 
 ; --- End Selectors ---
 
-(def Effect
+(register! ::effect
   [:map 
    ; Used to select which characters this effect will apply to.
-   [:target-selector TargetSelector]
+   [:target-selector ::target-selector]
    ; Modifies targets when this effect occurs (e.g. does damage).
-   [:target-transformer TargetTransformer]
-   [:animation Animations]])
+   [:target-transformer ::target-transformer]
+   [:animation ::animation]])
 
-(def Item
+(register! ::item
   [:map
    [:item-type :keyword]
    [:display-name :string]
    ; Effects will happen in the order specified here when a character uses the
    ; item.
-   [:effects [:vector Effect]]
+   [:effects [:vector ::effect]]
    [:recovery-time :int]])
 
 (def items
@@ -123,8 +116,6 @@
         (for [{:keys [target-selector]} effects]
           (target-selector embedded-map character-id))))
 
-
-
 (def elements
   {:fire {}
    :air {}
@@ -133,21 +124,21 @@
    :light {}
    :dark {}})
 
-(def Element
+(register! ::element
   (into [:enum] (keys elements)))
 
-(def Animations
+(register! ::animation
   [:enum :attack])
 
-(def AnimationData
+(register! ::animation-data
   [:map
    [:frames :int]])
 
-(def CharacterClass
+(register! ::character-class
   [:map
    [:id :keyword]
    [:animations 
-    [:map-of Animations AnimationData]]])
+    [:map-of ::animation ::animation-data]]])
 
 ; TODO automatically determine :animation-frames based on the files in the
 ; resources/public/class-images/<class-name> directories
@@ -162,29 +153,15 @@
 ; More sprites and animations can be found at
 ; https://github.com/wesnoth/wesnoth/tree/master/data/core/images/units
 
-(def CharacterClassIds
+(register! ::character-class-ids
   (into [:enum] (map :id character-classes)))
-
-(def factions
-  {:player {:enemies #{:bandits}}
-   :bandits {:enemies #{:player}}
-   :merchants {:enemies #{:bandits}}})
-
-(def Faction
-  (into [:enum] (keys factions)))
-
-(defn are-enemies?
-  [character other-character]
-  (contains? (:enemies ((:faction character) factions))
-             (:faction other-character)))
-
 
 (defn finalize-character
   [{:keys [class-id] :as character}]
   (as-> character c
     (assoc c :image (str "class-images/" (name class-id) "/idle.png"))
-    (m/decode Character c mt/default-value-transformer)
-    (doto c #(m/validate Character %))))
+    (m/decode ::character c mt/default-value-transformer)
+    (doto c #(m/validate ::character %))))
 
 (def starting-characters
   (set

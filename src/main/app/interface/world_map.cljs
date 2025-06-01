@@ -1,9 +1,8 @@
 (ns app.interface.world-map
   (:require 
     [malli.core :as m]
-    [clojure.set :refer [union]]
-    [app.interface.characters :refer [Character]]
     [app.interface.utils :refer [get-with-ids]]
+    [app.interface.malli-schema-registry :refer [register!]]
     [com.rpl.specter :as sp]))
 
 (def land-types
@@ -11,39 +10,39 @@
    :clearing {}
    :lake {}})
 
-(def LandType
+(register! ::land-type
   (into [:enum] (keys land-types)))
 
-(def Location
+(register! ::location
   [:map
    [:id :keyword]
-   [:land-type LandType]
+   [:land-type ::land-type]
    [:character-ids {:default #{} :optional true} [:set :keyword]]])
 
-(def EmbeddedLocation
+(register! ::embedded-location
   [:map
    [:id :keyword]
-   [:land-type LandType]
-   [:characters {:default #{} :optional true} [:set Character]]])
+   [:land-type ::land-type]
+   [:characters {:default #{} :optional true} [:set ::character]]])
 
-(def WorldMap
+(register! ::world-map
   [:vector 
-   [:vector Location]])
+   [:vector ::location]])
 
-(def EmbeddedWorldMap
+(register! ::embedded-world-map
   [:vector 
-   [:vector EmbeddedLocation]])
+   [:vector ::embedded-location]])
 
 (defn embed-location
   [{:keys [character-ids] :as location} characters]
   (-> location
       (assoc :characters (get-with-ids character-ids characters))))
 
-(m/=> embed-world-map [:=> [:cat WorldMap [:set Character]]
-                        EmbeddedWorldMap])
+(m/=> embed-world-map [:=> [:cat ::world-map [:set ::character]]
+                        ::embedded-world-map])
 (defn embed-world-map
   [world-map characters]
-  (sp/transform #(m/validate Location %)
+  (sp/transform #(m/validate ::location %)
                 #(embed-location % characters) world-map))
  
 (def world-map
