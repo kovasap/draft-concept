@@ -17,6 +17,8 @@
     [undo-button]]
    [:div @(rf/subscribe [:message])]
    [:br]
+   [:button.btn.btn-outline-primary {:on-click #(rf/dispatch [:take-next-action])}
+    "Next Character Actions"]
    [world-map-view 
     (embed-world-map
       @(rf/subscribe [:world-map])

@@ -30,6 +30,12 @@
   [characters]
   (first (sort-by :next-ready-time characters)))
 
+(defn increment-next-ready-time
+  [character used-items]
+  (update character
+          :next-ready-time
+          #(+ % (apply + (map :recovery-time used-items)))))
+
 (rf/reg-event-db
   :update-character
   (fn [db [_ character-id update-fn]]
@@ -47,14 +53,16 @@
   (let [usable-items (filter is-usable? inventory)]
     (concat
       (apply concat
-             (for [{:keys [effects]} usable-items]
-               (for [{:keys [target-selector target-transformer transformer-options]}
-                     effects]
-                 (for [target-id (target-selector embedded-map id)]
-                   [:update-character target-id
-                    #(target-transformer % transformer-options)]))))
-      [[:update-character id (fn [c] (update c :next-ready-time #(+ % (apply + (map :recovery-time usable-items)))))]])))
- 
+        (for [{:keys [effects]} usable-items]
+          (for [{:keys [target-selector
+                        target-transformer
+                        transformer-options]}
+                effects]
+            (for [target-id (target-selector embedded-map id)]
+              [:update-character
+               target-id
+               #(target-transformer % transformer-options)]))))
+      [[:update-character id #(increment-next-ready-time % usable-items)]])))
 
 (rf/reg-event-fx
   :take-next-action
