@@ -1,7 +1,10 @@
 (ns app.interface.action
   (:require
-    [app.interface.items :refer [Item]]
-    [app.interface.characters :refer [CharacterId]]))
+    [app.interface.items :refer [Item is-usable?]]
+    [app.interface.world-map :refer [get-location]]
+    [app.interface.characters :refer [CharacterId are-enemies?]]
+    [com.rpl.specter :as sp]
+    [re-frame.core :as rf]))
     
 
 (def Action
@@ -23,13 +26,39 @@
 
 ; If the character is controlled by a player, pause for input if necessary.
 
-(defn get-action
-  [embedded-map character])
-  
+(defn get-next-character
+  [characters]
+  (first (sort-by :next-ready-time characters)))
 
 (rf/reg-event-db
-  :play-turn
-  (fn [db _]))
-    
+  :update-character
+  (fn [db [_ character-id update-fn]]
+    ; TODO fix this, probably broken
+    (sp/transform [#(:characters %) #(= character-id (:id %))] update-fn db)))
 
+(defn get-turn-event-fx
+  "Given an acting character, return a vector of all the re-frame event-fx that
+  will happen once that character acts, based on their items.
+  Returns vector like:
+  [[:event-fx-key args]
+   ...]
+  "
+  [embedded-map {:keys [inventory id] :as character}]
+  (let [usable-items (filter is-usable? inventory)]
+    (concat
+      (apply concat
+             (for [{:keys [effects]} usable-items]
+               (for [{:keys [target-selector target-transformer transformer-options]}
+                     effects]
+                 (for [target-id (target-selector embedded-map id)]
+                   [:update-character target-id
+                    #(target-transformer % transformer-options)]))))
+      [[:update-character id (fn [c] (update c :next-ready-time #(+ % (apply + (map :recovery-time usable-items)))))]])))
+ 
 
+(rf/reg-event-fx
+  :take-next-action
+  (fn [db _]
+    {:fx (get-turn-event-fx
+           (embed-world-map (:world-map db))
+           (get-next-character (:characters db)))}))

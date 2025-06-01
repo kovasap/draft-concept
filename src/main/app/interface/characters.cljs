@@ -1,7 +1,8 @@
 (ns app.interface.characters
   (:require [malli.core :as m]
             [malli.transform :as mt]
-            [app.interface.items :refer [Item]]
+            [com.rpl.specter :as sp]
+            [app.interface.items :refer [Item items]]
             [app.interface.utils :refer [associate-by]]))
 
 (def CharacterId
@@ -18,19 +19,47 @@
 (def Element
   (into [:enum] (keys elements)))
 
+(def Animations
+  [:enum :attack])
+
+(def AnimationData
+  [:map
+   [:frames :int]])
+
+(def CharacterClass
+  [:map
+   [:id :keyword]
+   [:animations 
+    [:map-of Animations AnimationData]]])
+
 ; TODO automatically determine :animation-frames based on the files in the
 ; resources/public/class-images/<class-name> directories
 (def character-classes
   [{:id :skirmisher
-    :animation-frames {:attack 5}}
+    :animations 
+    {:attack {:frames 5}}}
    {:id :scholar
-    :animation-frames {:attack 2}}])
+    :animations 
+    {:attack {:frames 2}}}])
 
 ; More sprites and animations can be found at
 ; https://github.com/wesnoth/wesnoth/tree/master/data/core/images/units
 
 (def CharacterClassIds
   (into [:enum] (map :id character-classes)))
+
+(def factions
+  {:player {:enemies #{:bandits}}
+   :bandits {:enemies #{:player}}
+   :merchants {:enemies #{:bandits}}})
+
+(def Faction
+  (into [:enum] (keys factions)))
+
+(defn are-enemies?
+  [character other-character]
+  (contains? (:enemies ((:faction character) factions))
+             (:faction other-character)))
 
 (def Character
   [:map
@@ -39,14 +68,17 @@
    [:image :string]
    [:class-id CharacterClassIds]
    [:inventory {:default []} [:vector Item]]
+   [:inventory-space {:default 3} :int]
    [:injuries {:default 0} :int]
    [:vigor :int]
    [:traumas {:default 0} :int]
    [:will :int]
    [:is-dead {:default false} :boolean]
+   [:next-ready-time :int]
    [:affinities {:default #{}} [:set Element]]
    [:weaknesses {:default #{}} [:set Element]]
-   [:controlled-by-player? :boolean]])
+   [:controlled-by-player? :boolean]
+   [:faction Faction]])
 
 (defn finalize-character
   [{:keys [class-id] :as character}]
@@ -63,6 +95,7 @@
         :id :hare
         :vigor 3
         :will 2
+        :inventory [(sp/select-one #(= :mace (:item-type %)) items)]
         :class-id :skirmisher
         :affinities #{:fire :air}
         :controlled-by-player? true}
@@ -70,16 +103,17 @@
         :id :tortoise
         :vigor 5
         :will 5
+        :inventory [(sp/select-one #(= :mace (:item-type %)) items)]
         :class-id :skirmisher
         :affinities #{:earth}
         :controlled-by-player? false}])))
 
 (def character-classes-by-id
-  (associate-by :id character-classes-by-id))
+  (associate-by :id character-classes))
 
 (defn get-animation-frames
   [class-id animation]
-  (animation (:animation-frames (class-id character-classes-by-id))))
+  (:frames (animation (:animations (class-id character-classes-by-id)))))
 
 (defn get-animation-frame-images
   [class-id animation]
