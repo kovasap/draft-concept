@@ -2,10 +2,32 @@
   (:require [malli.core :as m]
             [malli.transform :as mt]
             [com.rpl.specter :as sp]
+            [app.interface.malli-schema-registry :refer [register!]]
             [app.interface.utils :refer [associate-by]]))
+
+(register! ::character-id :keyword)
 
 (def CharacterId
   :keyword)
+
+(register! ::character
+  [:map
+   [:id ::character-id]
+   [:full-name :string]
+   [:image :string]
+   [:class-id ::character-class-ids]
+   [:inventory {:default []} [:vector Item]]
+   [:inventory-space {:default 3} :int]
+   [:injuries {:default 0} :int]
+   [:vigor :int]
+   [:traumas {:default 0} :int]
+   [:will :int]
+   [:is-dead {:default false} :boolean]
+   [:next-ready-time :int]
+   [:affinities {:default #{}} [:set Element]]
+   [:weaknesses {:default #{}} [:set Element]]
+   [:controlled-by-player? :boolean]
+   [:faction Faction]])
 
 (def Character
   [:map
