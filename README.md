@@ -1,5 +1,7 @@
 # Draft Concept
 
+To try: a "combat" system where your characters are actually merchants with a "gold" stat.  As they wander around the map they find/buy/sell resources and their gold changes accordingly.  When they run out of gold, they "die".
+
 ## The Map
 
 The game takes place on a large interconnected graph map (like the path of exile
