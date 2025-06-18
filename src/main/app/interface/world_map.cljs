@@ -48,11 +48,13 @@
 (def world-map
   [[{:id :farbane :land-type :forest} {:id :clear :land-type :clearing}]
    [{:id :central :land-type :clearing :character-ids #{:hare :tortoise}}]
-   [{:id :deep :land-type :lake} {:id nearbane :land-type :forest}]])
+   [{:id :deep :land-type :lake} {:id :nearbane :land-type :forest}]])
 
 (defn get-location
   [embedded-map character-id]
-  (sp/select-one
-    [sp/ALL sp/ALL #(contains? (set (map :id characters)) %) character-id]
-    embedded-map))
+  (sp/select-one [sp/ALL
+                  sp/ALL
+                  (fn [{:keys [characters] :as _embedded_location}]
+                    (contains? (set (map :id characters)) character-id))]
+                 embedded-map))
   

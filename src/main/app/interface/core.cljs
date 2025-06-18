@@ -14,6 +14,7 @@
             [app.interface.animations]
             [cljs.pprint]
             [malli.dev.cljs :as md]
+            [malli.dev.pretty :as mdpretty]
             [malli.core :as m]
             [malli.instrument.cljs :as mi]
             [taoensso.timbre :as log]))
@@ -56,7 +57,7 @@
 
 (defn init
   []
-  (md/start!)
+  (md/start! {:report (mdpretty/reporter)})
   (rf/dispatch [:app/setup])
   (.render root (r/as-element [main])))
 
@@ -65,6 +66,6 @@
   shadow-cljs hot-reloads code. This function is called implicitly by its
   annotation."
   []
-  (md/start!)
+  (md/start! {:report (mdpretty/reporter)})
   (rf/clear-subscription-cache!)
   (init))

@@ -1,6 +1,7 @@
 (ns app.interface.action
   (:require
     [app.interface.items :refer [Item is-usable?]]
+    [app.interface.world-map :refer [embed-world-map]]
     [com.rpl.specter :as sp]
     [re-frame.core :as rf]))
     
