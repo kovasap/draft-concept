@@ -56,7 +56,7 @@
   [:=> [:cat ::character ::transformer-params] ::character])
 
 (defn do-damage
-  {:malla/schema ::target-transformer}
+  {:malli/schema ::target-transformer}
   [character {:keys [damage]}]
   (update character :vigor #(- % damage)))
 
@@ -69,7 +69,7 @@
    [:set ::character-id]])
 
 (defn get-single-melee-target
-  {:malla/schema ::target-selector}
+  {:malli/schema ::target-selector}
   [embedded-map character-id]
   (let [location (get-location embedded-map character-id)
         characters (:characters location)
