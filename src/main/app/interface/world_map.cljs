@@ -23,7 +23,7 @@
   [:map
    [:id :keyword]
    [:land-type ::land-type]
-   [:characters {:default #{} :optional true} [:set ::character]]])
+   [:characters {:default #{} :optional true} [:set :app.interface.characters/character]]])
 
 (register! ::world-map
   [:vector 
@@ -38,7 +38,7 @@
   (-> location
       (assoc :characters (get-with-ids character-ids characters))))
 
-(m/=> embed-world-map [:=> [:cat ::world-map [:set ::character]]
+(m/=> embed-world-map [:=> [:cat ::world-map [:set :app.interface.characters/character]]
                         ::embedded-world-map])
 (defn embed-world-map
   [world-map characters]

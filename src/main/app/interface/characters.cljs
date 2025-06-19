@@ -14,7 +14,8 @@
    [:full-name :string]
    [:image :string]
    [:class-id ::character-class-ids]
-   [:inventory {:default []} [:vector ::item]]
+   ; Use ref here to avoid stack overflow, as it is a recursive definition.
+   [:inventory {:default []} [:vector [:ref ::item]]]
    [:inventory-space {:default 3} :int]
    [:injuries {:default 0} :int]
    [:vigor :int]
@@ -54,7 +55,7 @@
 (register! ::target-transformer
   [:=> [:cat ::character ::transformer-params] ::character])
 
-(m/=> do-damage ::target-transformer)
+(m/=> do-damage (m/deref ::target-transformer))
 (defn do-damage
   [character {:keys [damage]}]
   (update character :vigor #(- % damage)))
@@ -64,10 +65,10 @@
 ; --- Character Selectors ---
 
 (register! ::target-selector
-  [:=> [:cat ::embedded-world-map ::character-id]
+  [:=> [:cat :app.interface.world-map/embedded-world-map ::character-id]
    [:set ::character-id]])
 
-(m/=> get-single-melee-target ::target-selector)
+(m/=> get-single-melee-target (m/deref ::target-selector))
 (defn get-single-melee-target
   [embedded-map character-id]
   (let [location (get-location embedded-map character-id)
@@ -171,7 +172,7 @@
         :id :hare
         :vigor 3
         :will 2
-        :inventory [(sp/select-one #(= :mace (:item-type %)) items)]
+        :inventory [(sp/select-one [sp/ALL #(= :mace (:item-type %))] items)]
         :class-id :skirmisher
         :affinities #{:fire :air}
         :controlled-by-player? true}
@@ -179,7 +180,7 @@
         :id :tortoise
         :vigor 5
         :will 5
-        :inventory [(sp/select-one #(= :mace (:item-type %)) items)]
+        :inventory [(sp/select-one [sp/ALL #(= :mace (:item-type %))] items)]
         :class-id :skirmisher
         :affinities #{:earth}
         :controlled-by-player? false}])))
