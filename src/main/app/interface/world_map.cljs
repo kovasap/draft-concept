@@ -39,11 +39,10 @@
       (assoc :characters (get-with-ids character-ids characters))))
 
 (defn embed-world-map
-  {:malli/schema [:=>
-                  [:cat
-                   ::world-map
-                   [:set :app.interface.characters/character]
-                   ::embedded-world-map]]}
+  {:malli/schema [:->
+                  ::world-map
+                  [:set :app.interface.characters/character]
+                  ::embedded-world-map]}
   [world-map characters]
   (sp/transform #(m/validate ::location %)
                 #(embed-location % characters)

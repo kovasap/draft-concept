@@ -53,7 +53,7 @@
   [:map])
 
 (register! ::target-transformer
-  [:=> [:cat ::character ::transformer-params] ::character])
+  [:-> ::character ::transformer-params ::character])
 
 (defn do-damage
   {:malli/schema ::target-transformer}
@@ -65,7 +65,7 @@
 ; --- Character Selectors ---
 
 (register! ::target-selector
-  [:=> [:cat :app.interface.world-map/embedded-world-map ::character-id]
+  [:-> :app.interface.world-map/embedded-world-map ::character-id
    [:set ::character-id]])
 
 (defn get-single-melee-target
