@@ -55,8 +55,8 @@
 (register! ::target-transformer
   [:=> [:cat ::character ::transformer-params] ::character])
 
-(m/=> do-damage (m/deref ::target-transformer))
 (defn do-damage
+  {:malla/schema ::target-transformer}
   [character {:keys [damage]}]
   (update character :vigor #(- % damage)))
 
@@ -68,8 +68,8 @@
   [:=> [:cat :app.interface.world-map/embedded-world-map ::character-id]
    [:set ::character-id]])
 
-(m/=> get-single-melee-target (m/deref ::target-selector))
 (defn get-single-melee-target
+  {:malla/schema ::target-selector}
   [embedded-map character-id]
   (let [location (get-location embedded-map character-id)
         characters (:characters location)

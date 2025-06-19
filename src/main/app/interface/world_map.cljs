@@ -38,12 +38,16 @@
   (-> location
       (assoc :characters (get-with-ids character-ids characters))))
 
-(m/=> embed-world-map [:=> [:cat ::world-map [:set :app.interface.characters/character]]
-                        ::embedded-world-map])
 (defn embed-world-map
+  {:malli/schema [:=>
+                  [:cat
+                   ::world-map
+                   [:set :app.interface.characters/character]
+                   ::embedded-world-map]]}
   [world-map characters]
   (sp/transform #(m/validate ::location %)
-                #(embed-location % characters) world-map))
+                #(embed-location % characters)
+                world-map))
  
 (def world-map
   [[{:id :farbane :land-type :forest} {:id :clear :land-type :clearing}]
