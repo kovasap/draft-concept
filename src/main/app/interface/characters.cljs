@@ -49,18 +49,36 @@
 ; 2. Make it possible to generate descriptive strings for them in the UI.
 ; 3. Make it easier to modify them (e.g. make a weapon do more damage).
 
-(register! ::transformer-params
+(register! ::character-transformer-options
   [:map])
 
-(register! ::target-transformer
-  [:-> ::character ::transformer-params ::character])
+(register! ::character-transformer
+  [:-> ::character ::character-transformer-options ::character])
 
 (defn do-damage
-  {:malli/schema ::target-transformer}
+  #_{:malli/schema ::character-transformer}
   [character {:keys [damage]}]
   (update character :vigor #(- % damage)))
 
-; --- End Transformers ---
+
+; --- End Character Transformers ---
+
+; --- Map Transformers ---
+
+(register! ::world-map-transformer-options
+  [:map])
+
+; Returns nil if the map cannot be changed
+(register! ::world-map-transformer
+  [:-> :app.interface.world-map/world-map ::world-map-transformer-options
+   [:maybe :app.interface.world-map/world-map]])
+
+; TODO implement
+(defn move
+  #_{:malli/schema ::world-map-transformer}
+  [world-map {:keys [distance]}])
+
+; --- End Map Transformers ---
 
 ; --- Character Selectors ---
 
@@ -68,8 +86,12 @@
   [:-> :app.interface.world-map/embedded-world-map ::character-id
    [:set ::character-id]])
 
+(defn get-self
+  [_embedded-map character-id]
+  #{character-id})
+
 (defn get-single-melee-target
-  {:malli/schema ::target-selector}
+  #_{:malli/schema ::target-selector}
   [embedded-map character-id]
   (let [location (get-location embedded-map character-id)
         characters (:characters location)
@@ -86,10 +108,8 @@
 
 (register! ::effect
   [:map 
-   ; Used to select which characters this effect will apply to.
-   [:target-selector ::target-selector]
-   ; Modifies targets when this effect occurs (e.g. does damage).
-   [:target-transformer ::target-transformer]
+   [:transformer ::transformer]
+   [:transformer-options ::transformer-options]
    [:animation ::animation]])
 
 (register! ::item
@@ -105,17 +125,42 @@
   [{:item-type :mace
     :display-name "Mace"
     :effects [{:target-selector get-single-melee-target
-               :transformer-options {:damage 2}
+               :target-transformer-options {:damage 2}
+               :animation :attack
                :target-transformer do-damage}] 
     :recovery-time 5}
    ; TODO finish this item, which allows characters to move
-   {:item-type :boots}])
+   {:item-type :boots
+    :display-name "Boots"
+    :effects [{:world-map-transformer-options {:distance 1}
+               :animation :none
+               :world-map-transformer move}]}])
 
 (defn is-usable?
-  [embedded-map {:keys [effects] :as item} character-id]
+  [{:keys [effects] :as item} embedded-map character-id]
   (some #(not (empty? %)) 
         (for [{:keys [target-selector]} effects]
           (target-selector embedded-map character-id))))
+
+(defn has-valid-target?
+  [{:keys [effects] :as item} embedded-map character-id]
+  (->> effects
+       (map (fn [{:keys [target-selector]}]
+              (target-selector embedded-map character-id)))
+       (remove empty?) ; No targets found
+       (remove nil?) ; No selector found
+       (not-empty)))
+
+(defn can-transform-map?
+  [{:keys [effects] :as item} embedded-map character-id]
+  (->> effects
+       (map (fn [{:keys [target-selector]}]
+              (target-selector embedded-map character-id)))
+       (remove empty?)
+       (remove nil?)
+       (not-empty)))
+    
+  
 
 (def elements
   {:fire {}
@@ -129,7 +174,7 @@
   (into [:enum] (keys elements)))
 
 (register! ::animation
-  [:enum :attack])
+  [:enum :attack :none])
 
 (register! ::animation-data
   [:map

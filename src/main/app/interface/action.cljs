@@ -1,7 +1,7 @@
 (ns app.interface.action
   (:require
-    [app.interface.items :refer [Item is-usable?]]
-    [app.interface.world-map :refer [embed-world-map]]
+    [app.interface.characters :refer [is-usable?]]
+    [app.interface.utils :refer [get-with-id]]
     [com.rpl.specter :as sp]
     [re-frame.core :as rf]))
     
@@ -13,9 +13,9 @@
 
 ; If the character is controlled by a player, pause for input if necessary.
 
-(defn get-next-character
+(defn get-next-character-id
   [characters]
-  (first (sort-by :next-ready-time characters)))
+  (:id (first (sort-by :next-ready-time characters))))
 
 (defn increment-next-ready-time
   [character used-items]
@@ -36,14 +36,15 @@
   [[:event-fx-key args]
    ...]
   "
-  [embedded-map {:keys [inventory id] :as character}]
-  (let [usable-items (filter is-usable? inventory)]
+  [{:keys [world-map characters] :as _db} acting-character-id]
+  (let [usable-items (filter #(is-usable? % db id)
+                       (:inventory (get-with-id acting-character-id
+                                                characters)))]
     (concat
       (apply concat
         (for [{:keys [effects]} usable-items]
-          (for [{:keys [target-selector
-                        target-transformer
-                        transformer-options]}
+          (for [{:keys
+                 [target-selector target-transformer transformer-options]}
                 effects]
             (for [target-id (target-selector embedded-map id)]
               [:update-character
@@ -55,5 +56,5 @@
   :take-next-action
   (fn [db _]
     {:fx (get-turn-event-fx
-           (embed-world-map (:world-map db))
-           (get-next-character (:characters db)))}))
+           db
+           (get-next-character-id (:characters db)))}))

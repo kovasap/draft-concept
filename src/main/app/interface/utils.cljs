@@ -1,6 +1,6 @@
 (ns app.interface.utils
   (:require 
-    [malli.core :as m]))
+    [com.rpl.specter :as sp]))
 
 (defn only
   "Gives the sole element of a sequence"
@@ -20,8 +20,12 @@
   [:map [:id :keyword]])
   
 
-(m/=> get-with-ids [:=> [:cat [:vector :keyword] [:set IdMap]]
-                    [:set IdMap]])
 (defn get-with-ids
+  {:malli/schema [:-> [:vector :keyword] [:set IdMap] [:set IdMap]]}
   [ids my-set]
   (set (filter #(contains? ids (:id %)) my-set)))
+
+(defn get-with-id
+  {:malli/schema [:-> :keyword [:set IdMap] IdMap]}
+  [id my-set]
+  (sp/select-one [sp/ALL #(= id (:id %))] my-set))

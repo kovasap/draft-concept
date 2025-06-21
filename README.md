@@ -1,11 +1,9 @@
 # Draft Concept
 
-To try: a "combat" system where your characters are actually merchants with a "gold" stat.  As they wander around the map they find/buy/sell resources and their gold changes accordingly.  When they run out of gold, they "die".
-
 ## The Map
 
-The game takes place on a large interconnected graph map (like the path of exile
-skill tree).
+The game takes place on a interconnected graph map (like the path of exile skill
+tree).
 Each node is a location that contains enemies, items to acquire, shops, or other
 points of interest.
 
@@ -36,28 +34,41 @@ alive.
 On the map there should be objectives that the player is racing to against
 enemies trying to destroy them.
 
-Probably there should be a fog of war to avoid overwhelming the player.
-
 ## Game Flow
 
 At the start of the game, you choose a location for your character to start.
 Perhaps you will have multiple characters that start at different locations.
 
-Then your character(s) automatically travel down their path in chunked "turns",
-which are just bundles of actions (like move, attack, etc.).
-Each turn fits roughly one attack and one move action, although more or less
-could fit depending on the speed of the actions.
-After each turn, you have a chance to interact with your character(s) in the following ways:
+Then the game proceeds, with all characters (player-controlled, friendly, enemy,
+neutral) taking actions on a timeline based on a `:next-ready-time` stat
+attached to each character.
 
- - Tell them to prioritize moving to a specific adjacent node on their next turn
-   (perhaps retreating from a fight).
- - Tell them to select a specific item from their current node, perhaps from
-   several options.
- - Tell them to swap items or gold with an adjacent character (perhaps a
-   merchant).
+Each character has an inventory of items, each of which has an ability attached
+to it.
+On a character's turn, they will try using each of their items in order and use
+the first one that can be used based on their context.
+
+If it the turn of a player character, the game will pause and let the player
+make some changes to influence their character's behavior.
+These changes may include:
+
+ - Re-ordering items in a character's inventory to influence their action (boots
+   first to flee, weapon first to fight).
+ - Selecting locations that a character to move towards.
+ - Picking up an item on the location they are currently at.
+ - Trading items between themselves and another character on their location.
 
 Once all the interactions are specified, the player will hit "next turn" to
 advance the game.
+
+## Lessons Learned
+
+I had the clever idea of "embedding" the world map with the characters
+(replacing the ids in the map locations with the character data itself).
+This made it so i had to pass less arguments around to e.g. functions that
+visualized the map.
+But then it also meant i needed two map data types to manage, one of which was
+not really designed to be modified (the embedded map).
 
 ## Technical Stuff
 
