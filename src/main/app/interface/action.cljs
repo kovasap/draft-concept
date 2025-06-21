@@ -1,6 +1,6 @@
 (ns app.interface.action
   (:require
-    [app.interface.characters :refer [is-usable?]]
+    [app.interface.items :refer [is-usable?]]
     [app.interface.utils :refer [get-with-id]]
     [com.rpl.specter :as sp]
     [re-frame.core :as rf]))
@@ -24,10 +24,9 @@
           #(+ % (apply + (map :recovery-time used-items)))))
 
 (rf/reg-event-db
-  :update-character
-  (fn [db [_ character-id update-fn]]
-    ; TODO fix this, probably broken
-    (sp/transform [#(:characters %) #(= character-id (:id %))] update-fn db)))
+  :advance-acting-character
+  (fn [{:keys [characters] :as db} _]
+     (assoc db :acting-character-id (get-next-character-id characters))))
 
 (defn get-turn-event-fx
   "Given an acting character, return a vector of all the re-frame event-fx that
@@ -36,8 +35,8 @@
   [[:event-fx-key args]
    ...]
   "
-  [{:keys [world-map characters] :as _db} acting-character-id]
-  (let [usable-items (filter #(is-usable? % db id)
+  [{:keys [world-map characters acting-character-id] :as _db}]
+  (let [usable-items (filter #(is-usable? % db)
                        (:inventory (get-with-id acting-character-id
                                                 characters)))]
     (concat
@@ -55,6 +54,5 @@
 (rf/reg-event-fx
   :take-next-action
   (fn [db _]
-    {:fx (get-turn-event-fx
-           db
-           (get-next-character-id (:characters db)))}))
+    {:fx (conj (get-turn-event-fx db)
+               [:advance-acting-character])}))

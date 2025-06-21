@@ -12,6 +12,7 @@
             [app.interface.characters :refer [starting-characters]]
             [app.interface.world-map :refer [world-map]]
             [app.interface.animations]
+            [app.interface.db :refer [initial-db]]
             [cljs.pprint]
             [malli.dev.cljs :as md]
             [malli.dev.pretty :as mdpretty]
@@ -24,11 +25,7 @@
 
 (rf/reg-event-db
   :app/setup
-  (fn [db _]
-    {:world-map world-map
-     :actions []
-     :player-characters (into [] (map :id starting-characters))
-     :characters starting-characters}))
+  (fn [_db _] initial-db))
      
 
 (rf/reg-event-db

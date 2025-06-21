@@ -15,10 +15,8 @@
   items.  Note that f must uniquely distinguish items!"
   (zipmap (map f coll) coll))
 
-
 (def IdMap
   [:map [:id :keyword]])
-  
 
 (defn get-with-ids
   {:malli/schema [:-> [:vector :keyword] [:set IdMap] [:set IdMap]]}

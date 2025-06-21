@@ -1,7 +1,6 @@
 (ns app.interface.world-map
   (:require 
     [malli.core :as m]
-    [app.interface.utils :refer [get-with-ids]]
     [app.interface.malli-schema-registry :refer [register!]]
     [com.rpl.specter :as sp]))
 
@@ -13,11 +12,15 @@
 (register! ::land-type
   (into [:enum] (keys land-types)))
 
+(register! ::location-id :keyword)
+
 (register! ::location
-  [:map
-   [:id :keyword]
-   [:land-type ::land-type]
-   [:character-ids {:default #{} :optional true} [:set :keyword]]])
+           [:map
+            [:id ::location-id]
+            [:land-type ::land-type]
+            [:adjacent-location-ids [:set ::location-id]]
+            [:character-ids {:default #{} :optional true}
+             [:set :app.interface.characters/character-id]]])
 
 (register! ::world-map
   [:vector 
@@ -35,4 +38,3 @@
                   (fn [{:keys [character-ids] :as _location}]
                     (contains? character-ids character-id))]
                  world-map))
-  
