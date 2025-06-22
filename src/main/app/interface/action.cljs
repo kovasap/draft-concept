@@ -2,6 +2,7 @@
   (:require
     [app.interface.items :refer [is-usable?]]
     [app.interface.utils :refer [get-with-id]]
+    [day8.re-frame.undo :as undo :refer [undoable]]  
     [com.rpl.specter :as sp]
     [re-frame.core :as rf]))
     
@@ -24,19 +25,24 @@
           #(+ % (apply + (map :recovery-time used-items)))))
 
 (rf/reg-event-db
-  :update-character
+  ::update-character
+  [rf/debug]
   (fn [db [_ character-id update-fn]]
-    (sp/transform [:characters #(= character-id (:id %))] update-fn db)))
+    (sp/transform [:characters sp/ALL #(= character-id (:id %))]
+                  update-fn
+                  db)))
 
 (rf/reg-event-db
-  :apply-effect
+  ::apply-effect
+  [rf/debug]
   (fn [db [_ {:keys [transformer transformer-options] :as _effect}]]
     (transformer db transformer-options)))
 
 (rf/reg-event-db
-  :advance-acting-character
+  ::advance-acting-character
+  [rf/debug]
   (fn [{:keys [characters] :as db} _]
-     (assoc db :acting-character-id (get-next-character-id characters))))
+    (assoc db :acting-character-id (get-next-character-id characters))))
 
 (defn get-usable-items
   [{:keys [inventory] :as _character} db]
@@ -51,15 +57,33 @@
   "
   [{:keys [characters acting-character-id] :as db}]
   (let [acting-character (get-with-id acting-character-id characters)
-        usable-items (get-usable-items acting-character db)]
-    (conj (mapv (fn [effect] [:apply-effect effect])
-            (:effects (first usable-items)))
-          [[:update-character
-            acting-character-id
-            #(increment-next-ready-time % usable-items)]])))
+        item-to-use      (first (get-usable-items acting-character db))]
+    (doto
+      (concat [[::log
+                (str (:full-name acting-character)
+                     " is using "
+                     (:display-name item-to-use))]]
+              (map (fn [effect] [::apply-effect effect]) (:effects item-to-use))
+              (map (fn [{:keys [animation]}]
+                     [:app.interface.animations/play-animation
+                      acting-character
+                      animation])
+                (:effects item-to-use))
+              [[::update-character
+                acting-character-id
+                #(increment-next-ready-time % [item-to-use])]])
+      print)))
 
 (rf/reg-event-fx
-  :take-next-action
+  ::take-next-action
+  [rf/debug (undoable "Take next action")]
   (fn [{:keys [db] :as _cofx} _]
-    {:fx (conj (get-turn-event-fx db)
-               [:advance-acting-character])}))
+    {:fx (conj (for [fx (get-turn-event-fx db)]
+                 [:dispatch fx])
+               [:dispatch [::advance-acting-character]])}))
+
+(rf/reg-event-db
+  ::log
+  (fn [db [_ log-message]] (update db :log #(conj % log-message))))
+  
+

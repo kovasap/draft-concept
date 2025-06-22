@@ -10,14 +10,21 @@
   []
   [:div.container
    [:h1 "My App"]
+   [:div @(rf/subscribe [:message])]
    [:div {:style {:display "flex"}}
-    [:button.btn.btn-outline-primary {:on-click #(rf/dispatch [:app/setup])}
+    [:button.btn.btn-outline-primary {:on-click
+                                      #(rf/dispatch
+                                         [:app.interface.core/setup])}
      "Reset App"]
     [undo-button]]
-   [:div @(rf/subscribe [:message])]
    [:br]
-   [:button.btn.btn-outline-primary {:on-click #(rf/dispatch [:take-next-action])}
+   [:button.btn.btn-outline-primary
+    {:on-click #(rf/dispatch [:app.interface.action/take-next-action])}
     "Next Character Actions"]
-   [world-map-view 
+   [world-map-view
     @(rf/subscribe [:world-map])
-    @(rf/subscribe [:characters])]])
+    @(rf/subscribe [:characters])]
+   (into [:div
+          [:h3 "Action Log"]]
+         (for [log-item @(rf/subscribe [:log])]
+           [:p log-item]))])

@@ -7,7 +7,7 @@
             [app.interface.utils :refer [get-with-id]]))
 
 (register! ::effect
-  [:map 
+  [:map
    [:transformer ::transformer]
    [:transformer-options ::transformer-options]
    [:animation :app.interface.characters/animation]])
@@ -18,20 +18,21 @@
   [:map
    [:item-type :keyword]
    [:display-name :string]
-   ; Effects will happen in the order specified here when a character uses the
-   ; item.
+   ; Effects will happen in the order specified here when a character uses
+   ; the item.
    [:effects [:vector ::effect]]
-   [:tags {:default #{}} [:set ::tag]]
+   [:tags {:default #{}}
+    [:set ::tag]]
    [:recovery-time :int]])
 
 (defn is-usable?
-  "An item is usable if any of ALL of its effect transformers can do something
+  "An item is usable if ALL of its effect transformers can do something
   (return non-nil values)."
   [{:keys [effects] :as _item} db]
   (->> effects
        (map (fn [{:keys [transformer transformer-options]}]
               (transformer db transformer-options)))
-       (filter nil?)
+       (remove nil?)
        (not-empty)))
 
 ; --- Transformers ---
@@ -41,15 +42,14 @@
 ; 2. Make it possible to generate descriptive strings for them in the UI.
 ; 3. Make it easier to modify them (e.g. make a weapon do more damage).
 
-(register! ::transformer-options
-  [:map])
+(register! ::transformer-options [:map])
 
 ; Returns nil if the db could not be modified
 (register! ::transformer
-           [:->
-            :app.interface.db/db
-            ::transformer-options
-            [:maybe :app.interface.db/db]])
+  [:->
+   :app.interface.db/db
+   ::transformer-options
+   [:maybe :app.interface.db/db]])
 
 (defn is-valid-target?
   [attacking-character-id query-character-id characters]
@@ -77,18 +77,17 @@
   [{:keys [acting-character-id world-map] :as db} {:keys [distance]}]
   (let [current-location (get-location world-map acting-character-id)
         ; Move in arbitrary directions for now
-        new-location-id (first (:adjacent-location-ids current-location))]
-    (->> db
+        new-location-id  (first (:adjacent-location-ids current-location))]
+    (->>
+      db
       ; Remove current location character entry
-      (sp/transform [:world-map sp/ALL sp/ALL
-                     #(= (:id %) (:id current-location))
-                     :character-ids]
-                    #(disj % acting-character-id))
+      (sp/transform
+        [:world-map sp/ALL #(= (:id %) (:id current-location)) :character-ids]
+        #(disj % acting-character-id))
       ; Add new location character entry
-      (sp/transform [:world-map sp/ALL sp/ALL
-                     #(= (:id %) new-location-id)
-                     :character-ids]
-                    #(conj % acting-character-id)))))
+      (sp/transform
+        [:world-map sp/ALL #(= (:id %) new-location-id) :character-ids]
+        #(conj % acting-character-id)))))
 
 ; --- End Transformers ---
 
@@ -103,4 +102,9 @@
     :display-name "Boots"
     :effects [{:transformer-options {:distance 1}
                :animation :none
-               :transformer move}]}])
+               :transformer move}]
+    :recovery-time 5}])
+
+(defn new-item
+  [item-type]
+  (sp/select-one [sp/ALL #(= item-type (:item-type %))] items))

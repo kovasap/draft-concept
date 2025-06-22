@@ -1,21 +1,26 @@
 (ns app.interface.db
   (:require [malli.core :as m]
             [malli.transform :as mt]
+            [day8.re-frame.undo :as undo :refer [undoable]]  
+            [re-frame.core :as rf]
             [com.rpl.specter :as sp]
             [app.interface.world-map :refer [world-map]]
             [app.interface.characters :refer [finalize-character]]
-            [app.interface.items :refer [items]]
+            [app.interface.items :refer [new-item]]
             [app.interface.malli-schema-registry :refer [register!]]))
 
 (register! ::db
-           [:map 
-            [:world-map :app.interface.world-map/world-map]
-            [:acting-character-id :app.interface.characters/character-id]
-            [:characters [:set :app.interface.characters/character]]])
+  [:map
+   [:message :string]
+   [:log [:vector :string]]
+   [:world-map :app.interface.world-map/world-map]
+   [:acting-character-id :app.interface.characters/character-id]
+   [:characters [:set :app.interface.characters/character]]])
 
 (def initial-db
   {:world-map  world-map
-   :actions    []
+   :message    ""
+   :log        ["first message"]
    :acting-character-id :hare
    :characters (set
                  (map finalize-character
@@ -23,9 +28,7 @@
                      :id         :hare
                      :vigor      3
                      :will       2
-                     :inventory  [(sp/select-one [sp/ALL
-                                                  #(= :mace (:item-type %))]
-                                                 items)]
+                     :inventory  [(new-item :mace)]
                      :class-id   :skirmisher
                      :faction    :player
                      :affinities #{:fire :air}
@@ -34,10 +37,19 @@
                      :id         :tortoise
                      :vigor      5
                      :will       5
-                     :inventory  [(sp/select-one [sp/ALL
-                                                  #(= :mace (:item-type %))]
-                                                 items)]
+                     :inventory  [(new-item :boots)]
                      :faction    :bandits
                      :class-id   :skirmisher
                      :affinities #{:earth}
                      :controlled-by-player? false}]))})
+
+(rf/reg-event-db
+  ::message
+  (undoable "Send message")
+  (fn [db [_ message]] (assoc db :message message)))
+
+; Nice way to generate subsciptions for many keys.
+(doseq [kw [:world-map :player-characters :characters :message :log]]
+  (rf/reg-sub
+    kw
+    (fn [db _] (kw db))))

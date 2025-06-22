@@ -1,7 +1,6 @@
 (ns app.interface.core
   (:require ["react-dom/client" :refer [createRoot]]
             [day8.re-frame.http-fx]
-            [day8.re-frame.undo :as undo :refer [undoable]]  
             [goog.dom :as gdom]
             [re-frame.core :as rf]
             [reagent.core :as r]
@@ -21,29 +20,9 @@
 ;; ----------------------------------------------------------------------------
 ;; Setup
 
-(rf/reg-event-db :app/setup
-                 (fn [_db _] initial-db))
-     
-
 (rf/reg-event-db
-  :message
-  (undoable "Send message")
-  (fn [db [_ message]]
-    (assoc db :message message)))
-
-(rf/reg-sub
-  :message
-  (fn [db _]
-    (:message db)))
-
-; Nice way to generate subsciptions for many keys.
-(doseq [kw [:world-map :player-characters :characters]]
-  (rf/reg-sub
-    kw
-    (fn [db _] (kw db))))
-
-;; -- Game Flow -------------------------------------------------------------
-
+  ::setup
+  (fn [_db _] initial-db))
 
 ;; -- Entry Point -------------------------------------------------------------
 
@@ -51,7 +30,7 @@
 
 (defn init
   []
-  (rf/dispatch [:app/setup])
+  (rf/dispatch [::setup])
   (.render root (r/as-element [main])))
 
 (defn- ^:dev/after-load re-render
