@@ -16,6 +16,7 @@
 (def initial-db
   {:world-map  world-map
    :actions    []
+   :acting-character-id :hare
    :characters (set
                  (map finalize-character
                    [{:full-name  "Hare"
@@ -26,6 +27,7 @@
                                                   #(= :mace (:item-type %))]
                                                  items)]
                      :class-id   :skirmisher
+                     :faction    :player
                      :affinities #{:fire :air}
                      :controlled-by-player? true}
                     {:full-name  "Tortoise"
@@ -35,6 +37,7 @@
                      :inventory  [(sp/select-one [sp/ALL
                                                   #(= :mace (:item-type %))]
                                                  items)]
+                     :faction    :bandits
                      :class-id   :skirmisher
                      :affinities #{:earth}
                      :controlled-by-player? false}]))})

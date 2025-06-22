@@ -38,6 +38,10 @@
   (fn [{:keys [characters] :as db} _]
      (assoc db :acting-character-id (get-next-character-id characters))))
 
+(defn get-usable-items
+  [{:keys [inventory] :as _character} db]
+  (filter #(is-usable? % db) inventory))
+
 (defn get-turn-event-fx
   "Given an acting character, return a vector of all the re-frame event-fx that
   will happen once that character acts, based on their items.
@@ -45,10 +49,9 @@
   [[:event-fx-key args]
    ...]
   "
-  [{:keys [world-map characters acting-character-id] :as db}]
-  (let [usable-items (filter #(is-usable? % db)
-                       (:inventory (get-with-id acting-character-id
-                                                characters)))]
+  [{:keys [characters acting-character-id] :as db}]
+  (let [acting-character (get-with-id acting-character-id characters)
+        usable-items (get-usable-items acting-character db)]
     (conj (mapv (fn [effect] [:apply-effect effect])
             (:effects (first usable-items)))
           [[:update-character
@@ -57,6 +60,6 @@
 
 (rf/reg-event-fx
   :take-next-action
-  (fn [db _]
+  (fn [{:keys [db] :as _cofx} _]
     {:fx (conj (get-turn-event-fx db)
                [:advance-acting-character])}))

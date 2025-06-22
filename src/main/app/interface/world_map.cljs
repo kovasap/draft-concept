@@ -18,23 +18,43 @@
            [:map
             [:id ::location-id]
             [:land-type ::land-type]
+            ; Absolute position on world map, on a scale from 0-100% of the
+            ; total map size
+            [:position [:map [:x :int]
+                             [:y :int]]]
             [:adjacent-location-ids [:set ::location-id]]
             [:character-ids {:default #{} :optional true}
              [:set :app.interface.characters/character-id]]])
 
 (register! ::world-map
-  [:vector 
-   [:vector ::location]])
+  [:set ::location])
 
 (def world-map
-  [[{:id :farbane :land-type :forest} {:id :clear :land-type :clearing}]
-   [{:id :central :land-type :clearing :character-ids #{:hare :tortoise}}]
-   [{:id :deep :land-type :lake} {:id :nearbane :land-type :forest}]])
+  #{{:id        :farbane
+     :land-type :forest
+     :adjacent-location-ids #{:clear :central}
+     :position  {:x 0 :y 0}}
+    {:id        :clear
+     :land-type :clearing
+     :adjacent-location-ids #{:farbane :central}
+     :position  {:x 50 :y 0}}
+    {:id            :central
+     :land-type     :clearing
+     :adjacent-location-ids #{:farbane :clear :deep :nearbane}
+     :position      {:x 50 :y 50}
+     :character-ids #{:hare :tortoise}}
+    {:id        :deep
+     :land-type :lake
+     :adjacent-location-ids #{:central}
+     :position  {:x 0 :y 100}}
+    {:id        :nearbane
+     :land-type :forest
+     :adjacent-location-ids #{:central :deep}
+     :position  {:x 100 :y 100}}})
 
 (defn get-location
   [world-map character-id]
   (sp/select-one [sp/ALL
-                  sp/ALL
                   (fn [{:keys [character-ids] :as _location}]
                     (contains? character-ids character-id))]
                  world-map))

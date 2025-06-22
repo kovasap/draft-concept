@@ -2,7 +2,6 @@
   (:require [malli.core :as m]
             [malli.transform :as mt]
             [com.rpl.specter :as sp]
-            [app.interface.world-map :refer [get-location]]
             [app.interface.malli-schema-registry :refer [register!]]
             [app.interface.utils :refer [associate-by]]))
 
@@ -22,24 +21,11 @@
    [:traumas {:default 0} :int]
    [:will :int]
    [:is-dead {:default false} :boolean]
-   [:next-ready-time :int]
+   [:next-ready-time {:default 0} :int]
    [:affinities {:default #{}} [:set ::element]]
    [:weaknesses {:default #{}} [:set ::element]]
    [:controlled-by-player? :boolean]
-   [:faction ::faction]])
-
-(def factions
-  {:player {:enemies #{:bandits}}
-   :bandits {:enemies #{:player}}
-   :merchants {:enemies #{:bandits}}})
-
-(register! ::faction
-           (into [:enum] (keys factions)))
-
-(defn are-enemies?
-  [character other-character]
-  (contains? (:enemies ((:faction character) factions))
-             (:faction other-character)))
+   [:faction :app.interface.factions/faction]])
 
 (def elements
   {:fire {}

@@ -9,6 +9,7 @@
             [app.interface.utils :refer [get-only associate-by]]
             [app.interface.world-map :refer [world-map]]
             [app.interface.animations]
+            [app.interface.action]
             [app.interface.db :refer [initial-db]]
             [cljs.pprint]
             [malli.dev.cljs :as md]
@@ -50,16 +51,13 @@
 
 (defn init
   []
-  (md/start! {:report (mdpretty/thrower)})
   (rf/dispatch [:app/setup])
   (.render root (r/as-element [main])))
 
-; TODO delete if doesn't seem useful after a while commented
-#_(defn- ^:dev/after-load re-render
-    "The `:dev/after-load` metadata causes this function to be called after
+(defn- ^:dev/after-load re-render
+  "The `:dev/after-load` metadata causes this function to be called after
   shadow-cljs hot-reloads code. This function is called implicitly by its
   annotation."
-    []
-    (md/start! {:report (mdpretty/reporter)})
-    (rf/clear-subscription-cache!)
-    (init))
+  []
+  (rf/clear-subscription-cache!)
+  (init))

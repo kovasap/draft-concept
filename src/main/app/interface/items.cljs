@@ -1,7 +1,8 @@
 (ns app.interface.items
   (:require [com.rpl.specter :as sp]
+            [malli.core :as m]
             [app.interface.world-map :refer [get-location]]
-            [app.interface.characters :refer [are-enemies?]]
+            [app.interface.factions :refer [are-enemies?]]
             [app.interface.malli-schema-registry :refer [register!]]
             [app.interface.utils :refer [get-with-id]]))
 
@@ -11,6 +12,8 @@
    [:transformer-options ::transformer-options]
    [:animation :app.interface.characters/animation]])
 
+(register! ::tag [:enum :aquatic :sword :lance :axe])
+
 (register! ::item
   [:map
    [:item-type :keyword]
@@ -18,22 +21,8 @@
    ; Effects will happen in the order specified here when a character uses the
    ; item.
    [:effects [:vector ::effect]]
+   [:tags {:default #{}} [:set ::tag]]
    [:recovery-time :int]])
-
-(declare melee-attack move)
-(def items
-  [{:item-type :mace
-    :display-name "Mace"
-    :effects [{:transformer-options {:damage 2}
-               :animation :attack
-               :transformer melee-attack}] 
-    :recovery-time 5}
-   ; TODO finish this item, which allows characters to move
-   {:item-type :boots
-    :display-name "Boots"
-    :effects [{:transformer-options {:distance 1}
-               :animation :none
-               :transformer move}]}])
 
 (defn is-usable?
   "An item is usable if any of ALL of its effect transformers can do something
@@ -76,7 +65,7 @@
     (first)))
 
 (defn melee-attack
-  #_{:malli/schema ::transformer}
+  {:malli/schema (m/deref ::transformer)}
   [{:keys [acting-character-id] :as db} {:keys [damage]}]
   (let [target-id (get-single-melee-target-id db acting-character-id)]
     (sp/transform [:characters sp/ALL #(= target-id (:id %)) :vigor]
@@ -84,7 +73,7 @@
                   db)))
 
 (defn move
-  #_{:malli/schema ::transformer}
+  {:malli/schema (m/deref ::transformer)}
   [{:keys [acting-character-id world-map] :as db} {:keys [distance]}]
   (let [current-location (get-location world-map acting-character-id)
         ; Move in arbitrary directions for now
@@ -102,3 +91,16 @@
                     #(conj % acting-character-id)))))
 
 ; --- End Transformers ---
+
+(def items
+  [{:item-type :mace
+    :display-name "Mace"
+    :effects [{:transformer-options {:damage 2}
+               :animation :attack
+               :transformer melee-attack}] 
+    :recovery-time 5}
+   {:item-type :boots
+    :display-name "Boots"
+    :effects [{:transformer-options {:distance 1}
+               :animation :none
+               :transformer move}]}])
