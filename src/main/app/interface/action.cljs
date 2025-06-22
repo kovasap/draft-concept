@@ -24,6 +24,16 @@
           #(+ % (apply + (map :recovery-time used-items)))))
 
 (rf/reg-event-db
+  :update-character
+  (fn [db [_ character-id update-fn]]
+    (sp/transform [:characters #(= character-id (:id %))] update-fn db)))
+
+(rf/reg-event-db
+  :apply-effect
+  (fn [db [_ {:keys [transformer transformer-options] :as _effect}]]
+    (transformer db transformer-options)))
+
+(rf/reg-event-db
   :advance-acting-character
   (fn [{:keys [characters] :as db} _]
      (assoc db :acting-character-id (get-next-character-id characters))))
@@ -35,21 +45,15 @@
   [[:event-fx-key args]
    ...]
   "
-  [{:keys [world-map characters acting-character-id] :as _db}]
+  [{:keys [world-map characters acting-character-id] :as db}]
   (let [usable-items (filter #(is-usable? % db)
                        (:inventory (get-with-id acting-character-id
                                                 characters)))]
-    (concat
-      (apply concat
-        (for [{:keys [effects]} usable-items]
-          (for [{:keys
-                 [target-selector target-transformer transformer-options]}
-                effects]
-            (for [target-id (target-selector embedded-map id)]
-              [:update-character
-               target-id
-               #(target-transformer % transformer-options)]))))
-      [[:update-character id #(increment-next-ready-time % usable-items)]])))
+    (conj (mapv (fn [effect] [:apply-effect effect])
+            (:effects (first usable-items)))
+          [[:update-character
+            acting-character-id
+            #(increment-next-ready-time % usable-items)]])))
 
 (rf/reg-event-fx
   :take-next-action

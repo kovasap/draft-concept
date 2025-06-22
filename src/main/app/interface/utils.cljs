@@ -24,6 +24,6 @@
   (set (filter #(contains? ids (:id %)) my-set)))
 
 (defn get-with-id
-  {:malli/schema [:-> :keyword [:set IdMap] IdMap]}
+  {:malli/schema [:-> :keyword [:set IdMap] [:maybe IdMap]]}
   [id my-set]
   (sp/select-one [sp/ALL #(= id (:id %))] my-set))
