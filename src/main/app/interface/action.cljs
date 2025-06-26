@@ -59,7 +59,7 @@
   (let [acting-character (get-with-id acting-character-id characters)
         item-to-use      (first (get-usable-items acting-character db))]
     (doto
-      (concat [[::log
+      (concat [[:app.interface.messages-to-player/log
                 (str (:full-name acting-character)
                      " is using "
                      (:display-name item-to-use))]]
@@ -78,12 +78,8 @@
   ::take-next-action
   [rf/debug (undoable "Take next action")]
   (fn [{:keys [db] :as _cofx} _]
-    {:fx (conj (for [fx (get-turn-event-fx db)]
-                 [:dispatch fx])
-               [:dispatch [::advance-acting-character]])}))
-
-(rf/reg-event-db
-  ::log
-  (fn [db [_ log-message]] (update db :log #(conj % log-message))))
-  
-
+    {:fx (concat (for [fx (get-turn-event-fx db)]
+                   [:dispatch fx])
+                 ; Use concat instead of conj to make sure this happens
+                 ; after all other effects and not before.
+                 [[:dispatch [::advance-acting-character]]])}))

@@ -24,7 +24,15 @@
    [world-map-view
     @(rf/subscribe [:world-map])
     @(rf/subscribe [:characters])]
-   (into [:div
-          [:h3 "Action Log"]]
-         (for [log-item @(rf/subscribe [:log])]
-           [:p log-item]))])
+   [:br]
+   [:br]
+   [:div {:style {:display "flex"}}
+     (into [:div
+            [:h3 "Action Log"]]
+           (for [log-item @(rf/subscribe [:log])]
+             [:p log-item]))
+     (into [:div
+            [:h3 "Turn Order"]]
+           (for [{:keys [full-name next-ready-time]} 
+                 (sort-by :next-ready-time @(rf/subscribe [:characters]))]
+              [:p next-ready-time "    " full-name]))]])

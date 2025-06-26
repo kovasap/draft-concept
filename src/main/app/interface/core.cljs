@@ -9,6 +9,7 @@
             [app.interface.world-map :refer [world-map]]
             [app.interface.animations]
             [app.interface.action]
+            [app.interface.messages-to-player]
             [app.interface.db :refer [initial-db]]
             [cljs.pprint]
             [malli.dev.cljs :as md]
