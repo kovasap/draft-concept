@@ -28,7 +28,7 @@
                      :id         :hare
                      :vigor      3
                      :will       2
-                     :inventory  [(new-item :mace)]
+                     :inventory  [(new-item :mace) (new-item :boots)]
                      :class-id   :skirmisher
                      :faction    :player
                      :affinities #{:fire :air}
@@ -42,11 +42,6 @@
                      :class-id   :skirmisher
                      :affinities #{:earth}
                      :controlled-by-player? false}]))})
-
-(rf/reg-event-db
-  ::message
-  (undoable "Send message")
-  (fn [db [_ message]] (assoc db :message message)))
 
 ; Nice way to generate subsciptions for many keys.
 (doseq [kw [:world-map :player-characters :characters :message :log]]

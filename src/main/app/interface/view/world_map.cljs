@@ -1,6 +1,7 @@
 (ns app.interface.view.world-map
   (:require [app.interface.view.character :refer [character-view]]
-            [app.interface.utils :refer [get-with-id]]))
+            [app.interface.utils :refer [get-with-id]]
+            [reagent.core :as r]))
 
 ; Useful documentation at
 ; https://getbootstrap.com/docs/4.0/layout/grid/#horizontal-alignment to make
@@ -19,7 +20,8 @@
   [{:keys [land-type character-ids id] {:keys [x y]} :position :as _location}
    characters]
   [:div.col-4 {:style (merge {:width    (str (:width location-size-percent "%"))
-                              :height   (str (:height location-size-percent "%"))
+                              :height   (str (:height location-size-percent
+                                                      "%"))
                               :top      (str y "%")
                               :left     (str x "%")
                               :position "absolute"}
@@ -27,8 +29,8 @@
                :key   id}
    land-type
    (into [:div]
-         (mapv character-view
-           (map #(get-with-id % characters) character-ids)))])
+         (map (fn [cid] [character-view (get-with-id cid characters)])
+           character-ids))])
 
 (defn build-connections
   [{:keys [adjacent-location-ids id] {:keys [x y]} :position :as _location}
@@ -51,6 +53,6 @@
   [world-map characters]
   (into [:div.container {:style
                          {:width "700px" :height "500px" :position "relative"}}]
-        [(map #(location-view % characters) world-map)
-         (into [:svg {:width "100%" :height "100%"}] 
-               (map #(build-connections % world-map) world-map))]))
+        (conj (map #(location-view % characters) world-map)
+              (into [:svg {:width "100%" :height "100%"}]
+                    (map #(build-connections % world-map) world-map)))))

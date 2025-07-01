@@ -18,20 +18,6 @@
   [characters]
   (:id (first (sort-by :next-ready-time characters))))
 
-(defn increment-next-ready-time
-  [character used-items]
-  (update character
-          :next-ready-time
-          #(+ % (apply + (map :recovery-time used-items)))))
-
-(rf/reg-event-db
-  ::update-character
-  [rf/debug]
-  (fn [db [_ character-id update-fn]]
-    (sp/transform [:characters sp/ALL #(= character-id (:id %))]
-                  update-fn
-                  db)))
-
 (rf/reg-event-db
   ::apply-effect
   [rf/debug]
@@ -48,6 +34,29 @@
   [{:keys [inventory] :as _character} db]
   (filter #(is-usable? % db) inventory))
 
+(defn get-item-animation-fx
+  [item character-to-animate]
+  (map (fn [{:keys [animation]}] [:app.interface.animations/play-animation
+                                  character-to-animate
+                                  animation])
+    (:effects item)))
+
+(defn get-rest-fx
+  [character]
+  [[:app.interface.messages-to-player/log
+    (str (:full-name character) " cannot use any items and will rest...")
+    [:app.interface.characters/increment-next-ready-time (:id character) 1]]])
+
+(defn get-item-use-fx
+  [item character]
+  (concat [[:app.interface.messages-to-player/log
+            (str (:full-name character) " is using " (:display-name item))]]
+          (map (fn [effect] [::apply-effect effect]) (:effects item))
+          (get-item-animation-fx item character)
+          [[:app.interface.characters/increment-next-ready-time
+            (:id character)
+            (:recovery-time item)]]))
+
 (defn get-turn-event-fx
   "Given an acting character, return a vector of all the re-frame event-fx that
   will happen once that character acts, based on their items.
@@ -58,21 +67,9 @@
   [{:keys [characters acting-character-id] :as db}]
   (let [acting-character (get-with-id acting-character-id characters)
         item-to-use      (first (get-usable-items acting-character db))]
-    (doto
-      (concat [[:app.interface.messages-to-player/log
-                (str (:full-name acting-character)
-                     " is using "
-                     (:display-name item-to-use))]]
-              (map (fn [effect] [::apply-effect effect]) (:effects item-to-use))
-              (map (fn [{:keys [animation]}]
-                     [:app.interface.animations/play-animation
-                      acting-character
-                      animation])
-                (:effects item-to-use))
-              [[::update-character
-                acting-character-id
-                #(increment-next-ready-time % [item-to-use])]])
-      print)))
+    (if (nil? item-to-use)
+      (get-rest-fx acting-character)
+      (get-item-use-fx item-to-use acting-character))))
 
 (rf/reg-event-fx
   ::take-next-action

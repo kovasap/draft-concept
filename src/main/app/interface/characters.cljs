@@ -3,7 +3,8 @@
             [malli.transform :as mt]
             [com.rpl.specter :as sp]
             [app.interface.malli-schema-registry :refer [register!]]
-            [app.interface.utils :refer [associate-by]]))
+            [app.interface.utils :refer [associate-by]]
+            [re-frame.core :as rf]))
 
 (register! ::character-id :keyword)
 
@@ -93,3 +94,37 @@
                ".png"))
         ; Always end the animation back at idle
         (str "class-images/" (name class-id) "/idle.png")))
+
+(defn update-character-in-db
+  [db character-id update-fn]
+  (sp/transform [:characters sp/ALL #(= character-id (:id %))]
+                update-fn
+                db))
+
+(rf/reg-event-db
+  ::increment-next-ready-time
+  [rf/debug]
+  (fn [db [_ character-id next-ready-time-delay]]
+    (update-character-in-db
+      db
+      character-id
+      #(update % :next-ready-time + next-ready-time-delay))))
+
+(defn swap-elements
+  [v e1 e2]
+  (mapv (fn [e]
+          (cond (= e e1) e2
+                (= e e2) e1
+                :else    e))
+    v))
+
+(rf/reg-event-db
+  ::swap-items-in-inventory
+  [rf/debug]
+  (fn [db [_ character-id item1 item2]]
+    (update-character-in-db
+      db
+      character-id
+      (fn [character]
+        (update character :inventory #(swap-elements % item1 item2))))))
+    

@@ -19,6 +19,7 @@
   [:map
    [:item-type :keyword]
    [:display-name :string]
+   [:image :string]
    ; Effects will happen in the order specified here when a character uses
    ; the item.
    [:effects [:vector ::effect]]
@@ -71,17 +72,19 @@
   (let [target-id        (get-single-melee-target-id db acting-character-id)
         acting-character (get-with-id acting-character-id characters)
         target-character (get-with-id target-id characters)]
-    (as-> db tdb
-      (sp/transform [:characters sp/ALL #(= target-id (:id %)) :vigor]
-                    #(- % damage)
-                    tdb)
-      (append-log tdb
-                  (str (:full-name acting-character)
-                       " strikes "
-                       (:full-name target-character)
-                       " for "
-                       damage
-                       " damage!")))))
+    (if (nil? target-character)
+      nil
+      (as-> db tdb
+        (sp/transform [:characters sp/ALL #(= target-id (:id %)) :vigor]
+                      #(- % damage)
+                      tdb)
+        (append-log tdb
+                    (str (:full-name acting-character)
+                         " strikes "
+                         (:full-name target-character)
+                         " for "
+                         damage
+                         " damage!"))))))
 
 (defn move
   {:malli/schema (m/deref ::transformer)}
@@ -91,33 +94,39 @@
         current-location (get-location world-map acting-character-id)
         ; Move in arbitrary directions for now
         new-location-id  (first (:adjacent-location-ids current-location))]
-    (as-> db tdb
-      ; Remove current location character entry
-      (sp/transform
-        [:world-map sp/ALL #(= (:id %) (:id current-location)) :character-ids]
-        #(disj % acting-character-id)
-        tdb)
-      ; Add new location character entry
-      (sp/transform
-        [:world-map sp/ALL #(= (:id %) new-location-id) :character-ids]
-        #(conj % acting-character-id)
-        tdb)
-      (append-log tdb
-                  (str (:full-name acting-character)
-                       " moves from " (:id current-location)
-                       " to "         new-location-id)))))
+    (if (nil? new-location-id)
+      nil
+      (as-> db tdb
+        ; Remove current location character entry
+        (sp/transform [:world-map
+                       sp/ALL
+                       #(= (:id %) (:id current-location))
+                       :character-ids]
+                      #(disj % acting-character-id)
+                      tdb)
+        ; Add new location character entry
+        (sp/transform
+          [:world-map sp/ALL #(= (:id %) new-location-id) :character-ids]
+          #(conj % acting-character-id)
+          tdb)
+        (append-log tdb
+                    (str (:full-name acting-character)
+                         " moves from " (:id current-location)
+                         " to "         new-location-id))))))
 
 ; --- End Transformers ---
 
 (def items
   [{:item-type :mace
     :display-name "Mace"
+    :image "item-images/mace.png"
     :effects [{:transformer-options {:damage 2}
                :animation :attack
                :transformer melee-attack}] 
     :recovery-time 5}
    {:item-type :boots
     :display-name "Boots"
+    :image "item-images/torch.png"
     :effects [{:transformer-options {:distance 1}
                :animation :none
                :transformer move}]

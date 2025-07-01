@@ -3,6 +3,7 @@
             [reagent.core :as r]
             [app.interface.view.world-map :refer [world-map-view]]
             [app.interface.view.undo :refer [undo-button]]
+            [app.interface.view.character :refer [character-view]]
             [cljs.pprint]))
 
 (defn main
@@ -26,6 +27,7 @@
     @(rf/subscribe [:characters])]
    [:br]
    [:br]
+   [character-view (first @(rf/subscribe [:characters]))]
    [:div {:style {:display "flex"}}
      (into [:div
             [:h3 "Action Log"]]
@@ -36,3 +38,15 @@
            (for [{:keys [full-name next-ready-time]} 
                  (sort-by :next-ready-time @(rf/subscribe [:characters]))]
               [:p next-ready-time "    " full-name]))]])
+
+
+;; Troubleshooting UI issues
+
+; Make sure all components (functions) are wrapped with [] in the returned
+; datastructure, otherwise you will get "Functions are not valid as a React
+; child" errors!
+
+; If a function defining a component returns a callback function, note that all
+; ratom dereferences up the stack are ignored; if a parent component is
+; triggered to re-render, a child component returning a callback function will
+; NOT re-render!

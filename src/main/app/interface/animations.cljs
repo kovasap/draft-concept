@@ -13,8 +13,7 @@
 ; attack.
 (rf/reg-event-fx
   ::play-animation
-  [rf/debug]
-  (fn [_ [_ {:keys [id class-id] :as character} animation]]
+  (fn [_ [_ {:keys [id class-id] :as _character} animation]]
     {:fx
      (dispatch-sequentially-with-timings
        (for [image (get-animation-frame-images class-id animation)]
@@ -22,5 +21,5 @@
           time-between-frames-ms]))}))
 
 (defn get-animation-duration
-  [{:keys [class-id] :as character} animation]
+  [{:keys [class-id] :as _character} animation]
   (* time-between-frames-ms (get-animation-frames class-id animation)))
