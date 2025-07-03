@@ -42,11 +42,32 @@ Perhaps you will have multiple characters that start at different locations.
 Then the game proceeds, with all characters (player-controlled, friendly, enemy,
 neutral) taking actions on a timeline based on a `:next-ready-time` stat
 attached to each character.
+Taking actions on a character's turn will increase this stat based on the
+action, giving other characters a chance to go.
 
-Each character has an inventory of items, each of which has an ability attached
-to it.
-On a character's turn, they will try using each of their items in order and use
-the first one that can be used based on their context.
+Each character has an inventory of items.
+Items grant two main things to the character:
+
+1. Tags, which can impact how that character interacts with locations, other
+   characters, and anything else.
+2. Abilities, which the character can use one of on their turn.
+
+For example, the :mace item allows the character to do a melee attack, and also
+grants the :anti-armor tag, which makes all attacks that character makes against
+characters with the :armored tag stronger.
+
+### Tag Interactions
+
+Based on a character's tags, the tags of the other characters sharing that
+character's location, and the tags of the location itself, certain **effects**
+can be applied to that character:
+
+ - If a character has the :armored tag and an enemy at their location has
+   :anti-armor, then that character will have the :vulnerable effect (take
+   double damage from attacks).
+ - 
+
+### Player Interaction
 
 If it the turn of a player character, the game will pause and let the player
 make some changes to influence their character's behavior.
