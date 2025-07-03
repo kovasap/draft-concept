@@ -2,8 +2,9 @@
   (:require [malli.core :as m]
             [malli.transform :as mt]
             [com.rpl.specter :as sp]
+            [app.interface.utils :refer [associate-by get-with-id]]
             [app.interface.malli-schema-registry :refer [register!]]
-            [app.interface.utils :refer [associate-by]]
+            [clojure.set :refer [union]]
             [re-frame.core :as rf]))
 
 (register! ::character-id :keyword)
@@ -14,30 +15,27 @@
    [:full-name :string]
    [:image :string]
    [:class-id ::character-class-ids]
-   ; Use ref here to avoid stack overflow, as it is a recursive definition.
-   [:inventory {:default []} [:vector [:ref :app.interface.items/item]]]
-   [:inventory-space {:default 3} :int]
-   [:injuries {:default 0} :int]
+   ; Use ref here to avoid stack overflow, as it is a recursive
+   ; definition.
+   [:inventory {:default []}
+    [:vector [:ref :app.interface.items/item]]]
+   [:inventory-space {:default 3}
+    :int]
+   [:injuries {:default 0}
+    :int]
    [:vigor :int]
-   [:traumas {:default 0} :int]
+   [:traumas {:default 0}
+    :int]
    [:will :int]
-   [:is-dead {:default false} :boolean]
-   [:next-ready-time {:default 0} :int]
-   [:affinities {:default #{}} [:set ::element]]
-   [:weaknesses {:default #{}} [:set ::element]]
+   [:is-dead {:default false}
+    :boolean]
+   [:next-ready-time {:default 0}
+    :int]
+   [:innate-abilities {:default #{:rest}}
+    [:set :app.interface.abilities/ability]]
+   [:innate-traits [:set :app.interface.traits/trait]]
    [:controlled-by-player? :boolean]
    [:faction :app.interface.factions/faction]])
-
-(def elements
-  {:fire {}
-   :air {}
-   :water {}
-   :earth {}
-   :light {}
-   :dark {}})
-
-(register! ::element
-  (into [:enum] (keys elements)))
 
 (register! ::animation
   [:enum :attack :none])
@@ -52,7 +50,7 @@
    [:animations 
     [:map-of ::animation ::animation-data]]])
 
-; TODO automatically determine :animation-frames based on the files in the
+; TODO automatically determine animation :frames based on the files in the
 ; resources/public/class-images/<class-name> directories
 (def character-classes
   [{:id :skirmisher
@@ -78,22 +76,14 @@
 (def character-classes-by-id
   (associate-by :id character-classes))
 
-(defn get-animation-frames
-  [class-id animation]
-  (:frames (animation (:animations (class-id character-classes-by-id)))))
+(defn get-traits
+  [{:keys [innate-traits inventory] :as _character}]
+  (union innate-traits (apply union (map :traits inventory))))
 
-(defn get-animation-frame-images
-  [class-id animation]
-  (conj (for [i (range (get-animation-frames class-id animation))]
-          (str "class-images/"
-               (name class-id)
-               "/"
-               (name animation)
-               "/"
-               (inc i)
-               ".png"))
-        ; Always end the animation back at idle
-        (str "class-images/" (name class-id) "/idle.png")))
+(defn get-ability-ids
+  [{:keys [innate-abilities inventory] :as _character}]
+  (union innate-abilities
+         (apply union (map :abilities inventory))))
 
 (defn update-character-in-db
   [db character-id update-fn]
@@ -102,13 +92,15 @@
                 db))
 
 (rf/reg-event-db
+  ::change-image
+  (fn [db [_ character-id new-image]]
+    (update-character-in-db db character-id #(update % :image new-image))))
+
+(rf/reg-event-db
   ::increment-next-ready-time
   [rf/debug]
-  (fn [db [_ character-id next-ready-time-delay]]
-    (update-character-in-db
-      db
-      character-id
-      #(update % :next-ready-time + next-ready-time-delay))))
+  (fn [db [_ character-id]]
+    (update-character-in-db db character-id #(update % :next-ready-time + 5))))
 
 (defn swap-elements
   [v e1 e2]

@@ -48,21 +48,21 @@ action, giving other characters a chance to go.
 Each character has an inventory of items.
 Items grant two main things to the character:
 
-1. Tags, which can impact how that character interacts with locations, other
+1. Traits, which can impact how that character interacts with locations, other
    characters, and anything else.
 2. Abilities, which the character can use one of on their turn.
 
 For example, the :mace item allows the character to do a melee attack, and also
-grants the :anti-armor tag, which makes all attacks that character makes against
-characters with the :armored tag stronger.
+grants the :anti-armor trait, which makes all attacks that character makes against
+characters with the :armored trait stronger.
 
-### Tag Interactions
+### Trait Interactions
 
-Based on a character's tags, the tags of the other characters sharing that
-character's location, and the tags of the location itself, certain **effects**
+Based on a character's traits, the traits of the other characters sharing that
+character's location, and the traits of the location itself, certain **effects**
 can be applied to that character:
 
- - If a character has the :armored tag and an enemy at their location has
+ - If a character has the :armored trait and an enemy at their location has
    :anti-armor, then that character will have the :vulnerable effect (take
    double damage from attacks).
  - 
