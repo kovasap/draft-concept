@@ -23,7 +23,7 @@
            [[:app.interface.abilities/use-ability
              acting-character-id
              ; just choose an arbitrary usable ability for now
-             ; at the very least the :rest ability should be usable
+             ; at the very least the :recover ability should be usable
              (first (filter #(is-usable? % db)
                       (get-ability-ids (get-with-id acting-character-id
                                                     characters))))]

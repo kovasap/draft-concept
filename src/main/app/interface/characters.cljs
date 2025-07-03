@@ -31,7 +31,7 @@
     :boolean]
    [:next-ready-time {:default 0}
     :int]
-   [:innate-abilities {:default #{:rest}}
+   [:innate-abilities {:default #{:recover}}
     [:set :app.interface.abilities/ability]]
    [:innate-traits [:set :app.interface.traits/trait]]
    [:controlled-by-player? :boolean]
@@ -94,7 +94,7 @@
 (rf/reg-event-db
   ::change-image
   (fn [db [_ character-id new-image]]
-    (update-character-in-db db character-id #(update % :image new-image))))
+    (update-character-in-db db character-id #(assoc % :image new-image))))
 
 (rf/reg-event-db
   ::increment-next-ready-time

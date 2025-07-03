@@ -32,7 +32,7 @@
     {:fx
      (dispatch-sequentially-with-timings
        (for [image (get-animation-frame-images class-id animation)]
-         [[:app.interface.character/change-image id image]
+         [[:app.interface.characters/change-image id image]
           time-between-frames-ms]))}))
 
 (defn get-animation-duration

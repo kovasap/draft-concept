@@ -6,6 +6,7 @@
             [app.interface.malli-schema-registry :refer [register!]]
             [app.interface.utils :refer [get-with-id]]
             [app.interface.traits :refer [calc-melee-damage]]
+            [app.interface.characters :refer [update-character-in-db]]
             [app.interface.messages-to-player :refer [append-log]]
             [re-frame.core :as rf]))
 
@@ -61,10 +62,12 @@
   [{:keys [acting-character-id characters] :as db}]
   nil)
 
-(defn rest
+(defn recover
   {:malli/schema (m/deref ::transformer)}
-  [{:keys [acting-character-id characters] :as db}]
-  db)
+  [{:keys [acting-character-id] :as db}]
+  (-> db
+    (update-character-in-db ,, acting-character-id #(update % :vigor inc))
+    (update-character-in-db ,, acting-character-id #(update % :will inc))))
 
 (defn move
   {:malli/schema (m/deref ::transformer)}
@@ -96,11 +99,11 @@
 (def abilities
   #{{:id :melee-attack :transformer melee-attack :animation :attack}
     {:id :ranged-attack :transformer ranged-attack :animation :attack}
-    {:id :rest :transformer rest :animation :none}
+    {:id :recover :transformer recover :animation :none}
     {:id :move :transformer move :animation :none}})
 
 (register! ::ability-id
-  (into [:enum] (keys abilities)))
+  (into [:enum] (map :id abilities)))
 
 (defn is-usable?
   [ability-id db]
