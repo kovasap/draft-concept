@@ -8,7 +8,7 @@
             [app.interface.factions]
             [app.interface.items]
             [app.interface.traits]
-            [app.interface.world-map]
+            [app.interface.locations]
             [app.interface.db :refer [initial-db]]
             [app.interface.messages-to-player]
             [app.interface.view.main :refer [main]]

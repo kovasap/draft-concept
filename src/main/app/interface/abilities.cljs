@@ -2,12 +2,12 @@
   (:require [com.rpl.specter :as sp]
             [malli.core :as m]
             [app.interface.malli-utils :refer [cast-all]]
-            [app.interface.world-map :refer [get-location-of-character]]
+            [app.interface.locations :refer [get-location-of-character]]
             [app.interface.factions :refer [are-enemies?]]
             [app.interface.malli-schema-registry :refer [register!]]
             [app.interface.utils :refer [get-with-id]]
             [app.interface.traits :refer [calc-melee-damage]]
-            [app.interface.characters :refer [character-nav]]
+            [app.interface.characters :refer [path-to-character]]
             [app.interface.messages-to-player :refer [append-log]]
             [re-frame.core :as rf]))
 
@@ -34,8 +34,8 @@
          (not (:is-dead query-character)))))
 
 (defn get-single-melee-target-id
-  [{:keys [world-map characters] :as _db} attacking-character-id]
-  (->> (:character-ids (get-location-of-character world-map attacking-character-id))
+  [{:keys [locations characters] :as _db} attacking-character-id]
+  (->> (:character-ids (get-location-of-character locations attacking-character-id))
     (filter #(is-valid-target? attacking-character-id % characters)) 
     (first)))
 
@@ -69,22 +69,22 @@
   {:malli/schema (m/deref ::transformer)}
   [{:keys [acting-character-id] :as db}]
   (->> db
-       (sp/transform (character-nav acting-character-id) #(update % :vigor inc))
-       (sp/transform (character-nav acting-character-id)
+       (sp/transform (path-to-character acting-character-id) #(update % :vigor inc))
+       (sp/transform (path-to-character acting-character-id)
                      #(update % :will inc))))
 
 (defn move
   {:malli/schema (m/deref ::transformer)}
-  [{:keys [acting-character-id world-map characters] :as db}]
+  [{:keys [acting-character-id locations characters] :as db}]
   (let [acting-character (get-with-id acting-character-id characters)
-        current-location (get-location-of-character world-map acting-character-id)
+        current-location (get-location-of-character locations acting-character-id)
         ; Move in arbitrary directions for now
         new-location-id  (first (:adjacent-location-ids current-location))]
     (if (nil? new-location-id)
       nil
       (as-> db tdb
         ; Remove current location character entry
-        (sp/transform [:world-map
+        (sp/transform [:locations
                        sp/ALL
                        #(= (:id %) (:id current-location))
                        :character-ids]
@@ -92,7 +92,7 @@
                       tdb)
         ; Add new location character entry
         (sp/transform
-          [:world-map sp/ALL #(= (:id %) new-location-id) :character-ids]
+          [:locations sp/ALL #(= (:id %) new-location-id) :character-ids]
           #(conj % acting-character-id)
           tdb)
         (append-log tdb

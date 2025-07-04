@@ -1,6 +1,6 @@
 (ns app.interface.view.character
   (:require [app.interface.view.inventory :refer [inventory-view]]
-            [app.interface.characters :refer [character-nav]]
+            [app.interface.characters :refer [path-to-character]]
             [app.interface.utils :refer [get-with-id]]
             [re-frame.core :as rf]
             [clojure.string :as s]))

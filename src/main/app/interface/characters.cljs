@@ -17,7 +17,8 @@
             '#(str "class-images/" (name (:class-id %)) "/idle.png")}
     :string]
    [:class-id ::character-class-ids]
-   [:inventory-id :app.interface.items/inventory-id]
+   [:inventory-id {:default-fn #(keyword (str (name (:id %)) "-inventory"))}
+    :app.interface.items/inventory-id]
    ; Whether or not to show details about this character in the ui.  the
    ; details menu allows you to select an ability, change items, etc.
    [:show-details? {:default false}
@@ -79,14 +80,14 @@
   (union innate-abilities
          (apply union (map :abilities inventory))))
 
-(defn character-nav
+(defn path-to-character
   [character-id]
   [:characters sp/ALL #(= character-id (:id %))])
 
 (rf/reg-event-db
   ::change-image
   (fn [db [_ character-id new-image]]
-    (sp/transform (character-nav character-id)
+    (sp/transform (path-to-character character-id)
                   #(assoc % :image new-image)
                   db)))
 
@@ -94,13 +95,13 @@
   ::increment-next-ready-time
   [rf/debug]
   (fn [db [_ character-id]]
-    (sp/transform (character-nav character-id)
+    (sp/transform (path-to-character character-id)
                   #(update % :next-ready-time + 5)
                   db)))
 
 (rf/reg-event-db
   ::show-details?
   (fn [db [_ character-id value]]
-    (sp/transform (character-nav character-id)
+    (sp/transform (path-to-character character-id)
                   #(assoc % :show-details? value)
                   db)))

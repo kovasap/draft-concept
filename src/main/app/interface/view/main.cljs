@@ -1,7 +1,7 @@
 (ns app.interface.view.main
   (:require [re-frame.core :as rf]
             [reagent.core :as r]
-            [app.interface.view.world-map :refer [world-map-view]]
+            [app.interface.view.locations :refer [locations-view]]
             [app.interface.view.undo :refer [undo-button]]
             [app.interface.view.character :refer [character-view]]
             [cljs.pprint]))
@@ -22,8 +22,8 @@
    [:button.btn.btn-outline-primary
     {:on-click #(rf/dispatch [:app.interface.action/take-next-action])}
     "Next Character Actions"]
-   [world-map-view
-    @(rf/subscribe [:world-map])
+   [locations-view
+    @(rf/subscribe [:locations])
     @(rf/subscribe [:characters])]
    [:br]
    [:br]

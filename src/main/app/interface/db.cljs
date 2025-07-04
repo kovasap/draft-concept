@@ -1,8 +1,9 @@
 (ns app.interface.db
   (:require [app.interface.malli-utils :refer [cast-all cast]]
-            [app.interface.items :refer [new-item]]
+            [app.interface.items :refer [add-inventory]]
+            [app.interface.characters :refer [path-to-character]]
+            [app.interface.locations :refer [path-to-location]]
             [app.interface.malli-schema-registry :refer [register!]]
-            [app.interface.world-map :refer [default-world-map]]
             [re-frame.core :as rf]))
 
 (register! ::db
@@ -12,9 +13,10 @@
    [:log [:vector :string]]
    ; Use refs here to avoid stack overflow, as it is a recursive
    ; definition.
-   [:world-map [:ref :app.interface.world-map/world-map]]
+   [:locations [:set [:ref :app.interface.locations/location]]]
    [:acting-character-id [:ref :app.interface.characters/character-id]]
    [:inventories [:set [:ref :app.interface.items/inventory]]]
+   [:items [:set [:ref :app.interface.items/item]]]
    [:current-drag
     [:map
      [:item {:default nil}
@@ -24,36 +26,61 @@
    [:characters [:set [:ref :app.interface.characters/character]]]])
 
 (def initial-db
-  (cast ::db
-        {:world-map   (default-world-map)
+  (cast
+    ::db
+    (-> {:locations   (cast-all :app.interface.locations/location
+                                #{{:id        :farbane
+                                   :land-type :forest
+                                   :adjacent-location-ids #{:clear :central}
+                                   :position  {:x 0 :y 0}}
+                                  {:id        :clear
+                                   :land-type :clearing
+                                   :adjacent-location-ids #{:farbane :central}
+                                   :position  {:x 50 :y 0}}
+                                  {:id            :central
+                                   :land-type     :clearing
+                                   :adjacent-location-ids #{:farbane :clear
+                                                            :deep :nearbane}
+                                   :position      {:x 50 :y 50}
+                                   :character-ids #{:hare :tortoise}}
+                                  {:id        :deep
+                                   :land-type :lake
+                                   :adjacent-location-ids #{:central}
+                                   :position  {:x 0 :y 100}}
+                                  {:id        :nearbane
+                                   :land-type :forest
+                                   :adjacent-location-ids #{:central :deep}
+                                   :position  {:x 100 :y 100}}})
          :log         ["first message"]
          :acting-character-id :hare
-         :inventories #{{:id       :hare-inventory
-                         :contents [(new-item :mace) (new-item :boots) nil]}
-                        {:id       :tortoise-inventory
-                         :contents [(new-item :boots) nil nil]}
-                        {:id       :clearing-inventory
-                         :contents [nil (new-item :boots)]}}
+         :inventories #{}
          :characters  (cast-all :app.interface.characters/character
-                                #{{:full-name    "Hare"
-                                   :id           :hare
-                                   :vigor        3
-                                   :will         2
-                                   :inventory-id :hare-inventory
-                                   :class-id     :skirmisher
-                                   :faction      :player
+                                #{{:full-name "Hare"
+                                   :id        :hare
+                                   :vigor     3
+                                   :will      2
+                                   :class-id  :skirmisher
+                                   :faction   :player
                                    :controlled-by-player? true}
-                                  {:full-name    "Tortoise"
-                                   :id           :tortoise
-                                   :vigor        5
-                                   :will         5
-                                   :inventory-id :tortoise-inventory
-                                   :faction      :bandits
-                                   :class-id     :skirmisher
-                                   :controlled-by-player? false}})}))
+                                  {:full-name "Tortoise"
+                                   :id        :tortoise
+                                   :vigor     5
+                                   :will      5
+                                   :faction   :bandits
+                                   :class-id  :skirmisher
+                                   :controlled-by-player? false}})}
+        (add-inventory [:mace :boots nil] (path-to-character :hare))
+        (add-inventory [:boots nil nil] (path-to-character :tortoise))
+        (add-inventory [nil :boots] (path-to-location :central)))))
 
 ; Nice way to generate subsciptions for many keys.
-(doseq [kw [:world-map :player-characters :characters :message :log :inventories]]
+(doseq [kw [:locations
+            :player-characters
+            :characters
+            :message
+            :log
+            :inventories
+            :items]]
   (rf/reg-sub
     kw
     (fn [db _] (kw db))))

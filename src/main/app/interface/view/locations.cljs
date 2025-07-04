@@ -1,4 +1,4 @@
-(ns app.interface.view.world-map
+(ns app.interface.view.locations
   (:require [app.interface.view.character :refer [character-view]]
             [app.interface.view.inventory :refer [inventory-view]]
             [app.interface.utils :refer [get-with-id]]
@@ -50,10 +50,10 @@
 
 (defn build-connections
   [{:keys [adjacent-location-ids id] {:keys [x y]} :position :as _location}
-   world-map]
+   locations]
   (for [adj-id adjacent-location-ids
         :let   [{{adj-x :x adj-y :y} :position}       (get-with-id adj-id
-                                                                   world-map)
+                                                                   locations)
                 {loc-width :width loc-height :height} location-size-percent]]
     [:line {:x1       (str (+ (/ loc-width 2) x) "%")
             :y1       (str (+ (/ loc-height 2) y) "%")
@@ -65,9 +65,9 @@
             ; Useful to see this value in the chrome inspector
             :data-key (str id "->" adj-id)}]))
 
-(defn world-map-view
-  [world-map characters]
+(defn locations-view
+  [locations characters]
   (into [:div {:style {:width "700px" :height "500px" :position "relative"}}]
-        (conj (map #(location-view % characters) world-map)
+        (conj (map #(location-view % characters) locations)
               (into [:svg {:width "100%" :height "100%"}]
-                    (map #(build-connections % world-map) world-map)))))
+                    (map #(build-connections % locations) locations)))))
