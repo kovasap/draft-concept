@@ -13,9 +13,9 @@
   [:map
    [:message :string]
    [:log [:vector :string]]
-   [:world-map :app.interface.world-map/world-map]
-   [:acting-character-id :app.interface.characters/character-id]
-   [:characters [:set :app.interface.characters/character]]])
+   [:world-map [:ref :app.interface.world-map/world-map]]
+   [:acting-character-id [:ref :app.interface.characters/character-id]]
+   [:characters [:set [:ref :app.interface.characters/character]]]])
 
 (def initial-db
   {:world-map  world-map

@@ -18,11 +18,11 @@
          :on-drag-over  (fn [e] (.preventDefault e))
          :on-drag-start #(reset! current-dragged-item item)
          :on-drag-end   #(reset! current-dragged-item nil)
-         :on-drop       #((rf/dispatch
+         :on-drop       #(rf/dispatch
                            [:app.interface.characters/swap-items-in-inventory
                             owning-character-id
                             @current-dragged-item
-                            item]))}
+                            item])}
    [:img {:src image}]])
 
 (defn inventory-view
@@ -43,7 +43,8 @@
     :as   character}]
   [:div {:id id
          :on-mouse-over #(reset! character-id-to-show-inventory-of id)
-         :on-mouse-out #(reset! character-id-to-show-inventory-of nil)}
+         :on-mouse-out #(reset! character-id-to-show-inventory-of nil)
+         :position "relative"}
    [:img {:style {:transform (s/join
                                " "
                                (remove s/blank?
@@ -53,7 +54,7 @@
                   :filter    "drop-shadow(0px 0px 20px red)"}
           :src   image
           :alt   full-name}]
-   [:span "Vigor: " vigor]
+   [:div {:style {:position "absolute" :top "0%" :left "0%"}} vigor]
    (if (= @character-id-to-show-inventory-of id)
      [inventory-view character]
      nil)])

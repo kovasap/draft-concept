@@ -18,7 +18,7 @@
    ; Use ref here to avoid stack overflow, as it is a recursive
    ; definition.
    [:inventory {:default []}
-    [:vector [:ref :app.interface.items/item]]]
+    [:vector :app.interface.items/item]]
    [:inventory-space {:default 3}
     :int]
    [:injuries {:default 0}

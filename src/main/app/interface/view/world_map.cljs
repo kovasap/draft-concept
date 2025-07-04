@@ -13,20 +13,19 @@
    :lake {:background-color "rgba(97, 144, 255, 0.99)"}})
 
 (def location-size-percent
-  {:width 20
+  {:width 40
    :height 15})
 
 (defn location-view
   [{:keys [land-type character-ids id] {:keys [x y]} :position :as _location}
    characters]
-  [:div.col-4 {:style (merge {:width    (str (:width location-size-percent "%"))
-                              :height   (str (:height location-size-percent
-                                                      "%"))
-                              :top      (str y "%")
-                              :left     (str x "%")
-                              :position "absolute"}
-                             (land-type land-type-styles))
-               :key   id}
+  [:div {:style (merge {:width    (str (:width location-size-percent) "%")
+                        :height   (str (:height location-size-percent) "%")
+                        :top      (str y "%")
+                        :left     (str x "%")
+                        :position "absolute"}
+                       (land-type land-type-styles))
+         :key   id}
    land-type
    (into [:div]
          (map (fn [cid] [character-view (get-with-id cid characters)])
