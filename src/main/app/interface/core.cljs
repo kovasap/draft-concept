@@ -1,22 +1,22 @@
 (ns app.interface.core
   (:require ["react-dom/client" :refer [createRoot]]
+            ; Import everything to make sure all event handlers are registered
+            [app.interface.abilities]
+            [app.interface.action]
+            [app.interface.animations]
+            [app.interface.characters]
+            [app.interface.factions]
+            [app.interface.items]
+            [app.interface.traits]
+            [app.interface.world-map]
+            [app.interface.db :refer [initial-db]]
+            [app.interface.messages-to-player]
+            [app.interface.view.main :refer [main]]
+            [cljs.pprint]
             [day8.re-frame.http-fx]
             [goog.dom :as gdom]
             [re-frame.core :as rf]
-            [reagent.core :as r]
-            [app.interface.view.main :refer [main]]
-            [app.interface.utils :refer [get-only associate-by]]
-            [app.interface.world-map :refer [world-map]]
-            [app.interface.animations]
-            [app.interface.action]
-            [app.interface.messages-to-player]
-            [app.interface.db :refer [initial-db]]
-            [cljs.pprint]
-            [malli.dev.cljs :as md]
-            [malli.dev.pretty :as mdpretty]
-            [malli.core :as m]
-            [malli.instrument.cljs :as mi]
-            [taoensso.timbre :as log]))
+            [reagent.core :as r]))
 
 ;; ----------------------------------------------------------------------------
 ;; Setup

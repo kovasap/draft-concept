@@ -1,50 +1,59 @@
 (ns app.interface.db
-  (:require [malli.core :as m]
-            [malli.transform :as mt]
-            [day8.re-frame.undo :as undo :refer [undoable]]  
-            [re-frame.core :as rf]
-            [com.rpl.specter :as sp]
-            [app.interface.world-map :refer [world-map]]
-            [app.interface.characters :refer [finalize-character]]
+  (:require [app.interface.malli-utils :refer [cast-all cast]]
             [app.interface.items :refer [new-item]]
-            [app.interface.malli-schema-registry :refer [register!]]))
+            [app.interface.malli-schema-registry :refer [register!]]
+            [app.interface.world-map :refer [default-world-map]]
+            [re-frame.core :as rf]))
 
 (register! ::db
   [:map
-   [:message :string]
+   [:message {:default ""}
+    :string]
    [:log [:vector :string]]
+   ; Use refs here to avoid stack overflow, as it is a recursive
+   ; definition.
    [:world-map [:ref :app.interface.world-map/world-map]]
    [:acting-character-id [:ref :app.interface.characters/character-id]]
+   [:inventories [:set [:ref :app.interface.items/inventory]]]
+   [:current-drag
+    [:map
+     [:item {:default nil}
+      [:maybe :app.interface.items/item]]
+     [:inventory-id {:default nil}
+      [:maybe :app.interface.items/inventory-id]]]]
    [:characters [:set [:ref :app.interface.characters/character]]]])
 
 (def initial-db
-  {:world-map  world-map
-   :message    ""
-   :log        ["first message"]
-   :acting-character-id :hare
-   :characters (set
-                 (map finalize-character
-                   [{:full-name  "Hare"
-                     :id         :hare
-                     :vigor      3
-                     :will       2
-                     :inventory  [(new-item :mace) (new-item :boots)]
-                     :class-id   :skirmisher
-                     :faction    :player
-                     :affinities #{:fire :air}
-                     :controlled-by-player? true}
-                    {:full-name  "Tortoise"
-                     :id         :tortoise
-                     :vigor      5
-                     :will       5
-                     :inventory  [(new-item :boots)]
-                     :faction    :bandits
-                     :class-id   :skirmisher
-                     :affinities #{:earth}
-                     :controlled-by-player? false}]))})
+  (cast ::db
+        {:world-map   (default-world-map)
+         :log         ["first message"]
+         :acting-character-id :hare
+         :inventories #{{:id       :hare-inventory
+                         :contents [(new-item :mace) (new-item :boots) nil]}
+                        {:id       :tortoise-inventory
+                         :contents [(new-item :boots) nil nil]}
+                        {:id       :clearing-inventory
+                         :contents [nil (new-item :boots)]}}
+         :characters  (cast-all :app.interface.characters/character
+                                #{{:full-name    "Hare"
+                                   :id           :hare
+                                   :vigor        3
+                                   :will         2
+                                   :inventory-id :hare-inventory
+                                   :class-id     :skirmisher
+                                   :faction      :player
+                                   :controlled-by-player? true}
+                                  {:full-name    "Tortoise"
+                                   :id           :tortoise
+                                   :vigor        5
+                                   :will         5
+                                   :inventory-id :tortoise-inventory
+                                   :faction      :bandits
+                                   :class-id     :skirmisher
+                                   :controlled-by-player? false}})}))
 
 ; Nice way to generate subsciptions for many keys.
-(doseq [kw [:world-map :player-characters :characters :message :log]]
+(doseq [kw [:world-map :player-characters :characters :message :log :inventories]]
   (rf/reg-sub
     kw
     (fn [db _] (kw db))))

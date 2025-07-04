@@ -1,7 +1,10 @@
 (ns app.interface.view.world-map
   (:require [app.interface.view.character :refer [character-view]]
+            [app.interface.view.inventory :refer [inventory-view]]
             [app.interface.utils :refer [get-with-id]]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [com.rpl.specter :as sp]
+            [re-frame.core :as rf]))
 
 ; Useful documentation at
 ; https://getbootstrap.com/docs/4.0/layout/grid/#horizontal-alignment to make
@@ -13,23 +16,37 @@
    :lake {:background-color "rgba(97, 144, 255, 0.99)"}})
 
 (def location-size-percent
-  {:width 40
+  {:width 50
    :height 15})
 
 (defn location-view
-  [{:keys [land-type character-ids id] {:keys [x y]} :position :as _location}
+  [{:keys         [land-type character-ids inventory-id id]
+    {:keys [x y]} :position
+    :as           _location}
    characters]
-  [:div {:style (merge {:width    (str (:width location-size-percent) "%")
-                        :height   (str (:height location-size-percent) "%")
-                        :top      (str y "%")
-                        :left     (str x "%")
-                        :position "absolute"}
-                       (land-type land-type-styles))
-         :key   id}
+  [:div.container
+   {:style         (merge {:width    (str (:width location-size-percent) "%")
+                           :height   (str (:height location-size-percent) "%")
+                           :top      (str y "%")
+                           :left     (str x "%")
+                           :position "absolute"}
+                          (land-type land-type-styles))
+    :on-mouse-over #(doall
+                      (for [id character-ids]
+                        (rf/dispatch
+                          [:app.interface.characters/show-details? id true])))
+    :on-mouse-out  #(doall
+                      (for [id character-ids]
+                        (rf/dispatch
+                          [:app.interface.characters/show-details? id false])))
+    :key           id}
    land-type
-   (into [:div]
-         (map (fn [cid] [character-view (get-with-id cid characters)])
-           character-ids))])
+   (into
+     [:div.row]
+     (concat
+       (map (fn [cid] [:div.col [character-view (get-with-id cid characters)]])
+         character-ids)
+       [[:div.col [inventory-view inventory-id]]]))])
 
 (defn build-connections
   [{:keys [adjacent-location-ids id] {:keys [x y]} :position :as _location}
@@ -50,8 +67,7 @@
 
 (defn world-map-view
   [world-map characters]
-  (into [:div.container {:style
-                         {:width "700px" :height "500px" :position "relative"}}]
+  (into [:div {:style {:width "700px" :height "500px" :position "relative"}}]
         (conj (map #(location-view % characters) world-map)
               (into [:svg {:width "100%" :height "100%"}]
                     (map #(build-connections % world-map) world-map)))))

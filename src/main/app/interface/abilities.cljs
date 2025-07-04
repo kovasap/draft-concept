@@ -1,14 +1,17 @@
 (ns app.interface.abilities
   (:require [com.rpl.specter :as sp]
             [malli.core :as m]
-            [app.interface.world-map :refer [get-location]]
+            [app.interface.malli-utils :refer [cast-all]]
+            [app.interface.world-map :refer [get-location-of-character]]
             [app.interface.factions :refer [are-enemies?]]
             [app.interface.malli-schema-registry :refer [register!]]
             [app.interface.utils :refer [get-with-id]]
             [app.interface.traits :refer [calc-melee-damage]]
-            [app.interface.characters :refer [update-character-in-db]]
+            [app.interface.characters :refer [character-nav]]
             [app.interface.messages-to-player :refer [append-log]]
             [re-frame.core :as rf]))
+
+(register! ::ability-id [:enum :melee-attack :ranged-attack :move :recover])
 
 (register! ::ability
   [:map
@@ -32,7 +35,7 @@
 
 (defn get-single-melee-target-id
   [{:keys [world-map characters] :as _db} attacking-character-id]
-  (->> (:character-ids (get-location world-map attacking-character-id))
+  (->> (:character-ids (get-location-of-character world-map attacking-character-id))
     (filter #(is-valid-target? attacking-character-id % characters)) 
     (first)))
 
@@ -65,15 +68,16 @@
 (defn recover
   {:malli/schema (m/deref ::transformer)}
   [{:keys [acting-character-id] :as db}]
-  (-> db
-    (update-character-in-db ,, acting-character-id #(update % :vigor inc))
-    (update-character-in-db ,, acting-character-id #(update % :will inc))))
+  (->> db
+       (sp/transform (character-nav acting-character-id) #(update % :vigor inc))
+       (sp/transform (character-nav acting-character-id)
+                     #(update % :will inc))))
 
 (defn move
   {:malli/schema (m/deref ::transformer)}
   [{:keys [acting-character-id world-map characters] :as db}]
   (let [acting-character (get-with-id acting-character-id characters)
-        current-location (get-location world-map acting-character-id)
+        current-location (get-location-of-character world-map acting-character-id)
         ; Move in arbitrary directions for now
         new-location-id  (first (:adjacent-location-ids current-location))]
     (if (nil? new-location-id)
@@ -97,17 +101,17 @@
                          " to "         new-location-id))))))
 
 (def abilities
-  #{{:id :melee-attack :transformer melee-attack :animation :attack}
-    {:id :ranged-attack :transformer ranged-attack :animation :attack}
-    {:id :recover :transformer recover :animation :none}
-    {:id :move :transformer move :animation :none}})
-
-(register! ::ability-id
-  (into [:enum] (map :id abilities)))
+  (memoize
+    #(cast-all
+       ::ability
+       #{{:id :melee-attack :transformer melee-attack :animation :attack}
+         {:id :ranged-attack :transformer ranged-attack :animation :attack}
+         {:id :recover :transformer recover :animation :none}
+         {:id :move :transformer move :animation :none}})))
 
 (defn is-usable?
   [ability-id db]
-  (not (nil? ((:transformer (ability-id abilities)) db))))
+  (not (nil? ((:transformer (ability-id (abilities)) db)))))
 
 (rf/reg-event-db
   ::apply-transformer
@@ -118,7 +122,7 @@
   ::use-ability
   (fn [{:keys [db] :as _cofx} [_ character-id ability-id]]
     (let [character (get-with-id character-id (:characters db))
-          ability   (get-with-id ability-id abilities)]
+          ability   (get-with-id ability-id (abilities))]
       {:fx (mapv (fn [event] [:dispatch event])
              [[:app.interface.messages-to-player/log
                (str (:full-name character " is using ")

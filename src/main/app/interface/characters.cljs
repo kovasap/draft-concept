@@ -13,14 +13,15 @@
   [:map
    [:id ::character-id]
    [:full-name :string]
-   [:image :string]
+   [:image {:default-fn
+            '#(str "class-images/" (name (:class-id %)) "/idle.png")}
+    :string]
    [:class-id ::character-class-ids]
-   ; Use ref here to avoid stack overflow, as it is a recursive
-   ; definition.
-   [:inventory {:default []}
-    [:vector :app.interface.items/item]]
-   [:inventory-space {:default 3}
-    :int]
+   [:inventory-id :app.interface.items/inventory-id]
+   ; Whether or not to show details about this character in the ui.  the
+   ; details menu allows you to select an ability, change items, etc.
+   [:show-details? {:default false}
+    :boolean]
    [:injuries {:default 0}
     :int]
    [:vigor :int]
@@ -32,7 +33,7 @@
    [:next-ready-time {:default 0}
     :int]
    [:innate-abilities {:default #{:recover}}
-    [:set :app.interface.abilities/ability]]
+    [:set :app.interface.abilities/ability-id]]
    [:innate-traits [:set :app.interface.traits/trait]]
    [:controlled-by-player? :boolean]
    [:faction :app.interface.factions/faction]])
@@ -66,13 +67,6 @@
 (register! ::character-class-ids
   (into [:enum] (map :id character-classes)))
 
-(defn finalize-character
-  [{:keys [class-id] :as character}]
-  (as-> character c
-    (assoc c :image (str "class-images/" (name class-id) "/idle.png"))
-    (m/decode ::character c mt/default-value-transformer)
-    (doto c #(m/validate ::character %))))
-
 (def character-classes-by-id
   (associate-by :id character-classes))
 
@@ -85,38 +79,28 @@
   (union innate-abilities
          (apply union (map :abilities inventory))))
 
-(defn update-character-in-db
-  [db character-id update-fn]
-  (sp/transform [:characters sp/ALL #(= character-id (:id %))]
-                update-fn
-                db))
+(defn character-nav
+  [character-id]
+  [:characters sp/ALL #(= character-id (:id %))])
 
 (rf/reg-event-db
   ::change-image
   (fn [db [_ character-id new-image]]
-    (update-character-in-db db character-id #(assoc % :image new-image))))
+    (sp/transform (character-nav character-id)
+                  #(assoc % :image new-image)
+                  db)))
 
 (rf/reg-event-db
   ::increment-next-ready-time
   [rf/debug]
   (fn [db [_ character-id]]
-    (update-character-in-db db character-id #(update % :next-ready-time + 5))))
-
-(defn swap-elements
-  [v e1 e2]
-  (mapv (fn [e]
-          (cond (= e e1) e2
-                (= e e2) e1
-                :else    e))
-    v))
+    (sp/transform (character-nav character-id)
+                  #(update % :next-ready-time + 5)
+                  db)))
 
 (rf/reg-event-db
-  ::swap-items-in-inventory
-  [rf/debug]
-  (fn [db [_ character-id item1 item2]]
-    (update-character-in-db
-      db
-      character-id
-      (fn [character]
-        (update character :inventory #(swap-elements % item1 item2))))))
-    
+  ::show-details?
+  (fn [db [_ character-id value]]
+    (sp/transform (character-nav character-id)
+                  #(assoc % :show-details? value)
+                  db)))
