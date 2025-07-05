@@ -69,9 +69,9 @@
                                    :faction   :bandits
                                    :class-id  :skirmisher
                                    :controlled-by-player? false}})}
-        (add-inventory [:mace :boots nil] (path-to-character :hare))
-        (add-inventory [:boots nil nil] (path-to-character :tortoise))
-        (add-inventory [nil :boots] (path-to-location :central)))))
+        (add-inventory [:mace :boots :nothing] (path-to-character :hare))
+        (add-inventory [:boots :nothing :nothing] (path-to-character :tortoise))
+        (add-inventory [:nothing :boots] (path-to-location :central)))))
 
 ; Nice way to generate subsciptions for many keys.
 (doseq [kw [:locations

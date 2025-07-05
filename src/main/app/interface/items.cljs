@@ -24,7 +24,7 @@
   [:map
    [:id ::inventory-id]
    ; The :contents vector should always be the same size after creation:
-   ; empty spaces will be filled with nil.
+   ; empty spaces will be filled with :nothing items
    [:contents {:default []}
     [:vector [:maybe ::item-id]]]])
 
@@ -39,7 +39,12 @@
                          :display-name "Boots"
                          :image        "item-images/torch.png"
                          :abilities    #{:move}
-                         :traits       #{:light}}})))
+                         :traits       #{:light}}
+                        {:item-type    :nothing
+                         :display-name "_______"
+                         :image        "item-images/chest-open.png"
+                         :abilities    #{}
+                         :traits       #{}}})))
 
 (defn generate-item-id
   ([db new-item] (generate-item-id db new-item 0))
@@ -56,14 +61,11 @@
 
 (defn add-item
   [db inventory-id item-type]
-  (let [item (if (nil? item-type)
-               nil
-               (as-> item-type i
-                 (sp/select-one [sp/ALL #(= i (:item-type %))]
-                                (item-templates))
-                 (assoc i :id (generate-item-id db i))))]
+  (let [item (as-> item-type i
+               (sp/select-one [sp/ALL #(= i (:item-type %))] (item-templates))
+               (assoc i :id (generate-item-id db i)))]
     (as-> db db
-      (update db :items #(if (nil? item) % (conj % item)))
+      (update db :items #(conj % item))
       (sp/transform (path-to-inventory-contents inventory-id)
                     #(conj % (:id item))
                     db))))
@@ -90,7 +92,6 @@
                :else    %)
     v))
 
-; TODO fix nil handling here
 (rf/reg-event-db
   ::swap-items
   [rf/debug]

@@ -20,17 +20,17 @@
    :height 15})
 
 (defn location-view
-  [{:keys         [land-type character-ids inventory-id id]
+  [{:keys         [land-type character-ids inventory-id image id]
     {:keys [x y]} :position
     :as           _location}
    characters]
   [:div.container
-   {:style         (merge {:width    (str (:width location-size-percent) "%")
-                           :height   (str (:height location-size-percent) "%")
-                           :top      (str y "%")
-                           :left     (str x "%")
-                           :position "absolute"}
-                          (land-type land-type-styles))
+   {:style         (-> {:width    (str (:width location-size-percent) "%")
+                        :height   (str (:height location-size-percent) "%")
+                        :top      (str y "%")
+                        :left     (str x "%")
+                        :position "absolute"})
+    ; (merge (land-type land-type-styles)))
     :on-mouse-over #(doall
                       (for [id character-ids]
                         (rf/dispatch
@@ -40,13 +40,15 @@
                         (rf/dispatch
                           [:app.interface.characters/show-details? id false])))
     :key           id}
+   [:img {:src image :style {:z-index 15 :position "absolute"} :alt image}]
    land-type
-   (into
-     [:div.row]
-     (concat
-       (map (fn [cid] [:div.col [character-view (get-with-id cid characters)]])
-         character-ids)
-       [[:div.col [inventory-view inventory-id]]]))])
+   (into [:div.row]
+         (concat (map (fn [cid] [:div.col-3
+                                 [character-view
+                                  (get-with-id cid characters)]])
+                   character-ids)
+                 [[:div.col
+                   [inventory-view inventory-id]]]))])
 
 (defn build-connections
   [{:keys [adjacent-location-ids id] {:keys [x y]} :position :as _location}

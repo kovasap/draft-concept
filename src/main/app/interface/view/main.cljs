@@ -27,7 +27,8 @@
     @(rf/subscribe [:characters])]
    [:br]
    [:br]
-   [character-view (first @(rf/subscribe [:characters]))]
+   [:br]
+   [:br]
    [:div {:style {:display "flex"}}
      (into [:div
             [:h3 "Action Log"]]

@@ -25,17 +25,16 @@
            :on-drop       #(rf/dispatch [:app.interface.items/swap-items
                                          inventory-id
                                          item-id])}
-     (if (nil? item)
-       [:img {:src "item-images/chest-open.png"}]
-       [:img {:src (:image item)}])]))
+     [:img {:src   (:image item)
+            :style {:max-width "100%"
+                    :height "auto"}}]]))
 
 (defn inventory-view
   [id]
-  (print @(rf/subscribe [:items]))
-  (print @(rf/subscribe [:inventories]))
   (let [{:keys [contents] :as _inventory}
         (get-with-id id @(rf/subscribe [:inventories]))]
-    (into [:div {:key id}
-           id]
-          (for [item-id contents]
-            [item-view item-id id]))))
+    [:div.container {:key id}
+     id
+     (into [:div.row]
+       (for [item-id contents]
+         [:div.col-4 {:style {:padding "0px"}} [item-view item-id id]]))]))

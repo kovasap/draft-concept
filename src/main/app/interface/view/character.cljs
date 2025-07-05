@@ -15,14 +15,14 @@
            show-details?
            inventory-id]
     :as   _character}]
-  [:div {:id id :style {:position "relative"}}
+  [:div {:id id :style {:position "relative"
+                        :z-index   20}}
    [:img {:style {:transform (s/join
                                " "
                                (remove s/blank?
                                  [(if controlled-by-player? nil "scaleX(-1)")
-                                  (if is-dead "rotate(90deg)" nil)]))
-                  :z-index   20
-                  :filter    "drop-shadow(0px 0px 20px red)"}
+                                  (if is-dead "rotate(90deg)" nil)]))}
+                  ; :filter    "drop-shadow(0px 0px 20px red)"}
           :src   image
           :alt   full-name}]
    [:div {:style {:position "absolute" :top "0%" :left "0%"}}

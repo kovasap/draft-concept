@@ -16,12 +16,18 @@
   [:map
    [:id ::location-id]
    [:land-type ::land-type]
+   [:image {:default-fn
+            '#(str "land-images/" (name (:land-type %)) ".png")}
+    :string]
    ; Absolute position on map, on a scale from 0-100% of the total map
    ; size
    [:position [:map [:x :int] [:y :int]]]
    [:adjacent-location-ids [:set ::location-id]]
    [:inventory-id {:default-fn #(keyword (str (name (:id %)) "-inventory"))}
     :app.interface.items/inventory-id]
+   [:traits {:default #{}}
+    [:set :app.interface.traits/trait]]
+   ; TODO add :none characters to full out this list, like i do for items
    [:character-ids {:default #{}}
     [:set :app.interface.characters/character-id]]])
 
