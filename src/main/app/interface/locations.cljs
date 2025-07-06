@@ -23,11 +23,12 @@
    ; size
    [:position [:map [:x :int] [:y :int]]]
    [:adjacent-location-ids [:set ::location-id]]
+   ; This probably should be deleted in favor of just using merchant characters
+   ; instead
    [:inventory-id {:default-fn #(keyword (str (name (:id %)) "-inventory"))}
     :app.interface.items/inventory-id]
    [:traits {:default #{}}
     [:set :app.interface.traits/trait]]
-   ; TODO add :none characters to full out this list, like i do for items
    [:character-ids {:default #{}}
     [:set :app.interface.characters/character-id]]])
 

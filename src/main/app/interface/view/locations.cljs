@@ -16,7 +16,7 @@
    :lake {:background-color "rgba(97, 144, 255, 0.99)"}})
 
 (def location-size-percent
-  {:width 50
+  {:width 25
    :height 15})
 
 (defn location-view
@@ -43,12 +43,10 @@
    [:img {:src image :style {:z-index 15 :position "absolute"} :alt image}]
    land-type
    (into [:div.row]
-         (concat (map (fn [cid] [:div.col-3
-                                 [character-view
-                                  (get-with-id cid characters)]])
-                   character-ids)
-                 [[:div.col
-                   [inventory-view inventory-id]]]))])
+         (concat (map-indexed (fn [i cid] [:div.col-6
+                                           [character-view
+                                            (get-with-id cid characters) i]])
+                              character-ids)))])
 
 (defn build-connections
   [{:keys [adjacent-location-ids id] {:keys [x y]} :position :as _location}

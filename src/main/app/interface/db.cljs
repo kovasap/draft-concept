@@ -46,7 +46,8 @@
                                   {:id        :deep
                                    :land-type :lake
                                    :adjacent-location-ids #{:central}
-                                   :position  {:x 0 :y 100}}
+                                   :position  {:x 0 :y 100}
+                                   :character-ids #{:merchant}}
                                   {:id        :nearbane
                                    :land-type :forest
                                    :adjacent-location-ids #{:central :deep}
@@ -68,10 +69,18 @@
                                    :will      5
                                    :faction   :bandits
                                    :class-id  :skirmisher
+                                   :controlled-by-player? false}
+                                  {:full-name "Merchant"
+                                   :id        :merchant
+                                   :vigor     5
+                                   :will      5
+                                   :faction   :merchants
+                                   :class-id  :scholar
                                    :controlled-by-player? false}})}
         (add-inventory [:mace :boots :nothing] (path-to-character :hare))
-        (add-inventory [:boots :nothing :nothing] (path-to-character :tortoise))
-        (add-inventory [:nothing :boots] (path-to-location :central)))))
+        (add-inventory [:boots :nothing :nothing]
+                       (path-to-character :tortoise))
+        (add-inventory [:nothing :boots] (path-to-character :merchant)))))
 
 ; Nice way to generate subsciptions for many keys.
 (doseq [kw [:locations

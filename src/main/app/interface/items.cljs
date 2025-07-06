@@ -11,6 +11,7 @@
    [:id ::item-id]
    [:item-type :keyword]
    [:display-name :string]
+   [:hovered {:default false} :boolean]
    [:image :string]
    ; Abilities this item grants the wielding character.
    [:abilities [:set :app.interface.abilities/ability-id]]
@@ -112,3 +113,15 @@
   [rf/debug]
   (fn [db [_ item-id inventory-id]]
     (assoc db :current-drag {:item-id item-id :inventory-id inventory-id})))
+
+(defn transform-item
+  [db item-id update-fn]
+  (sp/transform [:items sp/ALL #(= (:id %) item-id)] update-fn db))
+
+(rf/reg-event-db
+  ::set-hovered
+  (fn [db [_ item-id]] (transform-item db item-id #(assoc % :hovered true))))
+
+(rf/reg-event-db
+  ::set-not-hovered
+  (fn [db [_ item-id]] (transform-item db item-id #(assoc % :hovered false))))

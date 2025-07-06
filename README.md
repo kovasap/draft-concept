@@ -40,9 +40,9 @@ At the start of the game, you choose a location for your character to start.
 Perhaps you will have multiple characters that start at different locations.
 
 Then the game proceeds, with all characters (player-controlled, friendly, enemy,
-neutral) taking actions on a timeline based on a `:next-ready-time` stat
+neutral) using abilities on a timeline based on a `:next-ready-time` stat
 attached to each character.
-Taking actions on a character's turn will increase this stat based on the
+Using abilities on a character's turn will increase this stat based on the
 action, giving other characters a chance to go.
 
 Each character has an inventory of items.
@@ -55,6 +55,14 @@ Items grant two main things to the character:
 For example, the :mace item allows the character to do a melee attack, and also
 grants the :anti-armor trait, which makes all attacks that character makes against
 characters with the :armored trait stronger.
+
+### Day/Night and Ability Charges
+
+This section is still just an idea.
+
+Abilities have charges that are only refreshed at the end of a day when a
+character rests for the night.
+Characters can skip resting and take actions instead if they have the charges.
 
 ### Trait Interactions
 
