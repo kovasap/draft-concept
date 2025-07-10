@@ -1,5 +1,11 @@
 # Draft Concept
 
+## TODOs
+
+ - Add drag/drop functionality to make characters move and attack each other.
+ - Add money that characters can use to trade for items or new allies.
+ - Make the map a lot bigger, and add an objective to it.
+
 ## The Map
 
 The game takes place on a interconnected graph map (like the path of exile skill
