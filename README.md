@@ -12,7 +12,6 @@ The game takes place on a interconnected graph map (like the path of exile skill
 tree).
 Each node is a location that contains enemies, items to acquire, shops, or other
 points of interest.
-
 ```
                                          +-------------------+          
                                          |                   |          
@@ -96,12 +95,44 @@ These changes may include:
 Once all the interactions are specified, the player will hit "next turn" to
 advance the game.
 
+## Worldbuilding and Character Design
+
+*Experimental, may not even want to put this in this game in particular.*
+
+All living beings are composed of:
+
+ - Light from the **Sun**
+ - **Earth**
+ - **Water**
+ - **Stone**
+
+Every being has a primary, secondary, tertiary, and 4th-order balance of these
+elements.
+
+Different biomes tend to produce beings with similar balance.  For instance,
+
+Biome | Primary
+----- | -------
+Island| Water
+Mountain | Stone
+Desert | Sun
+Forest | Earth
+
+The ordering of elements for a specific character will affect their stats and
+personality (mirroring MBTI):
+
+ - **Sun**: Extroverted, energetic, MTG red
+ - **Earth**: Judging, MTG white
+ - **Water**: Intuitive, MTG green?
+ - **Stone**: Thinking, MTG blue
+
+
 ## Lessons Learned
 
 I had the clever idea of "embedding" the world map with the characters
 (replacing the ids in the map locations with the character data itself).
-This made it so i had to pass less arguments around to e.g. functions that
-visualized the map.
+This made it so i had to pass less arguments around to functions that visualized
+the map.
 But then it also meant i needed two map data types to manage, one of which was
 not really designed to be modified (the embedded map).
 
