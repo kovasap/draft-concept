@@ -1,6 +1,6 @@
 (ns app.interface.action
   (:require
-    [app.interface.abilities :refer [is-usable?]]
+    [app.interface.abilities :refer [get-usable-ability-event]]
     [app.interface.utils :refer [get-with-id]]
     [day8.re-frame.undo :as undo :refer [undoable]]  
     [app.interface.locations :refer [get-location-of-character]]
@@ -33,22 +33,20 @@
 
 (defn get-ability-event
   [{:keys [acting-character-id] :as db}]
-  (let [attack-target-id (get-single-melee-target-id db acting-character-id)
-        move-target-id   (get-location-id-to-move-to db acting-character-id)]
-    (cond (is-usable? db :attack acting-character-id attack-target-id)
-          [:app.interface.abilities/use-ability
-           :attack
-           acting-character-id
-           attack-target-id]
-          (is-usable? db :move acting-character-id move-target-id)
-          [:app.interface.abilities/use-ability
-           :move
-           acting-character-id
-           move-target-id]
-          :else [:app.interface.abilities/use-ability
-                 :recover
-                 acting-character-id])))
-   
+  (->> [{:ability-id :attack
+         :target-id  (get-single-melee-target-id db acting-character-id)}
+        {:ability-id :move
+         :target-id  (get-location-id-to-move-to db acting-character-id)}
+        {:ability-id :recover}]
+       (map (fn [{:keys [ability-id target-id]}]
+              (get-usable-ability-event db
+                                        ability-id
+                                        acting-character-id
+                                        target-id)))
+       ; If we did not get a use-ability event, we ignore it (the ability is
+       ; unusable).
+       (remove #(not (= (first %) :app.interface.abilities/use-ability)))
+       (first)))
     
 ; ------ End Computer Decisions -------------
 
@@ -69,10 +67,12 @@
       {:fx (mapv (fn [event] [:dispatch event])
              [(if controlled-by-player?
                 ; Wait for the player to manually trigger
-                ; :app.interface.abilties/ability via the UI.
+                ; :app.interface.abilties/use-ability via the UI.
                 nil
                 (get-ability-event db))])})))
 
+; For now, the player will have to manually step through actions using this
+; event.
 (rf/reg-event-fx
   ::take-next-action
   [rf/debug (undoable "Take next action")]

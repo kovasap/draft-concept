@@ -1,6 +1,7 @@
 (ns app.interface.view.character
   (:require
    [app.interface.view.inventory :refer [inventory-view]]
+   [app.interface.abilities :refer [get-usable-ability-event]]
    [clojure.string :as s]
    [re-frame.core :as rf]))
 
@@ -41,17 +42,29 @@
            inventory-id]
     :as   character}
    index-in-location]
-  [:div {:id id :style {:position "relative"
-                        :z-index   20}}
-   (if show-details?
-     [detail-view character index-in-location]
-     nil)
+  [:div {:id id
+         :style {:position "relative" :z-index 20}
+         :draggable "true"
+         ; Without this, the :on-drop function will never be called.
+         :on-drag-over (fn [e] (.preventDefault e))
+         :on-drag-start
+         #(rf/dispatch
+            [:app.interface.characters/set-currently-dragged-character-id id])
+         :on-drag-end
+         #(rf/dispatch
+            [:app.interface.characters/set-currently-dragged-character-id nil])
+         :on-drop
+         #(rf/dispatch
+            :app.interface.abilities/try-ability-with-dragged-character
+            :attack
+            id)}
+   (if show-details? [detail-view character index-in-location] nil)
    [:img {:style {:transform (s/join
                                " "
                                (remove s/blank?
                                  [(if controlled-by-player? nil "scaleX(-1)")
                                   (if is-dead "rotate(90deg)" nil)]))}
-                  ; :filter    "drop-shadow(0px 0px 20px red)"}
+          ; :filter    "drop-shadow(0px 0px 20px red)"}
           :src   image
           :alt   full-name}]
    [:div {:style {:position "absolute" :top "0%" :left "0%"}}

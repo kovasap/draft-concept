@@ -56,6 +56,7 @@
        (sp/transform (path-to-character character-id) #(update % :vigor inc))
        (sp/transform (path-to-character character-id) #(update % :will inc))))
 
+; TODO return nil if the character is moving too far
 (defn move
   {:malli/schema (m/deref ::transformer)}
   [{:keys [locations characters] :as db} character-id new-location-id]
@@ -95,10 +96,25 @@
     (and (contains? (get-ability-ids character) ability-id)
          ((:transformer (ability-id (abilities))) db character-id target-id))))
 
+(defn get-usable-ability-event
+  [db ability-id character-id target-id]
+  (if (is-usable? db :attack character-id target-id)
+    [:app.interface.abilities/use-ability ability-id character-id target-id]
+    [:app.interface.messages-to-player/log
+     (str character-id " cannot use " ability-id " on " target-id)]))
+
+(rf/reg-event-fx
+  ::try-ability-with-dragged-character
+  (fn [{:keys [db] :as _cofx} [_ ability-id target-id]]
+    {:fx [[:dispatch
+           (get-usable-ability-event db
+                                     ability-id
+                                     (:currently-dragged-character-id db)
+                                     target-id)]]}))
+   
 (rf/reg-event-db
   ::apply-transformer
-  (fn [db [_ transformer target-id]]
-    (transformer db target-id)))
+  (fn [db [_ transformer target-id]] (transformer db target-id)))
 
 (rf/reg-event-fx
   ::use-ability

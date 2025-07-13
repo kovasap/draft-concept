@@ -105,3 +105,8 @@
     (sp/transform (path-to-character character-id)
                   #(assoc % :show-details? value)
                   db)))
+
+(rf/reg-event-db
+  ::set-currently-dragged-character-id
+  (fn [db [_ character-id]]
+    (assoc db :currently-dragged-character-id character-id)))

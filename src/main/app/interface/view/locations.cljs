@@ -25,27 +25,31 @@
     :as           _location}
    characters]
   [:div.container
-   {:style         (-> {:width    (str (:width location-size-percent) "%")
-                        :height   (str (:height location-size-percent) "%")
-                        :top      (str y "%")
-                        :left     (str x "%")
-                        :position "absolute"})
+   {:style (-> {:width    (str (:width location-size-percent) "%")
+                :height   (str (:height location-size-percent) "%")
+                :top      (str y "%")
+                :left     (str x "%")
+                :position "absolute"})
     ; (merge (land-type land-type-styles)))
-    :on-mouse-over #(doall
-                      (for [id character-ids]
-                        (rf/dispatch
-                          [:app.interface.characters/show-details? id true])))
-    :on-mouse-out  #(doall
-                      (for [id character-ids]
-                        (rf/dispatch
-                          [:app.interface.characters/show-details? id false])))
-    :key           id}
+    :on-mouse-over
+    #(doall (for [id character-ids]
+              (rf/dispatch [:app.interface.characters/show-details? id true])))
+    :on-mouse-out #(doall
+                     (for [id character-ids]
+                       (rf/dispatch
+                         [:app.interface.characters/show-details? id false])))
+    :on-drop #(rf/dispatch
+                :app.interface.abilities/try-ability-with-dragged-character
+                :move
+                id)
+    :key id}
    [:img {:src image :style {:z-index 15 :position "absolute"} :alt image}]
    land-type
    (into [:div.row]
          (concat (map-indexed (fn [i cid] [:div.col-6
                                            [character-view
-                                            (get-with-id cid characters) i]])
+                                            (get-with-id cid characters)
+                                            i]])
                               character-ids)))])
 
 (defn build-connections
