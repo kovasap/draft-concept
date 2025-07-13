@@ -1,21 +1,28 @@
 (ns app.interface.view.inventory
   (:require [re-frame.core :as rf]
             [app.interface.utils :refer [get-with-id]]
+            [clojure.string :as s]
             [reagent.core :as r]))
 
 (defn item-hover-view
-  [{:keys [display-name hovered] :as _item}]
-  [:div {:style {:display (if hovered "block" "none")}}
-   display-name])
+  [item-ids]
+  (let [items (filter #(contains? (set item-ids) (:id %))
+                @(rf/subscribe [:items]))
+        {:keys [display-name traits] :as _hovered-item}
+        (first (filter #(:hovered %) items))]
+    [:div display-name [:p (s/join ", " traits)]]))
 
 (defn item-view
   [item-id inventory-id]
-  (let [item (get-with-id item-id @(rf/subscribe [:items]))]
-    [:div {:style         {:border          "1px solid #ddd"
-                           :borderRadius    "5px"
-                           :background-color "rgba(234, 219, 203, 1.0)"
-                           :boxShadow       "0 2px 5px rgba(0,0,0,0.1)"}
-           :key           (:display-name item)
+  (let [{:keys [display-name image hovered]}
+        (get-with-id item-id @(rf/subscribe [:items]))]
+    [:div {:style         {:border           "1px solid #ddd"
+                           :borderRadius     "5px"
+                           :background-color (if hovered
+                                               "teal"
+                                               "rgba(234, 219, 203, 1.0)")
+                           :boxShadow        "0 2px 5px rgba(0,0,0,0.1)"}
+           :key           display-name
            :on-mouse-over #(rf/dispatch [:app.interface.items/set-hovered
                                          item-id])
            :on-mouse-out  #(rf/dispatch [:app.interface.items/set-not-hovered
@@ -34,15 +41,16 @@
            :on-drop       #(rf/dispatch [:app.interface.items/swap-items
                                          inventory-id
                                          item-id])}
-     [:img {:src   (:image item)
-            :style {:max-width "100%" :height "auto"}}]
-     [item-hover-view item]]))
+     [:img {:src image :style {:max-width "100%" :height "auto"}}]]))
 
 (defn inventory-view
   [id]
   (let [{:keys [contents] :as _inventory}
         (get-with-id id @(rf/subscribe [:inventories]))]
-    [:div.container {:key id}
-     (into [:div.row]
-       (for [item-id contents]
-         [:div.col-4 {:style {:padding "0px"}} [item-view item-id id]]))]))
+    [:div
+     [:div.container {:key id}
+      (into [:div.row]
+            (for [item-id contents]
+              [:div.col-4 {:style {:padding "0px"}}
+               [item-view item-id id]]))]
+     [item-hover-view contents]]))

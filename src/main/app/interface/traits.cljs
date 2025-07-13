@@ -5,7 +5,7 @@
 
 (register! ::trait [:enum :aquatic :sword :lance :axe])
 
-(defn calc-melee-damage
+(defn calc-damage
   [attacker defender]
   2)
 
