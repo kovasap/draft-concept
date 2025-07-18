@@ -55,9 +55,9 @@
             [:app.interface.characters/set-currently-dragged-character-id nil])
          :on-drop
          #(rf/dispatch
-            :app.interface.abilities/try-ability-with-dragged-character
-            :attack
-            id)}
+            [:app.interface.abilities/try-ability-with-dragged-character
+             :attack
+             id])}
    (if show-details? [detail-view character index-in-location] nil)
    [:img {:style {:transform (s/join
                                " "

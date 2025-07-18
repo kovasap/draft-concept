@@ -38,10 +38,9 @@
                      (for [id character-ids]
                        (rf/dispatch
                          [:app.interface.characters/show-details? id false])))
-    :on-drop #(rf/dispatch
-                :app.interface.abilities/try-ability-with-dragged-character
-                :move
-                id)
+    :on-drop
+    #(rf/dispatch
+       [:app.interface.abilities/try-ability-with-dragged-character :move id])
     :key id}
    [:img {:src image :style {:z-index 15 :position "absolute"} :alt image}]
    land-type
